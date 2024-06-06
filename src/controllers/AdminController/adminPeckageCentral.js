@@ -6,7 +6,6 @@ require("dotenv").config();
 const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE;
 const fs = require("fs");
 const path = require("path");
-const cheerio = require("cheerio");
 const {
   temporaryPasswordString,
   constants,
@@ -30,11 +29,7 @@ module.exports = {
   responseFunc,
   successResponseFunc,
   errorResponseFunc,
-  verifiedEmail,
-  AwsSes,
-  AWS,
   fs,
   path,
-  cheerio,
   logger,
 };

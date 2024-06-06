@@ -1,4 +1,4 @@
-const db = require("../config/database")
+const db = require("../config/database");
 const Role = db.sequelize.define("role", {
   id: {
     type: db.Sequelize.UUID,
@@ -24,7 +24,7 @@ const Role = db.sequelize.define("role", {
 
 
 Role.associate = (models) => {
-  Role.hasMany(models.employee);
+  Role.hasMany(models.Employee);
 };
 
 module.exports = Role;

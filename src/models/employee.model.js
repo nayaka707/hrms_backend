@@ -144,10 +144,6 @@ const employee = db.sequelize.define("employee", {
 });
 
 employee.associate = (models) => {
-  employee.hasMany(models.Company, {
-    foreignKey: "registeredById",
-    constraints: false,
-  });
   employee.belongsTo(models.Role);
 };
 

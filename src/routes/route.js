@@ -12,5 +12,5 @@ module.exports = (app) => {
     next();
   });
 
-  app.post("/admin", AdminController);
+  app.post("/addSuperAdmin", AdminController.addAdmin);
 };
