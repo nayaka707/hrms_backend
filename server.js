@@ -1,17 +1,56 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+const PORT = process.env.PORT;
+const swaggerUI = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 const app = express();
-const port = 9000;
+const cookieParser = require("cookie-parser");
+const pinoLogger = require("pino-http");
+const logger = require("./src/services/loggerService");
+const env = require("dotenv")
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Cap Lead API",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: `http://localhost:9009`,
+      },
+    ],
+  },
+  apis: ["./src/swaggerDocs/*.js"],
+};
 
-// Middleware
-app.use(express.json());
+env.config("./.env")
+console.log("password - ", process.env.DB_PASSWORD);
+const specs = swaggerJsDoc(swaggerOptions);
+
+app.use("/caplead-VC-docs", swaggerUI.serve, swaggerUI.setup(specs));
+
+
+
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+const corsOptions = {
+  origin: "*",
+  exposedHeaders: ["Content-Disposition"],
+};
 
-// Root route
-app.get('/', (req, res) => {
-  res.send('Welcome to the HRMS API!');
+app.use(cors(corsOptions));
+const loggerMidlleware = pinoLogger({
+  logger: logger,
+  autoLogging: true,
 });
 
+app.use(loggerMidlleware);
+
 // Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+require("./src/routes/route")(app);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  logger.info(`Server started on port ${PORT}`);
 });

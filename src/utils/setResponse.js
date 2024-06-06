@@ -11,8 +11,7 @@ const errorResponseFunc = (message, error = null, code, type) => {
   return finalResponse;
 };
 
-
-const successResponseFunc = (message, code, type, data, name) => {
+const successResponseFunc = (message, code, type, data = null) => {
   const finalResponse = {
     status: {
       message: message,
@@ -20,7 +19,6 @@ const successResponseFunc = (message, code, type, data, name) => {
       type: type,
     },
     data,
-    name,
   };
 
   return finalResponse;
