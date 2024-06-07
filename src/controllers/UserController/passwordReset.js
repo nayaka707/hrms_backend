@@ -15,7 +15,6 @@ forgetPassword = async (req, res) => {
             })
                 .then(async (data) => {
                     if (data) {
-                        console.log('data.pas', data.firstName, data.email)
                         if (password !== confirmPassword) {
                             res.send(errorResponseFunc("Both passwords does not match.", "Passwords does not match.", statusCode.badRequest, constants.BADREQUEST));
                         } else {
@@ -31,7 +30,6 @@ forgetPassword = async (req, res) => {
                                 `<h3>Password: ${password}</h3><br/>` +
                                 `<span style="font-size:15px">Don't share this with anyone(secret) or update immediately.</center><br/>` +
                                 `</span></p></body></html>`;
-                            console.log("<--------------------- emailBody --------------------->", emailBody);
                             await sendEmail(data.email, subject, emailBody);
                             res.send(successResponseFunc("Updated successfully.", statusCode.success, constants.SUCCESS))
                         }
@@ -43,7 +41,6 @@ forgetPassword = async (req, res) => {
         }
 
     } catch (error) {
-        console.log('error', error)
     }
 }
 

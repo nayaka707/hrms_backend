@@ -9,13 +9,11 @@ const {
 } = require("../utils/utilsIndex");
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
-console.log('tokensercret', TOKEN_SECRET)
 
 const checkToken = (req, res, next) => {
-    console.log('req.userId', req.userId);
     try {
 
-        let token = req.get("authorization");
+        let token = req.headers["x-access-token"];
         if (!token) {
             return res.status(403).json({
                 message: "Token is Required",
@@ -49,7 +47,6 @@ const checkToken = (req, res, next) => {
         });
 
     } catch (err) {
-        console.log('errrrrr', err)
         logger.error(
             errorResponseFunc(
                 "Encountered some error.",

@@ -1,15 +1,12 @@
 const {
-  CapUser,
+  Employees,
   statusCode,
   constants,
   errorResponseFunc,
   successResponseFunc,
-  path,
-  pwResetTokenBlackList,
-  jwt,
   bcrypt,
   logger,
-} = require("./userPackageCentral");
+} = require("./employeePackageCentral");
 
 const resetPassword = (req, res) => {
   try {
@@ -19,7 +16,6 @@ const resetPassword = (req, res) => {
     const currentPassword = req.body.currentPassword;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword;
-
     if (!password || !confirmPassword || !currentPassword) {
       logger.warn(
         errorResponseFunc(
@@ -38,7 +34,7 @@ const resetPassword = (req, res) => {
         )
       );
     } else {
-      CapUser.findOne({
+      Employees.findOne({
         where: {
           id: userId,
           isActive: constants.ACTIVE,
@@ -93,7 +89,7 @@ const resetPassword = (req, res) => {
                     permanentPasswordSet: "1",
                     password: password,
                   };
-                  await CapUser.update(dataToUpdate, {
+                  await Employees.update(dataToUpdate, {
                     where: {
                       id: userId,
                     },
@@ -154,7 +150,7 @@ const resetPassword = (req, res) => {
                 const dataToUpdate = {
                   password: password,
                 };
-                await CapUser.update(dataToUpdate, {
+                await Employees.update(dataToUpdate, {
                   where: {
                     id: userId,
                   },
@@ -246,6 +242,6 @@ const resetPassword = (req, res) => {
   }
 };
 
-module.exports = {
+module.exports = { 
   resetPassword,
 };

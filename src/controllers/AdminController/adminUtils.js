@@ -8,7 +8,7 @@ const {
   path,
   fs,
   cheerio,
-} = require("./adminPeckageCentral");
+} = require("./adminPackageCentral");
 
 const adminCreatorFunc = (adminDetails) => {
   return new Promise((resolve, reject) => {
@@ -54,7 +54,6 @@ const adminCreatorFunc = (adminDetails) => {
               `<h3>Password: ${password}</h3><br/>` +
               `<span style="font-size:15px">Don't share this with anyone(secret) or update immediately.</center><br/>` +
               `</span></p></body></html>`;
-            console.log("<--------------------- emailBody --------------------->", emailBody);
             await sendEmail(adminDetails.email, subject, emailBody);
             resolve(null);
           } catch (err) {
@@ -137,7 +136,6 @@ const adminCreatorFunc = (adminDetails) => {
 //           },
 //         },
 //       };
-//       console.log("params ::",params);
 //       await sendEmail(email, subject, params);
 //       resolve();
 //     } catch (err) {

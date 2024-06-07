@@ -6,11 +6,10 @@ const {
   successResponseFunc,
   errorResponseFunc,
   logger,
-} = require("./adminPeckageCentral.js");
+} = require("./adminPackageCentral.js");
 const { adminCreatorFunc } = require("./adminUtils.js");
 const addAdmin = (req, res) => {
   try {
-    console.log("req.body ::", req.body);
     logger.info("/addSuperAdmin route accessed.");
     if (Object.keys(req.body).length === 0) {
       logger.warn(
@@ -211,7 +210,6 @@ const addAdmin = (req, res) => {
             }
           })
           .catch((err) => {
-            console.log("err ::", err);
             logger.error(
               errorResponseFunc(
                 "Encountered error after checking if this admin exists.",
@@ -232,7 +230,6 @@ const addAdmin = (req, res) => {
       }
     }
   } catch (err) {
-    console.log("err", err);
     logger.error(
       errorResponseFunc(
         "Encountered error while syncing the admin table.",
