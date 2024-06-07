@@ -1,5 +1,5 @@
 const models = require("../../models/associations");
-const { Admin, Role } = models;
+const { Employees, Role } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -17,7 +17,7 @@ const {
 } = require("../../utils/utilsIndex");
 const logger = require("../../services/loggerService");
 module.exports = {
-  Admin,
+  Employees,
   bcrypt,
   jwt,
   statusCode,

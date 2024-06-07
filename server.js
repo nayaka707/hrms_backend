@@ -26,7 +26,7 @@ const swaggerOptions = {
 };
 
 env.config("./.env")
-console.log("password - ", process.env.DB_PASSWORD);
+app.use(express.json());
 const specs = swaggerJsDoc(swaggerOptions);
 
 app.use("/caplead-VC-docs", swaggerUI.serve, swaggerUI.setup(specs));

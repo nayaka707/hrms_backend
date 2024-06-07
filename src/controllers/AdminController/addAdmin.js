@@ -1,5 +1,5 @@
 const {
-  Admin,
+  Employees,
   Role,
   statusCode,
   constants,
@@ -10,7 +10,7 @@ const {
 const { adminCreatorFunc } = require("./adminUtils.js");
 const addAdmin = (req, res) => {
   try {
-    console.log("req.body ::",req.body);
+    console.log("req.body ::", req.body);
     logger.info("/addSuperAdmin route accessed.");
     if (Object.keys(req.body).length === 0) {
       logger.warn(
@@ -34,20 +34,20 @@ const addAdmin = (req, res) => {
       const email = req.body.email;
       const middleName = req.body.firstName;
       const lastName = req.body.lastName;
-      const dateOfJoining = req.body.JoiningDate;
-      const phoneNumber = req.body.phoneNo;
-      const departmentId = req.body.department;
-      const designationId = req.body.designation;
+      const dateOfJoining = req.body.dateOfJoining;
+      const phoneNumber = req.body.phoneNumber;
+      const departmentId = req.body.departmentId;
+      const designationId = req.body.designationId;
       const pancardNo = req.body.pancardNo;
       const aadharNo = req.body.aadharNo;
       const uanNo = req.body.uanNo;
       const workLocation = req.body.workLocation;
       const pfNo = req.body.pfNo;
       const gender = req.body.gender;
-      const roleId = req.body.role;
+      const roleId = req.body.roleId;
       const currentAddress = req.body.currentAddress;
       const permanentAddress = req.body.permanentAddress;
-      const reportTo = req.body.reportingPerson;
+      const reportTo = req.body.reportTo;
       // const  ...(files[0]?.filename && { profilePicture: files[0]?.filename }),
 
       if (
@@ -87,7 +87,7 @@ const addAdmin = (req, res) => {
           )
         );
       } else {
-        Admin.findOne({
+        Employees.findOne({
           where: {
             email: email.toLowerCase(),
             isActive: constants.ACTIVE,
@@ -97,7 +97,7 @@ const addAdmin = (req, res) => {
             if (!data) {
               Role.findOne({
                 where: {
-                  name: roleName.toUpperCase(),
+                  id: roleId,
                   isActive: constants.ACTIVE,
                 },
               })
@@ -211,6 +211,7 @@ const addAdmin = (req, res) => {
             }
           })
           .catch((err) => {
+            console.log("err ::",err);
             logger.error(
               errorResponseFunc(
                 "Encountered error after checking if this admin exists.",
@@ -231,6 +232,7 @@ const addAdmin = (req, res) => {
       }
     }
   } catch (err) {
+    console.log("err",err);
     logger.error(
       errorResponseFunc(
         "Encountered error while syncing the admin table.",

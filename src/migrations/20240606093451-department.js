@@ -13,8 +13,15 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
       },
       isActive: {
-        type: Sequelize.DataTypes.BOOLEAN,
-        defaultValue: true,
+        type: Sequelize.DataTypes.STRING,
+        validate: {
+          customValidator: (value) => {
+            const enums = ["1", "0"];
+            if (!enums.includes(value)) {
+              throw new Error("not a valid option");
+            }
+          },
+        },
       },
       createdAt: {
         allowNull: false,

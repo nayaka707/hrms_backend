@@ -1,10 +1,10 @@
-const Employee = require("./employee.model");
+const Employees = require("./employee.model");
 const Role = require("./role.model");
 const Department = require("./department.model");
 const Designation = require("./designation.model");
 
 module.exports = {
-  Employee,
+  Employees,
   Role,
   Department,
   Designation,

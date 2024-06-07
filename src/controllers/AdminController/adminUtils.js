@@ -1,5 +1,5 @@
 const {
-  Admin,
+  Employees,
   constants,
   temporaryPasswordString,
 } = require("./adminPeckageCentral");
@@ -7,8 +7,9 @@ const {
 const adminCreatorFunc = (adminDetails) => {
   return new Promise((resolve, reject) => {
     try {
+      console.log("=--------------------------");
       const password = temporaryPasswordString();
-      Admin.create({
+      Employees.create({
         email: adminDetails.email.toLowerCase(),
         password: password,
         isActive: constants.ACTIVE,
@@ -32,12 +33,13 @@ const adminCreatorFunc = (adminDetails) => {
       })
         .then(async (data) => {
           try {
-            const sendMail = await mailFunc(
-              adminDetails.name,
-              password,
-              adminDetails.email
-            );
-            resolve(sendMail);
+            // const sendMail = await mailFunc(
+            //   adminDetails.name,
+            //   password,
+            //   adminDetails.email
+            // );
+            // resolve(sendMail);
+            console.log("send mail");
           } catch (err) {
             reject(err);
           }
