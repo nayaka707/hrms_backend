@@ -1,6 +1,7 @@
 const {
   Employees,
   constants,
+
   temporaryPasswordString,
   sendEmail,
   verifiedEmail,
@@ -12,7 +13,6 @@ const {
 const adminCreatorFunc = (adminDetails) => {
   return new Promise((resolve, reject) => {
     try {
-      console.log("=--------------------------");
       const password = temporaryPasswordString();
       Employees.create({
         email: adminDetails.email.toLowerCase(),
@@ -61,6 +61,7 @@ const adminCreatorFunc = (adminDetails) => {
             reject(err);
           }
         })
+
         .catch((err) => {
           reject(err);
         });

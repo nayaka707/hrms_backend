@@ -211,7 +211,7 @@ const addAdmin = (req, res) => {
             }
           })
           .catch((err) => {
-            console.log("err ::",err);
+            console.log("err ::", err);
             logger.error(
               errorResponseFunc(
                 "Encountered error after checking if this admin exists.",
@@ -232,7 +232,7 @@ const addAdmin = (req, res) => {
       }
     }
   } catch (err) {
-    console.log("err",err);
+    console.log("err", err);
     logger.error(
       errorResponseFunc(
         "Encountered error while syncing the admin table.",
