@@ -7,6 +7,7 @@ const constants = require("./constants");
 const { resetPwUsers } = require("./resetPwUsers");
 const { temporaryPasswordString, randomInvoiceString } = require("./randomString");
 const responseMessage = require("./responseMessages");
+const sendEmail = require("./sendEmail");
 const statusCode = require("./statusCodes");
 const {
   errorResponseFunc,
@@ -19,6 +20,7 @@ module.exports = {
   constants,
   responseMessage,
   statusCode,
+  sendEmail,
   errorResponseFunc,
   temporaryPasswordString,
   successResponseFunc,
