@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "1234",
-    "database": "HRMS_TEST",
+    "database": "HRMS",
     "host": "localhost",
     "dialect": "postgres"
   },

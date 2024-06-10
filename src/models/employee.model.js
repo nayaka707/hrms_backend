@@ -134,6 +134,10 @@ const Employees = db.sequelize.define("employees", {
       },
     },
   },
+  deletedAt: {
+    type: db.Sequelize.DataTypes.DATE,
+    defaultValue: null
+  },
   createdAt: {
     allowNull: false,
     type: db.Sequelize.DataTypes.DATE,
