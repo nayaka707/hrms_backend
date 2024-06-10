@@ -2,12 +2,15 @@ const models = require("../../models/associations");
 const { Employees, Role } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE
+const TOKEN_SECRET = process.env.TOKEN_SECRET
 const {
   constants,
   responseMessage,
   statusCode,
   errorResponseFunc,
   successResponseFunc,
+  sendEmail
 } = require("../../utils/utilsIndex");
 require("dotenv").config();
 const path = require("path");
@@ -24,4 +27,7 @@ module.exports = {
   errorResponseFunc,
   path,
   logger,
+  TOKEN_SECRET,
+  TOKEN_MAXAGE,
+  sendEmail
 };

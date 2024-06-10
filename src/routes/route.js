@@ -2,7 +2,7 @@
 
 const { verifyToken, checkRole } = require("../middlewares/auth");
 const { checkToken } = require("../middlewares/resetPWAuth");
-const { AdminController, EmployeeController , UserController} = require("../controllers/index");
+const { AdminController, EmployeeController, UserController } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
 module.exports = (app) => {
@@ -13,12 +13,13 @@ module.exports = (app) => {
   });
 
   app.post("/addSuperAdmin", AdminController.addAdmin);
-  app.post('/userLogin', UserController.userLogin)
-  app.post('/forgot-password', [checkToken], UserController.passwordReset)
+  app.post('/employeeLogin', EmployeeController.employeeLogin)
+  app.post('/forgot-password', [checkToken], EmployeeController.forgetPassword)
   app.post(
     "/resetPassword",
     [verifyToken],
     EmployeeController.resetPassword
   );
   app.get("/getAllEmployees", EmployeeController.getAllEmployeesData);
+  app.put("/updateEmployeeData/:employeeId", EmployeeController.updateEmployeeData)
 };

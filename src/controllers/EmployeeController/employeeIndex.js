@@ -1,3 +1,5 @@
-const { resetPassword } = require("./passwordReset");
+const { resetPassword, forgetPassword } = require("./passwordReset");
 const { getAllEmployeesData } = require("./getEmployee");
-module.exports = { resetPassword, getAllEmployeesData };
+const { updateEmployeeData } = require("./updateEmployeeData")
+const { employeeLogin } = require("./employeeLogin")
+module.exports = { resetPassword, employeeLogin, forgetPassword, getAllEmployeesData, updateEmployeeData };

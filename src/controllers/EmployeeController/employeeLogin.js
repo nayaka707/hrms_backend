@@ -9,7 +9,7 @@ const {
   jwt,
   TOKEN_SECRET,
   TOKEN_MAXAGE,
-} = require("./userPackageCentral");
+} = require("./employeePackageCentral");
 
 const getUserByEmail = async (email) => {
   return Employees.findOne({
@@ -32,7 +32,7 @@ const generateToken = (userData, role) => {
       id: userData.id,
       roleId: userData.roleId,
       role: role.name,
-      userId: userData.id,
+      employeeId: userData.id,
       name: `${userData.firstName} ${userData.middleName} ${userData.lastName}`,
     },
     TOKEN_SECRET,
@@ -40,7 +40,7 @@ const generateToken = (userData, role) => {
   );
 };
 
-const userLogin = async (req, res) => {
+const employeeLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -127,4 +127,4 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports = userLogin;
+module.exports = { employeeLogin }

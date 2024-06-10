@@ -41,7 +41,7 @@ const checkToken = (req, res, next) => {
                     });
                 }
             } else {
-                req.userId = decoded.userId;
+                req.employeeId = decoded.employeeId;
                 next();
             }
         });
