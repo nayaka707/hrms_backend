@@ -1,6 +1,7 @@
 const db = require("../config/database");
-const designation = db.sequelize.define("designation", {
-  id:{
+
+const Designation = db.sequelize.define("designation", {
+  id: {
     type: db.Sequelize.DataTypes.UUID,
     defaultValue: db.Sequelize.UUIDV4,
     allowNull: false,
@@ -8,9 +9,11 @@ const designation = db.sequelize.define("designation", {
   },
   name: {
     type: db.Sequelize.DataTypes.STRING,
+    allowNull: false,
   },
   isActive: {
     type: db.Sequelize.DataTypes.STRING,
+    allowNull: false,
     validate: {
       customValidator: (value) => {
         const enums = ["1", "0"];
@@ -23,11 +26,13 @@ const designation = db.sequelize.define("designation", {
   createdAt: {
     allowNull: false,
     type: db.Sequelize.DataTypes.DATE,
+    defaultValue: db.Sequelize.NOW,
   },
   updatedAt: {
     allowNull: false,
     type: db.Sequelize.DataTypes.DATE,
+    defaultValue: db.Sequelize.NOW,
   },
 });
 
-module.exports = designation;
+module.exports = Designation;

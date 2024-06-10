@@ -1,5 +1,6 @@
 const db = require("../config/database");
-const department = db.sequelize.define("department", {
+
+const Department = db.sequelize.define("department", {
   id: {
     type: db.Sequelize.DataTypes.UUID,
     defaultValue: db.Sequelize.UUIDV4,
@@ -8,9 +9,11 @@ const department = db.sequelize.define("department", {
   },
   name: {
     type: db.Sequelize.DataTypes.STRING,
+    allowNull: false,
   },
   isActive: {
     type: db.Sequelize.DataTypes.STRING,
+    allowNull: false,
     validate: {
       customValidator: (value) => {
         const enums = ["1", "0"];
@@ -23,11 +26,13 @@ const department = db.sequelize.define("department", {
   createdAt: {
     allowNull: false,
     type: db.Sequelize.DataTypes.DATE,
+    defaultValue: db.Sequelize.NOW,
   },
   updatedAt: {
     allowNull: false,
     type: db.Sequelize.DataTypes.DATE,
+    defaultValue: db.Sequelize.NOW,
   },
 });
 
-module.exports = department;
+module.exports = Department;

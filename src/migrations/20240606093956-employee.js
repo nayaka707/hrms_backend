@@ -1,13 +1,15 @@
 "use strict";
 
+const bcrypt = require("bcrypt");
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.sequelize.query(
       'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
     );
-    await queryInterface.createTable("employee", {
-      id:{
+    await queryInterface.createTable("employees", {
+      id: {
         type: Sequelize.DataTypes.UUID,
         defaultValue: Sequelize.literal("uuid_generate_v4()"),
         allowNull: false,
@@ -52,7 +54,7 @@ module.exports = {
       departmentId: {
         type: Sequelize.DataTypes.UUID,
         references: {
-          model: "department",
+          model: "department", // Ensure table name is plural here
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -61,7 +63,7 @@ module.exports = {
       designationId: {
         type: Sequelize.DataTypes.UUID,
         references: {
-          model: "designation",
+          model: "designation", // Ensure table name is plural here
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -70,7 +72,7 @@ module.exports = {
       reportTo: {
         type: Sequelize.DataTypes.UUID,
         references: {
-          model: "employee",
+          model: "employees", // Ensure table name is plural here
           key: "id",
         },
         onDelete: "CASCADE",
@@ -119,10 +121,10 @@ module.exports = {
           this.setDataValue("password", hash);
         },
       },
-      roleId:{
+      roleId: {
         type: Sequelize.DataTypes.UUID,
         references: {
-          model: "role",
+          model: "roles", // Ensure table name is plural here
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -151,6 +153,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("employee");
+    await queryInterface.dropTable("employees");
   },
 };

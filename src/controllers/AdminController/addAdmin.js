@@ -1,14 +1,13 @@
-
 const {
-  Admin,
+  Employees,
   Role,
   statusCode,
   constants,
   successResponseFunc,
   errorResponseFunc,
-  logger
-} = require("./adminPackageCentral");
-const { adminCreatorFunc } = require("./adminUtils");
+  logger,
+} = require("./adminPackageCentral.js");
+const { adminCreatorFunc } = require("./adminUtils.js");
 const addAdmin = (req, res) => {
   try {
     logger.info("/addSuperAdmin route accessed.");
@@ -30,11 +29,46 @@ const addAdmin = (req, res) => {
         )
       );
     } else {
-      const name = req.body.name;
+      const firstName = req.body.firstName;
       const email = req.body.email;
-      const roleName = req.body.roleName;
+      const middleName = req.body.firstName;
+      const lastName = req.body.lastName;
+      const dateOfJoining = req.body.dateOfJoining;
+      const phoneNumber = req.body.phoneNumber;
+      const departmentId = req.body.departmentId;
+      const designationId = req.body.designationId;
+      const pancardNo = req.body.pancardNo;
+      const aadharNo = req.body.aadharNo;
+      const uanNo = req.body.uanNo;
+      const workLocation = req.body.workLocation;
+      const pfNo = req.body.pfNo;
+      const gender = req.body.gender;
+      const roleId = req.body.roleId;
+      const currentAddress = req.body.currentAddress;
+      const permanentAddress = req.body.permanentAddress;
+      const reportTo = req.body.reportTo;
+      // const  ...(files[0]?.filename && { profilePicture: files[0]?.filename }),
 
-      if (!name || !roleName || !email) {
+      if (
+        !firstName ||
+        !middleName ||
+        !lastName ||
+        !email ||
+        !dateOfJoining ||
+        !phoneNumber ||
+        !departmentId ||
+        !designationId ||
+        !pancardNo ||
+        !aadharNo ||
+        !uanNo ||
+        !workLocation ||
+        !pfNo ||
+        !gender ||
+        !roleId ||
+        !currentAddress ||
+        !permanentAddress ||
+        !reportTo
+      ) {
         logger.warn(
           errorResponseFunc(
             "Please fill all the fields.",
@@ -52,7 +86,7 @@ const addAdmin = (req, res) => {
           )
         );
       } else {
-        Admin.findOne({
+        Employees.findOne({
           where: {
             email: email.toLowerCase(),
             isActive: constants.ACTIVE,
@@ -62,7 +96,7 @@ const addAdmin = (req, res) => {
             if (!data) {
               Role.findOne({
                 where: {
-                  name: roleName.toUpperCase(),
+                  id: roleId,
                   isActive: constants.ACTIVE,
                 },
               })
@@ -70,10 +104,25 @@ const addAdmin = (req, res) => {
                   try {
                     if (data) {
                       const adminDetails = {
-                        name: name,
                         email: email,
                         roleId: data.id,
                         isActive: constants.ACTIVE,
+                        firstName: firstName,
+                        middleName: middleName,
+                        lastName: lastName,
+                        dateOfJoining: dateOfJoining,
+                        phoneNumber: phoneNumber,
+                        departmentId: departmentId,
+                        designationId: designationId,
+                        pancardNo: pancardNo,
+                        aadharNo: aadharNo,
+                        uanNo: uanNo,
+                        workLocation: workLocation,
+                        pfNo: pfNo,
+                        gender: gender,
+                        currentAddress: currentAddress,
+                        permanentAddress: permanentAddress,
+                        reportTo: reportTo,
                       };
 
                       await adminCreatorFunc(adminDetails);

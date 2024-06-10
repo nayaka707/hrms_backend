@@ -1,40 +1,33 @@
 const models = require("../../models/associations");
-const { Admin, Role } = models;
+const { Employees, Role } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
-const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE;
-const fs = require("fs");
-const path = require("path");
-const cheerio = require("cheerio");
+const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE
+const TOKEN_SECRET = process.env.TOKEN_SECRET
 const {
-  temporaryPasswordString,
   constants,
-  responseFunc,
   responseMessage,
   statusCode,
   errorResponseFunc,
   successResponseFunc,
+  sendEmail
 } = require("../../utils/utilsIndex");
+require("dotenv").config();
+const path = require("path");
 const logger = require("../../services/loggerService");
 module.exports = {
-  Admin,
+  Employees,
   bcrypt,
+  constants,
   jwt,
   statusCode,
   responseMessage,
   Role,
-  constants,
-  TOKEN_MAXAGE,
-  temporaryPasswordString,
-  responseFunc,
   successResponseFunc,
   errorResponseFunc,
-  verifiedEmail,
-  AwsSes,
-  AWS,
-  fs,
   path,
-  cheerio,
   logger,
+  TOKEN_SECRET,
+  TOKEN_MAXAGE,
+  sendEmail
 };

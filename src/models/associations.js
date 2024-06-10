@@ -1,12 +1,12 @@
 const {
-  Employee,
+  Employees,
   Role,
   Department,
   Designation,
 } = require("../models/modelsIndex");
 
 const models = {
-  Employee: Employee,
+  Employees: Employees,
   Role: Role,
   Department: Department,
   Designation: Designation,
