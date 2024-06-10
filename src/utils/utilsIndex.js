@@ -5,10 +5,14 @@ const {
 } = require("./blackList");
 const constants = require("./constants");
 const { resetPwUsers } = require("./resetPwUsers");
-const { temporaryPasswordString, randomInvoiceString } = require("./randomString");
+const {
+  temporaryPasswordString,
+  randomInvoiceString,
+} = require("./randomString");
 const responseMessage = require("./responseMessages");
 const sendEmail = require("./sendEmail");
 const statusCode = require("./statusCodes");
+const { unlinkFiles } = require("./functions");
 const {
   errorResponseFunc,
   successResponseFunc,
@@ -26,6 +30,7 @@ module.exports = {
   successResponseFunc,
   getPagination,
   getPagingData,
+  unlinkFiles,
   emailBlackList,
   randomInvoiceString,
   pwResetTokenBlackList,

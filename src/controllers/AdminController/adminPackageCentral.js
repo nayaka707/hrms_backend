@@ -16,6 +16,7 @@ const {
   statusCode,
   errorResponseFunc,
   successResponseFunc,
+  unlinkFiles,
   sendEmail
 } = require("../../utils/utilsIndex");
 const logger = require("../../services/loggerService");
@@ -25,6 +26,7 @@ module.exports = {
   jwt,
   sendEmail,
   statusCode,
+  unlinkFiles,
   responseMessage,
   Role,
   constants,

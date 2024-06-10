@@ -70,6 +70,7 @@ const verifyToken = async (req, res, next) => {
               )
             );
           } else {
+            console.log("decoded ::",decoded);
             req.loggersId = decoded.id;
             req.roleId = decoded.roleId;
 
@@ -145,7 +146,7 @@ const checkRole = async (req, res, next) => {
         )
       );
     } else {
-      logger.error(
+      logger.error( 
         errorResponseFunc(
           "Encountered some error while checking the role.",
           err.toString(),

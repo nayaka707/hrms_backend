@@ -9,6 +9,8 @@ const cookieParser = require("cookie-parser");
 const pinoLogger = require("pino-http");
 const logger = require("./src/services/loggerService");
 const env = require("dotenv")
+const { upload } = require("./src/middlewares/fileUpload");
+
 const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
@@ -45,6 +47,7 @@ const loggerMidlleware = pinoLogger({
   logger: logger,
   autoLogging: true,
 });
+app.use(upload.any());
 
 app.use(loggerMidlleware);
 
