@@ -8,14 +8,14 @@ const updateEmployeeData = async (req, res) => {
         }
 
         const updateData = {};
-        const allowedFields = ['firstName', 'lastName', 'middleName', 'pancardNo', 'aadharNo', 'uanNo', 'workLocation', 'pfNo', 'gender', 'currentAddress', 'permanentAddress', 'email', 'dateOfJoining', 'phoneNumber', 'password', 'isActive'];
+        const allowedFields = ['firstName', 'lastName', 'middleName', 'pancardNo', 'aadharNo', 'uanNo', 'workLocation', 'pfNo', 'gender', 'currentAddress', 'permanentAddress', 'email', 'dateOfJoining', 'phoneNumber', 'password', 'isActive', 'emergencyContact', 'city', 'state', 'pincode', 'passportNumber', 'fatherName', 'motherName', 'nationality', 'dateOfBirth', 'experience', 'qualification'];
 
         allowedFields.forEach(field => {
             if (req.body[field] !== undefined) {
                 updateData[field] = req.body[field];
             }
         });
-   
+
 
         const employee = await Employees.findByPk(employeeId);
         if (!employee) {

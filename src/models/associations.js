@@ -5,6 +5,7 @@ const {
   Designation,
   Permission,
   Route,
+  BankDetails
 } = require("../models/modelsIndex");
 
 const models = {
@@ -14,6 +15,7 @@ const models = {
   Designation: Designation,
   Permission: Permission,
   Route: Route,
+  BankDetails: BankDetails
 };
 
 Object.keys(models).forEach((modelName) => {
