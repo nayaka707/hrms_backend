@@ -1,6 +1,10 @@
 const { verifyToken, checkRole } = require("../middlewares/auth");
 const { checkToken } = require("../middlewares/resetPWAuth");
-const { AdminController, EmployeeController } = require("../controllers/index");
+const {
+  AdminController,
+  EmployeeController,
+  EmployeeDocument,
+} = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
 module.exports = (app) => {
@@ -11,18 +15,19 @@ module.exports = (app) => {
   });
 
   app.post("/addSuperAdmin", AdminController.addAdmin);
-  app.post('/employeeLogin', EmployeeController.employeeLogin)
-  app.post('/forgot-password', [checkToken], EmployeeController.forgetPassword)
-  app.post(
-    "/resetPassword",
-    [verifyToken],
-    EmployeeController.resetPassword
-  );
+  app.post("/employeeLogin", EmployeeController.employeeLogin);
+  app.post("/forgot-password", [checkToken], EmployeeController.forgetPassword);
+  app.post("/resetPassword", [verifyToken], EmployeeController.resetPassword);
   app.get("/getAllEmployees", EmployeeController.getAllEmployeesData);
-  app.put("/updateEmployeeData/:employeeId", EmployeeController.updateEmployeeData)
+  app.put(
+    "/updateEmployeeData/:employeeId",
+    EmployeeController.updateEmployeeData
+  );
   app.get(
     "/getByIdEmployee",
     [verifyToken],
     EmployeeController.getByIdEmployeesData
   );
+  app.post("/employeeDocument",[verifyToken], EmployeeDocument.addEmployeeDocument);
 };
+

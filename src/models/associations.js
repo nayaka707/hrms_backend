@@ -3,6 +3,8 @@ const {
   Role,
   Department,
   Designation,
+  EmployeeDocuments,
+  ExperienceDetails,
 } = require("../models/modelsIndex");
 
 const models = {
@@ -10,6 +12,8 @@ const models = {
   Role: Role,
   Department: Department,
   Designation: Designation,
+  EmployeeDocuments: EmployeeDocuments,
+  ExperienceDetails: ExperienceDetails,
 };
 
 Object.keys(models).forEach((modelName) => {

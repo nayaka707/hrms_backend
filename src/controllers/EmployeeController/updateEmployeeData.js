@@ -26,7 +26,6 @@ const updateEmployeeData = async (req, res) => {
         return res.send(successResponseFunc("Successfully updated employee details", statusCode.success, constants.SUCCESS))
 
     } catch (err) {
-        console.log('err', err);
         res.status(statusCode.internalServerError).send(
             errorResponseFunc('Encountered some error', err.toString(), statusCode.internalServerError, constants.ERROR)
         );

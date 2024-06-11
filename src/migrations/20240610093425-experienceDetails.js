@@ -5,18 +5,18 @@ module.exports = {
     await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
     await queryInterface.createTable("experienceDetails", {
       id: {
-        type: Sequelize.UUID,
+        type: Sequelize.DataTypes.UUID,
         defaultValue: Sequelize.literal("uuid_generate_v4()"),
         primaryKey: true,
       },
-      companyName: { type: Sequelize.STRING, allowNull: false },
-      designation: { type: Sequelize.STRING, allowNull: false },
-      location: { type: Sequelize.STRING, allowNull: false },
-      periodFrom: { type: Sequelize.DATEONLY, allowNull: false },
-      periodTo: { type: Sequelize.DATEONLY, allowNull: false },
-      experienceId: { type: Sequelize.INTEGER, allowNull: false },
+      companyName: { type: Sequelize.DataTypes.STRING, allowNull: false },
+      designation: { type: Sequelize.DataTypes.STRING, allowNull: false },
+      location: { type: Sequelize.DataTypes.STRING, allowNull: false },
+      periodFrom: { type: Sequelize.DataTypes.DATEONLY, allowNull: false },
+      periodTo: { type: Sequelize.DataTypes.DATEONLY, allowNull: false },
+      experienceId: { type: Sequelize.DataTypes.INTEGER, allowNull: false },
       employeeId: {
-        type: Sequelize.UUID,
+        type: Sequelize.DataTypes.UUID,
         allowNull: true,
         references: {
           model: "employees",

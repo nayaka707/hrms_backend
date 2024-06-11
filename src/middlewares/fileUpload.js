@@ -11,6 +11,20 @@ const maxSize = 2 * 1024 * 1024;
 
 const fileDestinations = {
   profilePicture: "profilePicture",
+  tenMarksheet: "tenMarksheet",
+  twelveMarksheet: "twelveMarksheet",
+  degreeMarksheet: "degreeMarksheet",
+  reportToImage: "reportToImage",
+  adharCard: "adharCard",
+  panCard: "panCard",
+  salarySlip1: "salarySlip1",
+  salarySlip2: "salarySlip2",
+  salarySlip3: "salarySlip3",
+  probationComplitionLetter: "probationComplitionLetter",
+  appointmentLetter: "appointmentLetter",
+  taskFile: "taskFile",
+  projectFiles: "projectFiles",
+  attechment: "attechment",
 };
 
 const checkFileExist = async (file) => {
@@ -25,7 +39,6 @@ const checkFileExist = async (file) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log("========>file", file);
     const fieldName = file.fieldname;
     const fileRootDir = path.join(
       __dirname,
@@ -58,12 +71,24 @@ const docFilter = [
 ];
 const fileTypes = {
   profilePicture: imageFilter,
+  reportToImage: imageFilter,
+  tenMarksheet: pdfFilter,
+  twelveMarksheet: pdfFilter,
+  degreeMarksheet: pdfFilter,
+  adharCard: pdfFilter,
+  panCard: pdfFilter,
+  salarySlip1: pdfFilter,
+  salarySlip2: pdfFilter,
+  salarySlip3: pdfFilter,
+  probationComplitionLetter: pdfFilter,
+  appointmentLetter: pdfFilter,
+  projectFiles: pdfFilter,
+  taskFile: pdfFilter,
+  attechment: pdfFilter,
 };
 
 const fileFilter = (req, file, cb) => {
-  console.log("file>>>>>>>>>>", file);
   const fileType = fileTypes[file.fieldname];
-  console.log("fileType>>>>.", fileType);
   if (!fileType) {
     return cb(
       errorResponseFunc(

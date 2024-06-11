@@ -32,6 +32,7 @@ const adminCreatorFunc = (adminDetails) => {
         workLocation: adminDetails.workLocation,
         pfNo: adminDetails.pfNo,
         gender: adminDetails.gender,
+        permanentPasswordSet: "0",
         currentAddress: adminDetails.currentAddress,
         permanentAddress: adminDetails.permanentAddress,
         reportTo: adminDetails.reportTo,

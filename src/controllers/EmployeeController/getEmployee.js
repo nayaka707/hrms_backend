@@ -22,7 +22,6 @@ const getAllEmployeesData = (req, res) => {
         );
       })
       .catch((err) => {
-        console.log("err", err);
         logger.error(
           errorResponseFunc(
             "Encountered error after checking if this exists.",
@@ -62,7 +61,6 @@ const getAllEmployeesData = (req, res) => {
 
 const getByIdEmployeesData = (req, res) => {
   try {
-    console.log("loggersId ::", req.loggersId);
     const employeeId = req.loggersId;
 
     Employees.findOne({
@@ -81,7 +79,6 @@ const getByIdEmployeesData = (req, res) => {
         );
       })
       .catch((err) => {
-        console.log("err", err);
         logger.error(
           errorResponseFunc(
             "Encountered error after checking if this exists.",

@@ -13,7 +13,6 @@ const addAdmin = (req, res) => {
   try {
     logger.info("/addSuperAdmin route accessed.");
     const { files = [] } = req;
-    console.log("addAdmin files ::", files);
     if (Object.keys(req.body).length === 0) {
       unlinkFiles(req.files);
       logger.warn(
