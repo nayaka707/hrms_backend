@@ -63,7 +63,7 @@ module.exports = {
       designationId: {
         type: Sequelize.DataTypes.UUID,
         references: {
-          model: "designation", // Ensure table name is plural here
+          model: "designations", // Ensure table name is plural here
           key: "id",
         },
         onUpdate: "CASCADE",
