@@ -13,6 +13,7 @@ const responseMessage = require("./responseMessages");
 const sendEmail = require("./sendEmail");
 const statusCode = require("./statusCodes");
 const { unlinkFiles } = require("./functions");
+const models = require('../models/associations')
 const {
   errorResponseFunc,
   successResponseFunc,
@@ -20,6 +21,7 @@ const {
 const { getPagination, getPagingData } = require("./pagination");
 
 module.exports = {
+  models,
   tokenBlackList,
   constants,
   responseMessage,

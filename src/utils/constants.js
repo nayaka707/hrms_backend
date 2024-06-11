@@ -15,7 +15,6 @@ const EMAILCHUNKSIZE = 50;
 const NOTSENT = "0";
 const SENT = "1";
 const CONFLICT = "Conflict";
-// const RESETPASSWORDURL = "http://localhost:9000/forgotPassword";
 const RESETPASSWORDURL = "https://caplead.co/forgotPassword";
 
 module.exports = {

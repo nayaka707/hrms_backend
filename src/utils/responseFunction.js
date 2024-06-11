@@ -11,6 +11,7 @@ const errorResponseFunc = (message, error = null, code, type) => {
   return finalResponse;
 };
 
+
 const successResponseFunc = (message, code, type, data, name) => {
   const finalResponse = {
     status: {

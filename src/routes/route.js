@@ -1,6 +1,6 @@
 const { verifyToken, checkRole } = require("../middlewares/auth");
 const { checkToken } = require("../middlewares/resetPWAuth");
-const { AdminController, EmployeeController } = require("../controllers/index");
+const { AdminController, EmployeeController, BankController } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
 module.exports = (app) => {
@@ -21,10 +21,15 @@ module.exports = (app) => {
     EmployeeController.resetPassword
   );
   app.get("/getAllEmployees", EmployeeController.getAllEmployeesData);
-  app.put("/updateEmployeeData/:employeeId", EmployeeController.updateEmployeeData)
+  app.put("/updateEmployeeData/:employeeId", [checkToken], EmployeeController.updateEmployeeData)
+  app.delete('/deleteEmployee/:employeeId', [verifyToken], EmployeeController.deleteEmployee)
   app.get(
     "/getByIdEmployee",
     [verifyToken],
     EmployeeController.getByIdEmployeesData
   );
+  app.post('/addBank', [checkToken], BankController.addBankDetails)
+  app.delete('/deleteBank/:bankId', [checkToken], BankController.deleteBankDetails)
+  app.get('/getBank', [checkToken], BankController.getBankDetailByEmployee)
+
 };
