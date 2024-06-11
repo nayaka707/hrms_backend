@@ -10,6 +10,8 @@ module.exports = (app) => {
     next();
   });
 
+  app.get("/readPermission", [verifyToken], AdminController.readPermission);
+  app.get("/routePermission/:routeId", [verifyToken], AdminController.routePermission);
   app.post("/addSuperAdmin", AdminController.addAdmin);
   app.post('/employeeLogin', EmployeeController.employeeLogin)
   app.post('/forgot-password', [checkToken], EmployeeController.forgetPassword)
