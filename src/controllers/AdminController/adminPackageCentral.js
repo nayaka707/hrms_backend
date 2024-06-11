@@ -1,5 +1,5 @@
 const models = require("../../models/associations");
-const { Employees, Role } = models;
+const { Employees, Role , Permission, Route } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const verifiedEmail = process.env.NODEMAILER_VERIFIED_EMAIL_ID;
@@ -16,6 +16,7 @@ const {
   statusCode,
   errorResponseFunc,
   successResponseFunc,
+  unlinkFiles,
   sendEmail
 } = require("../../utils/utilsIndex");
 const logger = require("../../services/loggerService");
@@ -25,6 +26,7 @@ module.exports = {
   jwt,
   sendEmail,
   statusCode,
+  unlinkFiles,
   responseMessage,
   Role,
   constants,
@@ -38,4 +40,6 @@ module.exports = {
   path,
   cheerio,
   logger,
+  Permission,
+  Route,
 };

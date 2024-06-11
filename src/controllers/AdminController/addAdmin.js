@@ -5,13 +5,17 @@ const {
   constants,
   successResponseFunc,
   errorResponseFunc,
+  unlinkFiles,
   logger,
 } = require("./adminPackageCentral.js");
 const { adminCreatorFunc } = require("./adminUtils.js");
 const addAdmin = (req, res) => {
   try {
     logger.info("/addSuperAdmin route accessed.");
+    const { files = [] } = req;
+    console.log("addAdmin files ::", files);
     if (Object.keys(req.body).length === 0) {
+      unlinkFiles(req.files);
       logger.warn(
         errorResponseFunc(
           "There is no request body.",
@@ -29,26 +33,31 @@ const addAdmin = (req, res) => {
         )
       );
     } else {
-      const firstName = req.body.firstName;
-      const email = req.body.email;
-      const middleName = req.body.firstName;
-      const lastName = req.body.lastName;
-      const dateOfJoining = req.body.dateOfJoining;
-      const phoneNumber = req.body.phoneNumber;
-      const departmentId = req.body.departmentId;
-      const designationId = req.body.designationId;
-      const pancardNo = req.body.pancardNo;
-      const aadharNo = req.body.aadharNo;
-      const uanNo = req.body.uanNo;
-      const workLocation = req.body.workLocation;
-      const pfNo = req.body.pfNo;
-      const gender = req.body.gender;
-      const roleId = req.body.roleId;
-      const currentAddress = req.body.currentAddress;
-      const permanentAddress = req.body.permanentAddress;
-      const reportTo = req.body.reportTo;
-      // const  ...(files[0]?.filename && { profilePicture: files[0]?.filename }),
-
+      const {
+        firstName,
+        email,
+        middleName = req.body.firstName,
+        lastName,
+        dateOfJoining,
+        phoneNumber,
+        departmentId,
+        designationId,
+        pancardNo,
+        aadharNo,
+        uanNo,
+        workLocation,
+        pfNo,
+        gender,
+        roleId,
+        currentAddress,
+        permanentAddress,
+        reportTo,
+      } = req.body;
+      let profilePicture = null;
+      if (files.length > 0) {
+        const file = files[0];
+        profilePicture = file.filename;
+      }
       if (
         !firstName ||
         !middleName ||
@@ -69,6 +78,7 @@ const addAdmin = (req, res) => {
         !permanentAddress ||
         !reportTo
       ) {
+        unlinkFiles(req.files);
         logger.warn(
           errorResponseFunc(
             "Please fill all the fields.",
@@ -123,6 +133,7 @@ const addAdmin = (req, res) => {
                         currentAddress: currentAddress,
                         permanentAddress: permanentAddress,
                         reportTo: reportTo,
+                        profilePicture: profilePicture,
                       };
 
                       await adminCreatorFunc(adminDetails);
@@ -135,6 +146,7 @@ const addAdmin = (req, res) => {
                         )
                       );
                     } else {
+                      unlinkFiles(req.files);
                       logger.warn(
                         errorResponseFunc(
                           "Role not found.",
@@ -153,6 +165,7 @@ const addAdmin = (req, res) => {
                       );
                     }
                   } catch (err) {
+                    unlinkFiles(req.files);
                     logger.error(
                       errorResponseFunc(
                         "Encountered error while creating the admin.",
@@ -171,8 +184,8 @@ const addAdmin = (req, res) => {
                     );
                   }
                 })
-
                 .catch((err) => {
+                  unlinkFiles(req.files);
                   logger.error(
                     errorResponseFunc(
                       "Encountered error while checking if this role exists.",
@@ -191,6 +204,7 @@ const addAdmin = (req, res) => {
                   );
                 });
             } else {
+              unlinkFiles(req.files);
               logger.error(
                 errorResponseFunc(
                   "Admin with this email already exists.",
@@ -210,6 +224,7 @@ const addAdmin = (req, res) => {
             }
           })
           .catch((err) => {
+            unlinkFiles(req.files);
             logger.error(
               errorResponseFunc(
                 "Encountered error after checking if this admin exists.",
@@ -230,6 +245,7 @@ const addAdmin = (req, res) => {
       }
     }
   } catch (err) {
+    unlinkFiles(req.files);
     logger.error(
       errorResponseFunc(
         "Encountered error while syncing the admin table.",

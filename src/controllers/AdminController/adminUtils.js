@@ -1,12 +1,12 @@
 const {
   Employees,
   constants,
-
   temporaryPasswordString,
   sendEmail,
   verifiedEmail,
   path,
   fs,
+  unlinkFiles,
   cheerio,
 } = require("./adminPackageCentral");
 
@@ -35,6 +35,7 @@ const adminCreatorFunc = (adminDetails) => {
         currentAddress: adminDetails.currentAddress,
         permanentAddress: adminDetails.permanentAddress,
         reportTo: adminDetails.reportTo,
+        profilePicture: profilePicture,
       })
         .then(async (data) => {
           try {
@@ -57,14 +58,16 @@ const adminCreatorFunc = (adminDetails) => {
             await sendEmail(adminDetails.email, subject, emailBody);
             resolve(null);
           } catch (err) {
+            unlinkFiles(req.files);
             reject(err);
           }
         })
-
         .catch((err) => {
+          unlinkFiles(req.files);
           reject(err);
         });
     } catch (err) {
+      unlinkFiles(req.files);
       reject(err);
     }
   });

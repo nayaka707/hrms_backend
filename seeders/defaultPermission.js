@@ -1,0 +1,39 @@
+const { Route, Role } = require("../controllers/EmployeeController/employeePackageCentral");
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    const [routes, roles] = await Promise.all([
+      Route.findAll({ attributes: ["id"] }),
+      Role.findAll({ attributes: ["id", "name"] }),
+    ]);
+
+    const permissions = [];
+    for (const role of roles) {
+      for (const route of routes) {
+        const permission = {
+          canCreate: false,
+          canRead: false,
+          canUpdate: false,
+          canDelete: false,
+          roleId: role.id,
+          routeId: route.id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+
+        if (role.name === "SUPER ADMIN") {
+          permission.canCreate = true;
+          permission.canRead = true;
+          permission.canUpdate = true;
+          permission.canDelete = true;
+        }
+        permissions.push(permission);
+      }
+    }
+    await queryInterface.bulkInsert("permissions", permissions, {});
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete("permissions", null, {});
+  },
+};
