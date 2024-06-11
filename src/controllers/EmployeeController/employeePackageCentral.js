@@ -1,5 +1,5 @@
 const models = require("../../models/associations");
-const { Employees, Role } = models;
+const { Employees, Role, Route } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE
@@ -29,5 +29,6 @@ module.exports = {
   logger,
   TOKEN_SECRET,
   TOKEN_MAXAGE,
-  sendEmail
+  sendEmail,
+  Route,
 };
