@@ -1,6 +1,6 @@
 const { verifyToken, checkRole } = require("../middlewares/auth");
 const { checkToken } = require("../middlewares/resetPWAuth");
-const { AdminController, EmployeeController, BankController } = require("../controllers/index");
+const { AdminController, EmployeeController, BankController, DesignationController } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
 module.exports = (app) => {
@@ -31,5 +31,6 @@ module.exports = (app) => {
   app.post('/addBank', [checkToken], BankController.addBankDetails)
   app.delete('/deleteBank/:bankId', [checkToken], BankController.deleteBankDetails)
   app.get('/getBank', [checkToken], BankController.getBankDetailByEmployee)
+  app.get('/getAllDesignation', DesignationController.getAllDesignation)
 
 };

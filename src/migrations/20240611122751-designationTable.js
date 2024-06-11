@@ -1,9 +1,10 @@
+
 "use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
-    await queryInterface.createTable("designation", {
+    await queryInterface.createTable("designations", {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("uuid_generate_v4()"),
@@ -41,6 +42,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("designation");
+    await queryInterface.dropTable("designations");
   },
 };

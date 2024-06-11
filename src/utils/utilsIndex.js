@@ -14,6 +14,7 @@ const sendEmail = require("./sendEmail");
 const statusCode = require("./statusCodes");
 const { unlinkFiles } = require("./functions");
 const models = require('../models/associations')
+const logger = require("../services/loggerService");
 const {
   errorResponseFunc,
   successResponseFunc,
@@ -37,4 +38,5 @@ module.exports = {
   randomInvoiceString,
   pwResetTokenBlackList,
   resetPwUsers,
+  logger
 };
