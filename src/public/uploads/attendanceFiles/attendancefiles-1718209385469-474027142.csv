@@ -1,0 +1,25 @@
+Date, Employee Code ,Employee Name,Company ,Department,Category ,Degination,Grade ,Team,Shift, In Time ,Out Time , Duration ,Late By ,Early By ,Status ,Punch Records ,Overtime
+2024-06-10,1,Jevin,Default,Default,Default,,,,NS,,,00:00,00:00,00:00,Absent,,00:00
+2024-06-10,Px001,Arun Kumar,Default,SM,Default,Sr. BDM,Default,Default,GS,09:51:49,19:16:22,9:25,00:21,00:00,Present ,09:51:in(PX) 13:25:out(PX) 13:45:in(PX) 19:16:out(PX) 19:16:(PX) ,00:00
+2024-06-10,Px002,Jinal Patel,Default,SM,Default,JR BDE & vendor Management ,Default,Default,GS,08:38:01,17:43:13,9:05,00:00,1:16,Present ,08:38:in(PX) 13:12:out(PX) 13:32:in(PX) 15:50:out(PX) 16:01:in(PX) 17:43:out(PX) 17:43:(PX) ,00:00
+2024-06-10,Px003,Krunal Kathiriya,Default,Tech,Default,SDE-1,Default,Default,NS,,,00:00,00:00,00:00,Absent,,00:00
+2024-06-10,Px004,Hemal Gondaliya,Default,Tech,Default,SDE-1,Default,Default,GS,10:25:47,19:12:45,8:47,00:55,00:00,Present ,10:25:in(PX) 13:23:out(PX) 14:01:in(PX) 19:12:out(PX) ,00:00
+2024-06-10,Px005,Renish Gajera,Default,Tech,Default,SDE-1,Default,Default,GS,09:56:59,19:12:54,9:16,00:26,00:00,Present ,09:56:in(PX) 13:23:out(PX) 14:22:in(PX) 19:12:out(PX) ,00:00
+2024-06-10,Px006,Kaushal Dasadiya,Default,Tech,Default,SDE-1,Default,Default,GS,10:03:46,19:09:00,9:06,00:33,00:00,Present ,10:03:in(PX) 13:13:out(PX) 14:04:in(PX) 19:09:out(PX) ,00:00
+2024-06-10,Px007,Darshit Antala,Default,Tech,Default,SDE-I-2,Default,Default,GS,10:03:42,19:12:14,9:09,00:33,00:00,Present ,10:03:in(PX) 13:46:out(PX) 19:12:in(PX) ,00:00
+2024-06-10,Px008,Yash Savaliya,Default,Tech,Default,SDE-I-2,Default,Default,NS,,,00:00,00:00,00:00,Absent,,00:00
+2024-06-10,Px009,Het Vaghasia,Default,Tech,Default,SDE-2,Default,Default,GS,11:03:59,19:44:48,8:41,1:33,00:00,Present ,11:03:in(PX) 13:13:out(PX) 13:50:in(PX) 19:44:out(PX) ,00:00
+2024-06-10,Px010,Devyani Patil,Default,Tech,Default,SDE-I-1,Default,Default,GS,09:33:52,19:31:28,9:58,00:00,00:00,Present ,09:33:in(PX) 13:17:out(PX) 14:11:in(PX) 14:11:(PX) 19:31:out(PX) ,00:00
+2024-06-10,Px011,Vijay Singh Kushawaha,Default,Tech,Default,SDE-1,Default,Default,GS,11:03:57,19:46:31,8:43,1:33,00:00,Present ,11:03:in(PX) 13:13:out(PX) 13:50:in(PX) 19:46:out(PX) ,00:00
+2024-06-10,Px012,Brijesh Raiyani,Default,Tech,Default,SDE-I-1,Default,Default,GS,10:31:26,19:32:14,9:01,1:01,00:00,Present ,10:31:in(PX) 13:07:out(PX) 13:58:in(PX) 19:32:out(PX) ,00:00
+2024-06-10,Px013,Vivek Ramani,Default,Tech,Default,SDE-I-1,Default,Default,GS,10:03:39,19:12:11,9:09,00:33,00:00,Present ,10:03:in(PX) 13:23:out(PX) 14:01:in(PX) 19:12:out(PX) ,00:00
+2024-06-10,Px014,Harsha Nayaka,Default,Tech,Default,SDE-2,Default,Default,GS,10:12:35,19:37:02,9:25,00:42,00:00,Present ,10:12:in(PX) 14:02:out(PX) 14:33:in(PX) 19:37:out(PX) 19:37:(PX) ,00:00
+2024-06-10,Px015,Namrata Jaiswal,Default,Tech,Default,SDE-1,Default,Default,GS,09:36:54,19:31:25,9:55,00:00,00:00,Present ,09:36:in(PX) 13:13:out(PX) 14:12:in(PX) 19:31:out(PX) ,00:00
+2024-06-10,Px016,Rushin Prajapati,Default,Tech,Default,SDE-1,Default,Default,GS,09:33:36,19:36:30,9:30,00:00,00:00,Present ,09:33:in(PX) 13:03:out(PX) 14:04:in(PX) 19:36:out(PX) ,00:33
+2024-06-10,Px017,Abhishek Ghoniya,Default,Digital Marketing,Default,SEO,Default,Default,GS,10:35:58,19:12:17,8:37,1:05,00:00,Present ,10:35:in(PX) 13:12:out(PX) 13:20:in(PX) 19:12:out(PX) ,00:00
+2024-06-10,Px018,Ankit Malaviya,Default,Tech,Default,SDE-2,Default,Default,GS,09:28:34,19:08:17,9:40,00:00,00:00,Present ,09:28:in(PX) 13:04:out(PX) 14:05:in(PX) 19:08:out(PX) ,00:00
+2024-06-10,Px019,Maitri Prajapati,Default,Tech,Default,SDE-1,Default,Default,GS,10:16:09,19:14:20,8:58,00:46,00:00,Present ,10:16:in(PX) 13:17:out(PX) 13:38:in(PX) 13:41:(PX) 13:42:(PX) 13:49:out(PX) 19:14:in(PX) ,00:00
+2024-06-10,Px020,Anmol Pansara,Default,Tech,Default,SDE-I-1,Default,Default,GS,09:49:58,19:31:59,9:42,00:19,00:00,Present ,09:49:in(PX) 13:07:out(PX) 13:58:in(PX) 19:31:out(PX) ,00:00
+2024-06-10,Px021,Sushmita Gour,Default,HR,Default,TAS,Default,Default,GS,09:46:13,19:28:37,9:42,00:16,00:00,Present ,09:46:in(PX) 12:41:out(PX) 13:17:in(PX) 15:50:out(PX) 16:01:in(PX) 19:28:out(PX) ,00:00
+2024-06-10,Px022,Hetanshi Patel,Default,HR,Default,HR IT Recruiter,Default,Default,GS,09:41:27,19:28:34,9:47,00:00,00:00,Present ,09:41:in(PX) 12:41:out(PX) 13:17:in(PX) 15:50:out(PX) 16:01:in(PX) 19:28:out(PX) ,00:00
+2024-06-10,Px023,Bhakti Gajipara,Default,Tech,Default,Trainee,Default,Default,GS,09:34:56,19:13:31,9:39,00:00,00:00,Present ,09:34:in(PX) 13:19:out(PX) 13:38:in(PX) 19:13:out(PX) ,00:00

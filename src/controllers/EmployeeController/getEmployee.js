@@ -1,16 +1,50 @@
+const { literal } = require("sequelize");
 const {
   Employees,
   statusCode,
   constants,
   errorResponseFunc,
   successResponseFunc,
+  PUBLIC_URL,
   bcrypt,
+  Role,
+  models,
+  Op,
   logger,
 } = require("./employeePackageCentral");
 
 const getAllEmployeesData = (req, res) => {
   try {
-    Employees.findAll({})
+    const employeeId = req.loggersId;
+    const role = req.roleName;
+
+    Employees.findAll({
+      where: { id: { [Op.ne]: employeeId } },
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "middleName",
+        [
+          literal(
+            `'${
+              PUBLIC_URL + "/profilePicture/"
+            }' || "employees"."profilePicture"`
+          ),
+          "profilePicture",
+        ],
+      ],
+      include: {
+        model: Role,
+        attributes: ["id", "name"],
+        as: "role",
+        where: {
+          name: {
+            [Op.notIn]: ["SUPER ADMIN", ...(role === "EMPLOYEE" ? ["HR"] : [])],
+          },
+        },
+      },
+    })
       .then((data) => {
         res.send(
           successResponseFunc(
