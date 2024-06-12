@@ -206,7 +206,7 @@ Employees.associate = (models) => {
   });
   Employees.belongsTo(models.Designation, {
     foreignKey: "designationId",
-    as: "designation",
+    as: "designations",
   });
 
   Employees.hasMany(models.Employees, {
