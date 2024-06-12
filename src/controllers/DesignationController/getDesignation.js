@@ -1,4 +1,4 @@
-const { constants, responseFunc, responseMessage, statusCode, errorResponseFunc, successResponseFunc, models , logger} = require('../../utils/utilsIndex')
+const { constants, responseMessage, statusCode, errorResponseFunc, successResponseFunc, models , logger} = require('../../utils/utilsIndex')
 
 
 

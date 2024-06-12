@@ -50,7 +50,7 @@ const getAllAttendance = async (req, res) => {
         BreakDetails: breaks,
       };
     });
-    // console.log("data >>", data);
+    console.log("data >>", data);
     // let payload = {  
     //   EmployeeCode: employee.employeeCode,
     //   Name: `${employee.firstName} ${employee.middleName} ${employee.lastName}`,
