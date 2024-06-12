@@ -13,3 +13,8 @@ module.exports = {
   getByIdEmployeesData,
   addEmployee,
 };
+const { updateEmployeeData } = require("./updateEmployeeData")
+const { employeeLogin } = require("./employeeLogin")
+const { deleteEmployee } = require('./deleteEmployee')
+
+module.exports = { resetPassword, employeeLogin, forgetPassword, getAllEmployeesData, updateEmployeeData, deleteEmployee, getByIdEmployeesData };

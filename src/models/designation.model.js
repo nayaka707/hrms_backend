@@ -1,6 +1,6 @@
 const db = require("../config/database");
 
-const Designation = db.sequelize.define("designation", {
+const Designation = db.sequelize.define("designations", {
   id: {
     type: db.Sequelize.DataTypes.UUID,
     defaultValue: db.Sequelize.UUIDV4,

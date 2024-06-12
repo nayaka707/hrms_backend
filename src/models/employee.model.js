@@ -134,6 +134,54 @@ const Employees = db.sequelize.define("employees", {
       },
     },
   },
+  deletedAt: {
+    type: db.Sequelize.DataTypes.DATE,
+    defaultValue: null
+  },
+  emergencyContact: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: true
+  },
+  city: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: true
+  },
+  state: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: true
+  },
+  pincode: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: true
+  },
+  passportNumber: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: true
+  },
+  fatherName: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: true
+  },
+  motherName: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: true
+  },
+  nationality: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: true
+  },
+  dateOfBirth: {
+    type: db.Sequelize.DataTypes.DATE,
+    allowNull: true
+  },
+  experience: {
+    type: db.Sequelize.DataTypes.FLOAT,
+    allowNull: true
+  },
+  qualification: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: true
+  },
   createdAt: {
     allowNull: false,
     type: db.Sequelize.DataTypes.DATE,
@@ -158,7 +206,7 @@ Employees.associate = (models) => {
   });
   Employees.belongsTo(models.Designation, {
     foreignKey: "designationId",
-    as: "designation",
+    as: "designations",
   });
 
   Employees.hasMany(models.Employees, {

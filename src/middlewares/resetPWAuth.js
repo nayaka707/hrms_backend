@@ -20,12 +20,7 @@ const checkToken = (req, res, next) => {
                 status: false,
             });
         }
-
-        const tk = token.split(" ");
-        if (!tk[1]) {
-            tk.unshift("Bearer");
-        }
-        jwt.verify(tk[1], TOKEN_SECRET, async (err, decoded) => {
+        jwt.verify(token, TOKEN_SECRET, async (err, decoded) => {
             if (err) {
                 if (err.name === "TokenExpiredError") {
                     return res.status(403).json({

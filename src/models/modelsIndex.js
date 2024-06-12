@@ -7,6 +7,7 @@ const ExperienceDetails = require("./experienceDetails.model");
 const Permission = require("./permission.model");
 const Route = require("./routes.model");
 const Attendance = require("./attendance.model");
+const BankDetails = require("./bankDetails.model")
 
 module.exports = {
   Employees,
@@ -17,5 +18,6 @@ module.exports = {
   ExperienceDetails,
   Permission,
   Route,
-  Attendance
+  Attendance,
+  BankDetails
 };

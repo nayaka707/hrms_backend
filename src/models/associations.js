@@ -7,7 +7,8 @@ const {
   ExperienceDetails,
   Permission,
   Route,
-  Attendance
+  Attendance,
+  BankDetails
 } = require("../models/modelsIndex");
 
 const models = {
@@ -19,7 +20,8 @@ const models = {
   ExperienceDetails: ExperienceDetails,
   Permission: Permission,
   Route: Route,
-  Attendance: Attendance
+  Attendance: Attendance,
+  BankDetails: BankDetails
 };
 
 Object.keys(models).forEach((modelName) => {

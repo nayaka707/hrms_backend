@@ -5,11 +5,14 @@ const {
   EmployeeController,
   EmployeeDocument,
   DepartmentIndex,
-  AttendanceController
+  AttendanceController,
+  BankController,
+  DesignationController,
+  RoleController,
 } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
-module.exports = (app) => { 
+module.exports = (app) => {
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*"),
       res.header("Access-Control-Expose-Headers", "Content-Disposition");
@@ -29,7 +32,13 @@ module.exports = (app) => {
   app.get("/getAllEmployees", EmployeeController.getAllEmployeesData);
   app.put(
     "/updateEmployeeData/:employeeId",
+    [checkToken],
     EmployeeController.updateEmployeeData
+  );
+  app.delete(
+    "/deleteEmployee/:employeeId",
+    [verifyToken],
+    EmployeeController.deleteEmployee
   );
   app.get(
     "/getByIdEmployee",
@@ -44,4 +53,13 @@ module.exports = (app) => {
   app.get("/getAllDepartment", [verifyToken], DepartmentIndex.getAllDepartment);
   app.post("/addAttendance", AttendanceController.addEmployeeAttendance);
   app.get("/dailylogs", AttendanceController.getAllAttendance);
+  app.post("/addBank", [checkToken], BankController.addBankDetails);
+  app.delete(
+    "/deleteBank/:bankId",
+    [checkToken],
+    BankController.deleteBankDetails
+  );
+  app.get("/getBank", [checkToken], BankController.getBankDetailByEmployee);
+  app.get("/getAllDesignation", DesignationController.getAllDesignation);
+  app.get("/getAllRoles", RoleController.getAllRoles);
 };
