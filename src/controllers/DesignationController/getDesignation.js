@@ -4,7 +4,9 @@ const { constants, responseFunc, responseMessage, statusCode, errorResponseFunc,
 
 const getAllDesignation = async (req, res) => {
     try {
-        const designation = await models.Designation.findAll({})
+        const designation = await models.Designation.findAll({
+            where : {isActive : constants.ACTIVE}
+        });
         res.send(
             successResponseFunc(
                 "Here is the designation data.",
