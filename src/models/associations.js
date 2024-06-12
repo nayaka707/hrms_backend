@@ -5,6 +5,9 @@ const {
   Designation,
   EmployeeDocuments,
   ExperienceDetails,
+  Permission,
+  Route,
+  Attendance
 } = require("../models/modelsIndex");
 
 const models = {
@@ -14,6 +17,9 @@ const models = {
   Designation: Designation,
   EmployeeDocuments: EmployeeDocuments,
   ExperienceDetails: ExperienceDetails,
+  Permission: Permission,
+  Route: Route,
+  Attendance: Attendance
 };
 
 Object.keys(models).forEach((modelName) => {

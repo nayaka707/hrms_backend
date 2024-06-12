@@ -172,4 +172,5 @@ Employees.associate = (models) => {
   });
 };
 
+
 module.exports = Employees;

@@ -1,5 +1,5 @@
 const models = require("../../models/associations");
-const { Employees, Role } = models;
+const { Employees, Role, Route } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE
@@ -10,6 +10,8 @@ const {
   statusCode,
   errorResponseFunc,
   successResponseFunc,
+  unlinkFiles,
+  temporaryPasswordString,
   sendEmail
 } = require("../../utils/utilsIndex");
 require("dotenv").config();
@@ -25,9 +27,12 @@ module.exports = {
   Role,
   successResponseFunc,
   errorResponseFunc,
+  temporaryPasswordString,
+  unlinkFiles,
   path,
   logger,
   TOKEN_SECRET,
   TOKEN_MAXAGE,
-  sendEmail
+  sendEmail,
+  Route,
 };

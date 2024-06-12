@@ -1,14 +1,23 @@
 const db = require("../config/database");
 
-const Department = db.sequelize.define("departments", {
+const Route = db.sequelize.define("routes", {
   id: {
     type: db.Sequelize.DataTypes.UUID,
     defaultValue: db.Sequelize.UUIDV4,
     allowNull: false,
     primaryKey: true,
   },
-  name: {
-    type: db.Sequelize.DataTypes.STRING,
+  parentRouteId: {
+    type: db.Sequelize.DataTypes.UUID,
+    allowNull: true,
+  },
+  childRouteId: {
+    type: db.Sequelize.DataTypes.UUID,
+    allowNull: true,
+  },
+  name: db.Sequelize.DataTypes.STRING,
+  priority: {
+    type: db.Sequelize.DataTypes.INTEGER,
     allowNull: false,
   },
   isActive: {
@@ -35,5 +44,23 @@ const Department = db.sequelize.define("departments", {
   },
 });
 
+Route.associate = (models) => {
+  Route.belongsToMany(models.Role, {
+    through: models.Permission,
+    onDelete: "CASCADE",
+  });
 
-module.exports = Department;
+  Route.hasMany(models.Route, {
+    foreignKey: "parentRouteId",
+    as: "childRoutes",
+    allowNull: true,
+  });
+
+  Route.hasMany(models.Route, {
+    foreignKey: "childRouteId",
+    as: "subChildRoutes",
+    allowNull: true,
+  });
+};
+
+module.exports = Route;

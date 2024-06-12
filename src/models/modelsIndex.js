@@ -4,6 +4,9 @@ const Department = require("./department.model");
 const Designation = require("./designation.model");
 const EmployeeDocuments = require("./employeeDocuments.model");
 const ExperienceDetails = require("./experienceDetails.model");
+const Permission = require("./permission.model");
+const Route = require("./routes.model");
+const Attendance = require("./attendance.model");
 
 module.exports = {
   Employees,
@@ -12,4 +15,7 @@ module.exports = {
   Designation,
   EmployeeDocuments,
   ExperienceDetails,
+  Permission,
+  Route,
+  Attendance
 };

@@ -54,7 +54,7 @@ module.exports = {
       departmentId: {
         type: Sequelize.DataTypes.UUID,
         references: {
-          model: "department", // Ensure table name is plural here
+          model: "departments", // Ensure table name is plural here
           key: "id",
         },
         onUpdate: "CASCADE",

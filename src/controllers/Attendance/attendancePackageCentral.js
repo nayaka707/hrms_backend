@@ -1,45 +1,42 @@
 const models = require("../../models/associations");
-const { Employees, Role , Permission, Route } = models;
+const { Employees, Role, Attendance } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const verifiedEmail = process.env.NODEMAILER_VERIFIED_EMAIL_ID;
-require("dotenv").config();
-const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE;
-const fs = require("fs");
-const cheerio = require("cheerio");
-const path = require("path");
+const fs = require('fs');
+const csv = require('csv-parser');
+const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE
+const TOKEN_SECRET = process.env.TOKEN_SECRET
 const {
-  temporaryPasswordString,
   constants,
-  responseFunc,
   responseMessage,
   statusCode,
   errorResponseFunc,
   successResponseFunc,
   unlinkFiles,
+  temporaryPasswordString,
   sendEmail
 } = require("../../utils/utilsIndex");
+require("dotenv").config();
+const path = require("path");
 const logger = require("../../services/loggerService");
 module.exports = {
   Employees,
   bcrypt,
+  constants,
   jwt,
-  sendEmail,
   statusCode,
-  unlinkFiles,
   responseMessage,
   Role,
-  constants,
-  TOKEN_MAXAGE,
-  verifiedEmail,
-  temporaryPasswordString,
-  responseFunc,
   successResponseFunc,
   errorResponseFunc,
-  fs,
+  temporaryPasswordString,
+  unlinkFiles,
   path,
-  cheerio,
   logger,
-  Permission,
-  Route,
+  TOKEN_SECRET,
+  TOKEN_MAXAGE,
+  sendEmail,
+  Attendance,
+  fs,
+  csv
 };

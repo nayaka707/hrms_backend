@@ -4,17 +4,25 @@ const {
   AdminController,
   EmployeeController,
   EmployeeDocument,
+  DepartmentIndex,
+  AttendanceIndex
 } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
-module.exports = (app) => {
+module.exports = (app) => { 
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*"),
       res.header("Access-Control-Expose-Headers", "Content-Disposition");
     next();
   });
 
-  app.post("/addSuperAdmin", AdminController.addAdmin);
+  app.get("/readPermission", [verifyToken], AdminController.readPermission);
+  app.get(
+    "/routePermission/:routeId",
+    [verifyToken],
+    AdminController.routePermission
+  );
+  app.post("/addEmployee", [verifyToken], EmployeeController.addEmployee);
   app.post("/employeeLogin", EmployeeController.employeeLogin);
   app.post("/forgot-password", [checkToken], EmployeeController.forgetPassword);
   app.post("/resetPassword", [verifyToken], EmployeeController.resetPassword);
@@ -28,6 +36,12 @@ module.exports = (app) => {
     [verifyToken],
     EmployeeController.getByIdEmployeesData
   );
-  app.post("/employeeDocument",[verifyToken], EmployeeDocument.addEmployeeDocument);
+  app.post(
+    "/employeeDocument",
+    [verifyToken],
+    EmployeeDocument.addEmployeeDocument
+  );
+  app.get("/getAllDepartment", [verifyToken], DepartmentIndex.getAllDepartment);
+  app.get("/getAllDepartment", [verifyToken], DepartmentIndex.getAllDepartment);
+  app.post("/addAttendance", AttendanceIndex.addEmployeeAttendance);
 };
-

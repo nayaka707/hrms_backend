@@ -25,6 +25,7 @@ const fileDestinations = {
   taskFile: "taskFile",
   projectFiles: "projectFiles",
   attechment: "attechment",
+  attendanceFiles: "attendanceFiles",
 };
 
 const checkFileExist = async (file) => {
@@ -40,12 +41,7 @@ const checkFileExist = async (file) => {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const fieldName = file.fieldname;
-    const fileRootDir = path.join(
-      __dirname,
-      "..",
-      "public",
-      "uploads"
-    );
+    const fileRootDir = path.join(__dirname, "..", "public", "uploads");
     fs.mkdirSync(fileRootDir, { recursive: true });
     const uploadPath = path.join(fileRootDir, fileDestinations[fieldName]);
     fs.mkdirSync(uploadPath, { recursive: true });
@@ -60,7 +56,13 @@ const storage = multer.diskStorage({
   },
 });
 
-const pdfFilter = ["application/pdf", "file/pdf"];
+const pdfFilter = [
+  "application/pdf",
+  "file/pdf",
+  "text/csv",
+  "application/xlsx",
+  "file/xlsx",
+];
 const imageFilter = ["image/png", "image/jpg", "image/jpeg"];
 const docFilter = [
   "application/pdf",
@@ -85,24 +87,28 @@ const fileTypes = {
   projectFiles: pdfFilter,
   taskFile: pdfFilter,
   attechment: pdfFilter,
+  attendanceFiles: pdfFilter,
 };
 
 const fileFilter = (req, file, cb) => {
+  console.log("fileType ::", file);
   const fileType = fileTypes[file.fieldname];
   if (!fileType) {
     return cb(
-      errorResponseFunc(
-        "Invalid file type. Please try again.",
-        "Invalid file type",
-        statusCode.invalidData,
-        constants.ERROR
+      new Error(
+        errorResponseFunc(
+          "Invalid file type. Please try again.",
+          "Invalid file type",
+          statusCode.invalidData,
+          constants.ERROR
+        )
       ),
       false
     );
   }
   if (!fileType.includes(file.mimetype)) {
     return cb(
-      res.send(
+      new Error(
         errorResponseFunc(
           `File types must be of ${fileType.join(", ")} only`,
           "File types",

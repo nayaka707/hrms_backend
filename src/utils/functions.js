@@ -5,7 +5,7 @@ function unlinkFiles(files) {
     files.map(file => {
       fs.unlink(file.path, (err) => {
         if (err) {
-          console.error(`Error deleting file ${file.path}:`, err);
+          console.log(`Error deleting file ${file.path}:`, err);
         } else {
           console.log(`Successfully deleted ${file.path}`);
         }
