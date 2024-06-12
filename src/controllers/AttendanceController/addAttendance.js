@@ -4,7 +4,6 @@ const {
   successResponseFunc,
   errorResponseFunc,
   unlinkFiles,
-  EmployeeDocuments,
   logger,
   path,
   Attendance,
@@ -60,21 +59,6 @@ const addEmployeeAttendance = async (req, res) => {
     } else {
       const results = [];
       const cleanKey = (key) => key.trim().replace(/\s+/g, " ");
-      // const calculateDuration = (start, end) => {
-      //   const [startHours, startMinutes, startSeconds] = start.split(':').map(Number);
-      //   const [endHours, endMinutes, endSeconds] = end.split(':').map(Number);
-
-      //   const startDate = new Date(0, 0, 0, startHours, startMinutes, startSeconds);
-      //   const endDate = new Date(0, 0, 0, endHours, endMinutes, endSeconds);
-
-      //   let diff = (endDate - startDate) / 1000; // Difference in seconds
-
-      //   const hours = Math.floor(diff / 3600);
-      //   const minutes = Math.floor((diff % 3600) / 60);
-      //   const seconds = diff % 60;
-
-      //   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-      // };
       fs.createReadStream(files[0].path)
         .pipe(csv())
         .on("data", (data) => {
@@ -90,15 +74,20 @@ const addEmployeeAttendance = async (req, res) => {
             let inDuration = 0;
             let outDuration = 0;
             console.log("punchRecords", punchRecords);
-          
+
             for (let i = 0; i < punchRecords.length - 1; i++) {
-              // Extract time and action separately (modified part)
               const time1 = punchRecords[i].match(/(\d{2}:\d{2})/)[1];
-              const action1 = punchRecords[i].split(time1)[1].trim().slice(1, -1); // Extract action
-          
+              const action1 = punchRecords[i]
+                .split(time1)[1]
+                .trim()
+                .slice(1, -1); // Extract action
+
               const time2 = punchRecords[i + 1].match(/(\d{2}:\d{2})/)[1];
-              const action2 = punchRecords[i + 1].split(time2)[1].trim().slice(1, -1); // Extract action
-          
+              const action2 = punchRecords[i + 1]
+                .split(time2)[1]
+                .trim()
+                .slice(1, -1); // Extract action
+
               if (time1 && action1 && time2 && action2) {
                 const date1 = new Date(`1970-01-01T${time1}:00Z`);
                 const date2 = new Date(`1970-01-01T${time2}:00Z`);
@@ -127,8 +116,8 @@ const addEmployeeAttendance = async (req, res) => {
                 );
               }
             }
-            console.log("Total In Duration (minutes):", inDuration); // Add this line for debugging
-            console.log("Total Out Duration (minutes):", outDuration); // Add this line for debugging
+            console.log("Total In Duration (minutes):", inDuration);
+            console.log("Total Out Duration (minutes):", outDuration);
             const formatDuration = (minutes) => {
               const hours = Math.floor(minutes / 60);
               const mins = minutes % 60;
@@ -146,9 +135,9 @@ const addEmployeeAttendance = async (req, res) => {
               outDuration: formatDuration(outDuration),
               lateBy: data["Late By"].trim(),
               earlyBy: data["Early By"].trim(),
-              status: data.Status.trim(), // Trim the status value to remove trailing spaces
+              status: data.Status.trim(),
               punchRecords: data["Punch Records"].trim(),
-              overtime: null,
+              overtime: data.Overtime.trim(),
               isActive: "1",
             };
 
@@ -177,7 +166,7 @@ const addEmployeeAttendance = async (req, res) => {
     unlinkFiles(req.files);
     logger.error(
       errorResponseFunc(
-        "Encountered error while syncing the admin table.",
+        "Encountered error while syncing the attendance table.",
         err.toString(),
         statusCode.internalServerError,
         constants.ERROR
@@ -185,7 +174,7 @@ const addEmployeeAttendance = async (req, res) => {
     );
     return res.send(
       errorResponseFunc(
-        "Encountered error while syncing the admin table.",
+        "Encountered error while syncing the attendance table.",
         err.toString(),
         statusCode.internalServerError,
         constants.ERROR

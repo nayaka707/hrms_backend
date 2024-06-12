@@ -5,7 +5,7 @@ const {
   EmployeeController,
   EmployeeDocument,
   DepartmentIndex,
-  AttendanceIndex
+  AttendanceController
 } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
@@ -42,6 +42,6 @@ module.exports = (app) => {
     EmployeeDocument.addEmployeeDocument
   );
   app.get("/getAllDepartment", [verifyToken], DepartmentIndex.getAllDepartment);
-  app.get("/getAllDepartment", [verifyToken], DepartmentIndex.getAllDepartment);
-  app.post("/addAttendance", AttendanceIndex.addEmployeeAttendance);
+  app.post("/addAttendance", AttendanceController.addEmployeeAttendance);
+  app.get("/dailylogs", AttendanceController.getAllAttendance);
 };
