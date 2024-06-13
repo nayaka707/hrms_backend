@@ -1,15 +1,6 @@
 const { verifyToken, checkRole } = require("../middlewares/auth");
 const { checkToken } = require("../middlewares/resetPWAuth");
-const {
-  AdminController,
-  EmployeeController,
-  EmployeeDocument,
-  DepartmentIndex,
-  AttendanceController,
-  BankController,
-  DesignationController,
-  RoleController,
-} = require("../controllers/index");
+const { AdminController, EmployeeController, BankController, DesignationController, RoleController, DepartmentController, RouteController, EmployeeDocument, AttendanceController } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
 module.exports = (app) => {
@@ -19,12 +10,10 @@ module.exports = (app) => {
     next();
   });
 
+  // Permission Routes
   app.get("/readPermission", [verifyToken], AdminController.readPermission);
-  app.get(
-    "/routePermission/:routeId",
-    [verifyToken],
-    AdminController.routePermission
-  );
+  app.get("/routePermission/:routeId", [verifyToken], AdminController.routePermission);
+  
   app.post("/addEmployee", [verifyToken], EmployeeController.addEmployee);
   app.post("/employeeLogin", EmployeeController.employeeLogin);
   app.post("/forgot-password", [checkToken], EmployeeController.forgetPassword);
@@ -40,26 +29,35 @@ module.exports = (app) => {
     [verifyToken],
     EmployeeController.deleteEmployee
   );
-  app.get(
-    "/getByIdEmployee",
-    [verifyToken],
-    EmployeeController.getByIdEmployeesData
-  );
-  app.post(
-    "/employeeDocument",
-    [verifyToken],
-    EmployeeDocument.addEmployeeDocument
-  );
-  app.get("/getAllDepartment", [verifyToken], DepartmentIndex.getAllDepartment);
+  app.get("/getByIdEmployee", [verifyToken], EmployeeController.getByIdEmployeesData );
+  app.post("/employeeDocument", [verifyToken], EmployeeDocument.addEmployeeDocument );
   app.post("/addAttendance", AttendanceController.addEmployeeAttendance);
   app.get("/dailylogs", AttendanceController.getAllAttendance);
-  app.post("/addBank", [checkToken], BankController.addBankDetails);
-  app.delete(
-    "/deleteBank/:bankId",
-    [checkToken],
-    BankController.deleteBankDetails
-  );
-  app.get("/getBank", [checkToken], BankController.getBankDetailByEmployee);
-  app.get("/getAllDesignation", DesignationController.getAllDesignation);
-  app.get("/getAllRoles", RoleController.getAllRoles);
+
+  // Bank Routes
+  app.post('/addBank', [checkToken], BankController.addBankDetails)
+  app.delete('/deleteBank/:bankId', [checkToken], BankController.deleteBankDetails)
+  app.get('/getBank', [checkToken], BankController.getBankDetailByEmployee)
+
+  // Designation Routes
+  app.post('/addDesignation', [verifyToken], DesignationController.createDesignation);
+  app.get('/getAllDesignation',[verifyToken], DesignationController.getAllDesignation)
+  app.put('/updateDesignation/:id', [verifyToken], DesignationController.updateDesignation);
+  app.put('/deleteDesignation/:id', [verifyToken], DesignationController.deleteDesignation);
+
+  // Role Routes
+  app.get('/getAllRoles', [verifyToken], RoleController.getAllRoles);
+  app.get('/getRole/:id', [verifyToken], RoleController.getRole);
+  app.post('/createRole', [verifyToken], RoleController.createRole);
+  app.put('/deleteRole/:id', [verifyToken], RoleController.deleteRole);
+  app.post('/updateRole', [verifyToken], RoleController.updateRole);
+
+  // Department Routes
+  app.post('/addDepartment', [verifyToken], DepartmentController.createDepartment);
+  app.get('/getAllDepartment', [verifyToken], DepartmentController.getAllDepartment);
+  app.put('/updateDepartment/:id', [verifyToken], DepartmentController.updateDepartment);
+  app.put('/deleteDepartment/:id', [verifyToken], DepartmentController.deleteDepartment);
+
+  app.get('/getAllRoutes', [verifyToken], RouteController.getAllRoutes);
+
 };

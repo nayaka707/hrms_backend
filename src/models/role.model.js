@@ -37,6 +37,10 @@ const Role = db.sequelize.define("roles", {
 
 Role.associate = (models) => {
   Role.hasMany(models.Employees, { foreignKey: "roleId"});
+  Role.belongsToMany(models.Route, {
+    through: models.Permission,
+    onDelete: "CASCADE",
+  });
 };
 
 module.exports = Role;

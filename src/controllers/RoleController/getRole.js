@@ -1,10 +1,17 @@
-const { constants, responseFunc, responseMessage, statusCode, errorResponseFunc, successResponseFunc, models , logger} = require('../../utils/utilsIndex')
-
-
+const {
+    Role,
+  constants,
+  statusCode,
+  errorResponseFunc,
+  successResponseFunc,
+  logger,
+} = require("./rolePackageCentral");
 
 const getAllRoles = async (req, res) => {
     try {
-        const roles = await models.Role.findAll({})
+        const roles = await Role.findAll({
+            where: { isActive: constants.ACTIVE },
+        })
         res.send(
             successResponseFunc(
                 "Here is the roles data.",

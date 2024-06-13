@@ -9,17 +9,17 @@ const {
 
 const getAllDepartment = (req, res) => {
   try {
-    Department.findAll({})
-    .then((data) => {
-      res.send(
-        successResponseFunc(
-          "Here is the Department's data.",
-          statusCode.success,
-          constants.SUCCESS,
-          data
-        )
-      );
-    })
+    Department.findAll({ where: { isActive: constants.ACTIVE } })
+      .then((data) => {
+        res.send(
+          successResponseFunc(
+            "Here is the Department's data.",
+            statusCode.success,
+            constants.SUCCESS,
+            data
+          )
+        );
+      })
       .catch((err) => {
         console.log("err ::", err);
         logger.error(

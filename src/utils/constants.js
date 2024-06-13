@@ -16,6 +16,8 @@ const NOTSENT = "0";
 const SENT = "1";
 const CONFLICT = "Conflict";
 const RESETPASSWORDURL = "https://caplead.co/forgotPassword";
+const ADMIN = "SUPER ADMIN";
+const HR = "HR";
 
 module.exports = {
   ACTIVE,
@@ -35,4 +37,6 @@ module.exports = {
   CONFLICT,
   EMAILCHUNKSIZE,
   RESETPASSWORDURL,
+  ADMIN,
+  HR,
 };

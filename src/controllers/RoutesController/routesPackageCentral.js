@@ -1,23 +1,19 @@
-const models = require("../../models/associations");
-const { Department } = models;
-require("dotenv").config();
 const {
   constants,
-  responseFunc,
   responseMessage,
   statusCode,
   errorResponseFunc,
   successResponseFunc,
 } = require("../../utils/utilsIndex");
 const logger = require("../../services/loggerService");
-
+const models = require("../../models/associations");
+const { Route } = models;
 module.exports = {
-  Department,
-  statusCode,
-  responseMessage,
+  Route,
   constants,
-  responseFunc,
-  successResponseFunc,
+  responseMessage,
+  statusCode,
   errorResponseFunc,
-  logger
+  successResponseFunc,
+  logger,
 };

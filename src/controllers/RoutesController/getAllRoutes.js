@@ -1,23 +1,26 @@
 const {
-  Designation,
+  Route,
   constants,
+  responseMessage,
   statusCode,
   errorResponseFunc,
   successResponseFunc,
   logger,
-} = require("./designationPackageCentral");
+} = require("./routesPackageCentral");
 
-const getAllDesignation = async (req, res) => {
+const getAllRoutes = async (req, res) => {
   try {
-    const designation = await Designation.findAll({
-      where: { isActive: constants.ACTIVE },
+    const routes = await Route.findAll({
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
     });
     res.send(
       successResponseFunc(
-        "Here is the designation data.",
+        "Here is the routes data.",
         statusCode.success,
         constants.SUCCESS,
-        designation
+        routes
       )
     );
   } catch (err) {
@@ -40,4 +43,4 @@ const getAllDesignation = async (req, res) => {
   }
 };
 
-module.exports = { getAllDesignation };
+module.exports = getAllRoutes;
