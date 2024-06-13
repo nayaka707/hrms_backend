@@ -213,6 +213,12 @@ Employees.associate = (models) => {
     foreignKey: "reportTo",
     as: "subordinates",
   });
+  Employees.hasOne(models.EmployeeDocuments);
+
+  Employees.hasMany(models.ExperienceDetails, {
+    foreignKey: "EmployeeId",
+  });
 };
+
 
 module.exports = Employees;

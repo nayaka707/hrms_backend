@@ -1,6 +1,6 @@
 const db = require("../config/database");
 
-const Department = db.sequelize.define("department", {
+const Department = db.sequelize.define("departments", {
   id: {
     type: db.Sequelize.DataTypes.UUID,
     defaultValue: db.Sequelize.UUIDV4,
@@ -34,5 +34,6 @@ const Department = db.sequelize.define("department", {
     defaultValue: db.Sequelize.NOW,
   },
 });
+
 
 module.exports = Department;

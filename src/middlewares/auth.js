@@ -70,7 +70,7 @@ const verifyToken = async (req, res, next) => {
               )
             );
           } else {
-            console.log("decoded ::",decoded);
+            console.log("decoded :::",decoded);
             req.loggersId = decoded.id;
             req.roleId = decoded.roleId;
 
