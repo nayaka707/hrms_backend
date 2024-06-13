@@ -13,7 +13,7 @@ const {
 
 const updateRole = async (req, res) => {
   try {
-    const roleId = req.params.roleId;
+    const roleId = req.body.id;
     const roleName = req.body.name;
     const activeStatus = req.body.isActive;
     const permissions = req.body.permissions;

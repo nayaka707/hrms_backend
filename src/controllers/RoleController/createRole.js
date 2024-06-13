@@ -11,7 +11,7 @@ const {
 
 const createRole = async (req, res) => {
   try {
-    const roleName = req.body.roleName;
+    const roleName = req.body.name;
     const permissions = req.body.permissions;
     const isActive = constants.ACTIVE;
 

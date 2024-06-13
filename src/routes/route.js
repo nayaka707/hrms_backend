@@ -1,6 +1,6 @@
 const { verifyToken, checkRole } = require("../middlewares/auth");
 const { checkToken } = require("../middlewares/resetPWAuth");
-const { AdminController, EmployeeController, BankController, DesignationController, RoleController, DepartmentController } = require("../controllers/index");
+const { AdminController, EmployeeController, BankController, DesignationController, RoleController, DepartmentController, RouteController } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
 module.exports = (app) => {
@@ -39,20 +39,22 @@ module.exports = (app) => {
   // Designation Routes
   app.post('/addDesignation', [verifyToken], DesignationController.createDesignation);
   app.get('/getAllDesignation',[verifyToken], DesignationController.getAllDesignation)
-  app.put('/updateDesignation', [verifyToken], DesignationController.updateDesignation);
-  app.put('/deleteDesignation', [verifyToken], DesignationController.deleteDesignation);
+  app.put('/updateDesignation/:id', [verifyToken], DesignationController.updateDesignation);
+  app.put('/deleteDesignation/:id', [verifyToken], DesignationController.deleteDesignation);
 
   // Role Routes
   app.get('/getAllRoles', [verifyToken], RoleController.getAllRoles);
-  app.get('/getRole', [verifyToken], RoleController.getRole);
+  app.get('/getRole/:id', [verifyToken], RoleController.getRole);
   app.post('/createRole', [verifyToken], RoleController.createRole);
-  app.put('/deleteRole', [verifyToken], RoleController.deleteRole);
+  app.put('/deleteRole/:id', [verifyToken], RoleController.deleteRole);
   app.post('/updateRole', [verifyToken], RoleController.updateRole);
 
   // Department Routes
   app.post('/addDepartment', [verifyToken], DepartmentController.createDepartment);
   app.get('/getAllDepartment', [verifyToken], DepartmentController.getAllDepartment);
-  app.put('/updateDepartment', [verifyToken], DepartmentController.updateDepartment);
-  app.put('/deleteDepartment', [verifyToken], DepartmentController.deleteDepartment);
+  app.put('/updateDepartment/:id', [verifyToken], DepartmentController.updateDepartment);
+  app.put('/deleteDepartment/:id', [verifyToken], DepartmentController.deleteDepartment);
+
+  app.get('/getAllRoutes', [verifyToken], RouteController.getAllRoutes);
 
 };

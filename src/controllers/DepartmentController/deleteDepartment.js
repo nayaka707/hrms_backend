@@ -10,7 +10,7 @@ const {
 
 const deleteDepartment = async (req, res) => {
   try {
-    const departmentId = req.params.departmentId;
+    const departmentId = req.params.id;
 
     const departmentData = await Department.findByPk(departmentId);
     if (!departmentData) {

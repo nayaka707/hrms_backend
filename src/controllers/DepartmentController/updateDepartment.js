@@ -10,7 +10,7 @@ const {
 
 const updateDepartment = async (req, res) => {
   try {
-    const departmentId = req.params.departmentId;
+    const departmentId = req.params.id;
     const departmentName = req.body.name;
 
     const departmentData = await Department.findByPk(departmentId);

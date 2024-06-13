@@ -12,7 +12,7 @@ const {
 
 const deleteRole = async (req, res) => {
   try {
-    const roleId = req.params.roleId;
+    const roleId = req.params.id;
     const role = await Role.findOne({ where: { id: roleId } });
     if (!role) {
       logger.warn(

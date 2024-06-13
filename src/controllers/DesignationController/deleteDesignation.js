@@ -13,7 +13,7 @@ const {
 const deleteDesignation = async (req, res) => {
   try {
     const role = req.roleId;
-    const designationId = req.params.designationId;
+    const designationId = req.params.id;
 
     const roleName = await Role.findOne({ where: { id: role } });
     if (roleName.name !== constants.ADMIN || roleName.name !== constants.HR) {

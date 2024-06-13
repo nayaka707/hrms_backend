@@ -4,6 +4,7 @@ const BankController = require("./BankController/bankIndex")
 const DesignationController = require('./DesignationController/designationIndex')
 const RoleController = require('./RoleController/roleIndex')
 const DepartmentController = require("./DepartmentController/departmentIndex");
+const RouteController = require("./RoutesController/routesIndex");
 
 module.exports = {
   AdminController,
@@ -12,4 +13,5 @@ module.exports = {
   DesignationController,
   RoleController,
   DepartmentController,
+  RouteController,
 };
