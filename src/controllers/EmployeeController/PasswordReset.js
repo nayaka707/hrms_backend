@@ -7,8 +7,9 @@ const {
   bcrypt,
   logger,
   sendEmail,
-  generateToken,
-  getRoleById,
+  jwt,
+  TOKEN_SECRET,
+  TOKEN_MAXAGE,
 } = require("./employeePackageCentral");
 
 const resetPassword = (req, res) => {
@@ -343,7 +344,9 @@ const forgotPassword = async (req, res) => {
       );
     }
 
-    const role = await getRoleById(user.roleId);
+    const role = await Role.findOne({
+      where: { id: user.roleId, isActive: constants.ACTIVE },
+    });
     if (!role) {
       return res
         .status(statusCode.notFound)
@@ -356,7 +359,17 @@ const forgotPassword = async (req, res) => {
           )
         );
     }
-    const token = generateToken(user, role);
+    const token = jwt.sign(
+      {
+        id: user.id,
+        roleId: user.roleId,
+        role: role.name,
+        employeeId: user.id,
+        name: `${user.firstName} ${user.middleName} ${user.lastName}`,
+      },
+      TOKEN_SECRET,
+      { expiresIn: Number(TOKEN_MAXAGE) }
+    );
     res.send(
       successResponseFunc(
         "Email sent successfully.",
