@@ -35,7 +35,7 @@ const addEmployee = (req, res) => {
       const {
         firstName,
         email,
-        middleName = req.body.firstName,
+        middleName,
         lastName,
         dateOfJoining,
         phoneNumber,
@@ -52,6 +52,7 @@ const addEmployee = (req, res) => {
         permanentAddress,
         reportTo,
       } = req.body;
+      console.log("body --->", req.body);
       const authRoleId = req.roleId;
       let profilePicture = null;
       if (files.length > 0) {

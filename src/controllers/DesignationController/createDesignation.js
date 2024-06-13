@@ -15,7 +15,7 @@ const createDesignation = async (req, res) => {
     const designationName = req.body.designationName;
 
     const roleName = await Role.findOne({ where: { id: role } });
-    if (roleName.name !== constants.ADMIN || roleName.name !== constants.HR) {
+    if (roleName.name !== constants.ADMIN && roleName.name !== constants.HR) {
       logger.warn(
         errorResponseFunc(
           "Only Super Admin or HR can create Designation.",

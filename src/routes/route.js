@@ -16,7 +16,8 @@ module.exports = (app) => {
   
   app.post("/addEmployee", [verifyToken], EmployeeController.addEmployee);
   app.post("/employeeLogin", EmployeeController.employeeLogin);
-  app.post("/forgot-password", [checkToken], EmployeeController.forgetPassword);
+  app.post("/forgot-password", EmployeeController.forgotPassword);
+  app.post("/verify-password", [verifyToken], EmployeeController.verifyPassword);
   app.post("/resetPassword", [verifyToken], EmployeeController.resetPassword);
   app.get("/getAllEmployees", EmployeeController.getAllEmployeesData);
   app.put(
@@ -29,6 +30,7 @@ module.exports = (app) => {
     [verifyToken],
     EmployeeController.deleteEmployee
   );
+  app.get('/getReportPerson', [verifyToken], EmployeeController.getReportTo);
   app.get("/getByIdEmployee", [verifyToken], EmployeeController.getByIdEmployeesData );
   app.post("/employeeDocument", [verifyToken], EmployeeDocument.addEmployeeDocument );
   app.post("/addAttendance", AttendanceController.addEmployeeAttendance);
