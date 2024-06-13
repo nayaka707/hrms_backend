@@ -15,8 +15,10 @@ const {
   sendEmail
 } = require("../../utils/utilsIndex");
 require("dotenv").config();
+const Sequelize = require("sequelize");
 const path = require("path");
 const logger = require("../../services/loggerService");
+const { generateToken, getRoleById } = require("./employeeLogin");
 module.exports = {
   Employees,
   bcrypt,
@@ -35,4 +37,7 @@ module.exports = {
   TOKEN_MAXAGE,
   sendEmail,
   Route,
+  Sequelize,
+  generateToken,
+  getRoleById
 };
