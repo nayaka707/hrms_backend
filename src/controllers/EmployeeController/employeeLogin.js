@@ -127,4 +127,4 @@ const employeeLogin = async (req, res) => {
   }
 };
 
-module.exports = { employeeLogin }
+module.exports = { employeeLogin, generateToken, getRoleById };
