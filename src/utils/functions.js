@@ -2,8 +2,15 @@ const fs = require("fs");
 
 function unlinkFiles(files) {
   if (files.length !== 0) {
-    console.log("deleted file =======>", files, files.length);
-    fs.unlink(files[0].path, () => {});
+    files.map(file => {
+      fs.unlink(file.path, (err) => {
+        if (err) {
+          console.log(`Error deleting file ${file.path}:`, err);
+        } else {
+          console.log(`Successfully deleted ${file.path}`);
+        }
+      });
+    });
   }
 }
 

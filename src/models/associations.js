@@ -3,8 +3,11 @@ const {
   Role,
   Department,
   Designation,
+  EmployeeDocuments,
+  ExperienceDetails,
   Permission,
   Route,
+  Attendance,
   BankDetails
 } = require("../models/modelsIndex");
 
@@ -13,8 +16,11 @@ const models = {
   Role: Role,
   Department: Department,
   Designation: Designation,
+  EmployeeDocuments: EmployeeDocuments,
+  ExperienceDetails: ExperienceDetails,
   Permission: Permission,
   Route: Route,
+  Attendance: Attendance,
   BankDetails: BankDetails
 };
 

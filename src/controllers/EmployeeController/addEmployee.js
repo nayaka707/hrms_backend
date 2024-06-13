@@ -7,13 +7,12 @@ const {
   errorResponseFunc,
   unlinkFiles,
   logger,
-} = require("./adminPackageCentral.js");
-const { adminCreatorFunc } = require("./adminUtils.js");
-const addAdmin = (req, res) => {
+} = require("./employeePackageCentral");
+const { employeeCreatorFunc } = require("./employeeUtils");
+const addEmployee = (req, res) => {
   try {
-    logger.info("/addSuperAdmin route accessed.");
+    logger.info("/addEmployee route accessed.");
     const { files = [] } = req;
-    console.log("addAdmin files ::", files);
     if (Object.keys(req.body).length === 0) {
       unlinkFiles(req.files);
       logger.warn(
@@ -53,6 +52,7 @@ const addAdmin = (req, res) => {
         permanentAddress,
         reportTo,
       } = req.body;
+      const authRoleId = req.roleId;
       let profilePicture = null;
       if (files.length > 0) {
         const file = files[0];
@@ -112,58 +112,82 @@ const addAdmin = (req, res) => {
               })
                 .then(async (data) => {
                   try {
-                    if (data) {
-                      const adminDetails = {
-                        email: email,
-                        roleId: data.id,
+                    Role.findOne({
+                      where: {
+                        id: authRoleId,
                         isActive: constants.ACTIVE,
-                        firstName: firstName,
-                        middleName: middleName,
-                        lastName: lastName,
-                        dateOfJoining: dateOfJoining,
-                        phoneNumber: phoneNumber,
-                        departmentId: departmentId,
-                        designationId: designationId,
-                        pancardNo: pancardNo,
-                        aadharNo: aadharNo,
-                        uanNo: uanNo,
-                        workLocation: workLocation,
-                        pfNo: pfNo,
-                        gender: gender,
-                        currentAddress: currentAddress,
-                        permanentAddress: permanentAddress,
-                        reportTo: reportTo,
-                        profilePicture: profilePicture,
-                      };
+                      },
+                    }).then((authRoleData) => {
+                      if (
+                        (authRoleData.name === "HR" &&
+                          data.name === "SUPER ADMIN") ||
+                        authRoleData.name === "EMPLOYEE"
+                      ) {
+                        res
+                          .status(statusCode.badRequest)
+                          .send(
+                            errorResponseFunc(
+                              "Invalid account creation attempt. HR can only create HR and employee accounts. SUPER ADMIN can create HR and employee accounts. Employees cannot create any accounts.",
+                              "Account creation error.",
+                              statusCode.badRequest,
+                              constants.BADREQUEST
+                            )
+                          );
+                      } else {
+                        if (data) {
+                          const adminDetails = {
+                            email: email,
+                            roleId: data.id,
+                            isActive: constants.ACTIVE,
+                            firstName: firstName,
+                            middleName: middleName,
+                            lastName: lastName,
+                            dateOfJoining: dateOfJoining,
+                            phoneNumber: phoneNumber,
+                            departmentId: departmentId,
+                            designationId: designationId,
+                            pancardNo: pancardNo,
+                            aadharNo: aadharNo,
+                            uanNo: uanNo,
+                            workLocation: workLocation,
+                            pfNo: pfNo,
+                            gender: gender,
+                            currentAddress: currentAddress,
+                            permanentAddress: permanentAddress,
+                            reportTo: reportTo,
+                            profilePicture: profilePicture,
+                          };
 
-                      await adminCreatorFunc(adminDetails);
+                          employeeCreatorFunc(adminDetails, req.files);
 
-                      res.send(
-                        successResponseFunc(
-                          `Created successfully.`,
-                          statusCode.created,
-                          constants.CREATED
-                        )
-                      );
-                    } else {
-                      unlinkFiles(req.files);
-                      logger.warn(
-                        errorResponseFunc(
-                          "Role not found.",
-                          "Role not found.",
-                          statusCode.notFound,
-                          constants.NOTFOUND
-                        )
-                      );
-                      res.send(
-                        errorResponseFunc(
-                          "Role not found.",
-                          "Role not found.",
-                          statusCode.notFound,
-                          constants.NOTFOUND
-                        )
-                      );
-                    }
+                          res.send(
+                            successResponseFunc(
+                              `Created successfully.`,
+                              statusCode.created,
+                              constants.CREATED
+                            )
+                          );
+                        } else {
+                          unlinkFiles(req.files);
+                          logger.warn(
+                            errorResponseFunc(
+                              "Role not found.",
+                              "Role not found.",
+                              statusCode.notFound,
+                              constants.NOTFOUND
+                            )
+                          );
+                          res.send(
+                            errorResponseFunc(
+                              "Role not found.",
+                              "Role not found.",
+                              statusCode.notFound,
+                              constants.NOTFOUND
+                            )
+                          );
+                        }
+                      }
+                    });
                   } catch (err) {
                     unlinkFiles(req.files);
                     logger.error(
@@ -265,4 +289,4 @@ const addAdmin = (req, res) => {
   }
 };
 
-module.exports = addAdmin;
+module.exports = { addEmployee };

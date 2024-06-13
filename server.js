@@ -10,6 +10,8 @@ const pinoLogger = require("pino-http");
 const logger = require("./src/services/loggerService");
 const env = require("dotenv")
 const { upload } = require("./src/middlewares/fileUpload");
+const { path } = require("./src/controllers/EmployeeDocument/employeeDocumentPackageCentral");
+
 
 const swaggerOptions = {
   definition: {

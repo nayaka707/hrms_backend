@@ -10,6 +10,8 @@ const {
   statusCode,
   errorResponseFunc,
   successResponseFunc,
+  unlinkFiles,
+  temporaryPasswordString,
   sendEmail
 } = require("../../utils/utilsIndex");
 require("dotenv").config();
@@ -25,6 +27,8 @@ module.exports = {
   Role,
   successResponseFunc,
   errorResponseFunc,
+  temporaryPasswordString,
+  unlinkFiles,
   path,
   logger,
   TOKEN_SECRET,
