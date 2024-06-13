@@ -17,7 +17,7 @@ const addEmployeeAttendance = async (req, res) => {
 
     console.log("files --->", files);
     if (files.length === 0) {
-      unlinkFiles(req.files);
+      unlinkFiles(req.files || files);
       logger.warn(
         errorResponseFunc(
           "There is no request body.",
@@ -35,7 +35,7 @@ const addEmployeeAttendance = async (req, res) => {
         )
       );
     } else if (files.length > 1) {
-      unlinkFiles(req.files);
+      unlinkFiles(req.files || files);
       const errorMessage =
         "Only one file is allowed. Multiple files were uploaded.";
       logger.warn(
@@ -163,7 +163,7 @@ const addEmployeeAttendance = async (req, res) => {
       );
     }
   } catch (err) {
-    unlinkFiles(req.files);
+    unlinkFiles(req.files || files);
     logger.error(
       errorResponseFunc(
         "Encountered error while syncing the attendance table.",

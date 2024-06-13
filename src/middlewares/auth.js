@@ -73,6 +73,7 @@ const verifyToken = async (req, res, next) => {
             console.log("decoded :::",decoded);
             req.loggersId = decoded.id;
             req.roleId = decoded.roleId;
+            req.roleName = decoded.role;
 
             if (!decoded.roleId) {
               logger.warn(
