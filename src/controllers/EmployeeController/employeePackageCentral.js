@@ -21,7 +21,7 @@ const path = require("path");
 const logger = require("../../services/loggerService");
 
 const { Op } = require("sequelize");
-const PUBLIC_URL = "http://192.168.29.38:9000/src/public/uploads/profilePicture";
+const PUBLIC_URL = `http://192.168.29.246:9000/src/public/uploads`;
 // D:\workroot\darshit\HRMS_BACKEND\hrms_backend\src\public\uploads\profilePicture\profilePicture-1718089217891-322913627.png
 module.exports = {
   Employees,

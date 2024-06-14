@@ -11,26 +11,55 @@ const {
   models,
   Op,
   logger,
+  Sequelize,
 } = require("./employeePackageCentral");
 
-const getAllEmployeesData = (req, res) => {
+const getAllEmployeesData = async (req, res) => {
   try {
-    const employeeId = req.loggersId;
     const role = req.roleName;
+    let employeeName = req.query.employeeName?.trim().replace(/^"|"$/g, "");
 
-    Employees.findAll({
-      where: { id: { [Op.ne]: employeeId } },
+    let whereClause = {
+      isActive: constants.ACTIVE,
+    };
+    if (employeeName) {
+      whereClause[Op.or] = [
+        Sequelize.where(
+          Sequelize.fn(
+            "concat",
+            Sequelize.col("firstName"),
+            " ",
+            Sequelize.col("lastName")
+          ),
+          {
+            [Op.iLike]: `%${employeeName}%`,
+          }
+        ),
+        { firstName: { [Op.iLike]: `%${employeeName}%` } },
+        { lastName: { [Op.iLike]: `%${employeeName}%` } },
+      ];
+    };
+
+    let roleWhereClause = {};
+    if (role === constants.ADMIN) {
+      // No role filtering needed for SUPER ADMIN
+    } else if (role === constants.HR) {
+      roleWhereClause = {
+        name: {
+          [Op.notIn]: [constants.ADMIN],
+        },
+      };
+    };
+
+    await Employees.findAll({
+      where: whereClause,
       attributes: [
         "id",
         "firstName",
         "lastName",
         "middleName",
         [
-          literal(
-            `'${
-              PUBLIC_URL + "/profilePicture/"
-            }' || "employees"."profilePicture"`
-          ),
+          literal(`'${PUBLIC_URL}/profilePicture/' || "profilePicture"`),
           "profilePicture",
         ],
       ],
@@ -38,11 +67,7 @@ const getAllEmployeesData = (req, res) => {
         model: Role,
         attributes: ["id", "name"],
         as: "role",
-        where: {
-          name: {
-            [Op.notIn]: ["SUPER ADMIN", ...(role === "EMPLOYEE" ? ["HR"] : [])],
-          },
-        },
+        where: roleWhereClause,
       },
     })
       .then((data) => {
@@ -95,7 +120,7 @@ const getAllEmployeesData = (req, res) => {
 
 const getByIdEmployeesData = (req, res) => {
   try {
-    const employeeId = req.loggersId;
+    const employeeId = req.params.id ? req.params.id : req.loggersId;
 
     Employees.findOne({
       where: {

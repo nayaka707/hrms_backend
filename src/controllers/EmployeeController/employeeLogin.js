@@ -33,7 +33,7 @@ const generateToken = (userData, role) => {
       roleId: userData.roleId,
       role: role.name,
       employeeId: userData.id,
-      name: `${userData.firstName} ${userData.middleName} ${userData.lastName}`,
+      name: `${userData.firstName} ${userData.lastName}`,
     },
     TOKEN_SECRET,
     { expiresIn: Number(TOKEN_MAXAGE) }

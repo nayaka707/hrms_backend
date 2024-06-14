@@ -29,8 +29,6 @@ const {
           pfNo: adminDetails.pfNo,
           gender: adminDetails.gender,
           permanentPasswordSet: "0",
-          currentAddress: adminDetails.currentAddress,
-          permanentAddress: adminDetails.permanentAddress,
           reportTo: adminDetails.reportTo,
           profilePicture: adminDetails.profilePicture,
         })
