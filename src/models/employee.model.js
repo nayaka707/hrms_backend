@@ -136,51 +136,51 @@ const Employees = db.sequelize.define("employees", {
   },
   deletedAt: {
     type: db.Sequelize.DataTypes.DATE,
-    defaultValue: null
+    defaultValue: null,
   },
   emergencyContact: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
   },
   city: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
   },
   state: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
   },
   pincode: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
   },
   passportNumber: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
   },
   fatherName: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
   },
   motherName: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
   },
   nationality: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
   },
   dateOfBirth: {
     type: db.Sequelize.DataTypes.DATE,
-    allowNull: true
+    allowNull: true,
   },
   experience: {
     type: db.Sequelize.DataTypes.FLOAT,
-    allowNull: true
+    allowNull: true,
   },
   qualification: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: true
+    allowNull: true,
   },
   createdAt: {
     allowNull: false,
@@ -214,11 +214,14 @@ Employees.associate = (models) => {
     as: "subordinates",
   });
   Employees.hasOne(models.EmployeeDocuments);
-
+  Employees.hasOne(models.Assets);
+  Employees.hasOne(models.EmergencyContacts, {
+    foreignKey: "employeeId",
+    as: "emergencyContacts",
+  });
   Employees.hasMany(models.ExperienceDetails, {
-    foreignKey: "EmployeeId",
+    foreignKey: "employeeId",
   });
 };
-
 
 module.exports = Employees;

@@ -119,6 +119,7 @@ const addEmployee = (req, res) => {
                         isActive: constants.ACTIVE,
                       },
                     }).then((authRoleData) => {
+                      console.log("authRoleData ::", authRoleData);
                       if (
                         (authRoleData.name === "HR" &&
                           data.name === "SUPER ADMIN") ||

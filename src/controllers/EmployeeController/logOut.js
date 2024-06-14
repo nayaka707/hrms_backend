@@ -15,8 +15,8 @@ const logOut = async (req, res) => {
     if (!employee) {
       return errorResponseFunc(
         "Invalid credencial",
-        statusCode.invalidData,
-        constants.INVALID_CREDENTIALS
+        statusCode.notFound,
+        constants.NOTFOUND
       );
     }
     res.send(
