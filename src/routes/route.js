@@ -1,6 +1,6 @@
 const { verifyToken, checkRole } = require("../middlewares/auth");
 const { checkToken } = require("../middlewares/resetPWAuth");
-const { AdminController, EmployeeController, BankController, DesignationController, RoleController, DepartmentController, RouteController, EmployeeDocument, AttendanceController ,ExperienceDetailsController ,AssetsController,EmergencyContactController } = require("../controllers/index");
+const { AdminController, EmployeeController, BankController, DesignationController, RoleController, DepartmentController, RouteController, EmployeeDocument, AttendanceController, ExperienceDetailsController, AssetsController, EmergencyContactController, EmployeeLogController } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
 module.exports = (app) => {
@@ -13,7 +13,7 @@ module.exports = (app) => {
   // Permission Routes
   app.get("/readPermission", [verifyToken], AdminController.readPermission);
   app.get("/routePermission/:routeId", [verifyToken], AdminController.routePermission);
-  
+
   app.post("/addEmployee", [verifyToken], EmployeeController.addEmployee);
   app.post("/employeeLogin", EmployeeController.employeeLogin);
   app.get("/logOut", EmployeeController.logOut);
@@ -37,8 +37,8 @@ module.exports = (app) => {
   );
 
   app.get('/getReportPerson', [verifyToken], EmployeeController.getReportTo);
-  app.get("/getByIdEmployee", [verifyToken], EmployeeController.getByIdEmployeesData );
-  app.post("/employeeDocument", [verifyToken], EmployeeDocument.addEmployeeDocument );
+  app.get("/getByIdEmployee", [verifyToken], EmployeeController.getByIdEmployeesData);
+  app.post("/employeeDocument", [verifyToken], EmployeeDocument.addEmployeeDocument);
 
   // Attendance Routes
   app.post("/addAttendance", AttendanceController.addEmployeeAttendance);
@@ -51,7 +51,7 @@ module.exports = (app) => {
 
   // Designation Routes
   app.post('/addDesignation', [verifyToken], DesignationController.createDesignation);
-  app.get('/getAllDesignation',[verifyToken], DesignationController.getAllDesignation)
+  app.get('/getAllDesignation', [verifyToken], DesignationController.getAllDesignation)
   app.put('/updateDesignation/:id', [verifyToken], DesignationController.updateDesignation);
   app.put('/deleteDesignation/:id', [verifyToken], DesignationController.deleteDesignation);
 
@@ -80,4 +80,8 @@ module.exports = (app) => {
   // EmergencyContact Routes
   app.post('/addEmergencyContact', [verifyToken], EmergencyContactController.addEmergencyContacts);
   app.delete('/deleteEmergencyContact', [verifyToken], EmergencyContactController.deleteEmergencyContacts);
+  
+  app.post('/attendance/employeeLog/create', [verifyToken], EmployeeLogController.createEmployeeLogDetails)
+  app.get('/attendance/getByEmployeeCode', [verifyToken], EmployeeLogController.getEmployeeLogDetails)
+
 };

@@ -33,6 +33,7 @@ const generateToken = (userData, role) => {
       roleId: userData.roleId,
       role: role.name,
       employeeId: userData.id,
+      employee_code: userData.employee_code,
       name: `${userData.firstName} ${userData.middleName} ${userData.lastName}`,
     },
     TOKEN_SECRET,

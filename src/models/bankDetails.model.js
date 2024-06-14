@@ -20,6 +20,10 @@ const BankDetails = db.sequelize.define("bankDetails", {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
+    branchName: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false
+    },
     accountNo: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
@@ -51,5 +55,12 @@ const BankDetails = db.sequelize.define("bankDetails", {
     }
 })
 
+
+BankDetails.associate = (models) => {
+    BankDetails.belongsTo(models.Employees, {
+        foreignKey: "employeeId",
+    })
+
+}
 
 module.exports = BankDetails
