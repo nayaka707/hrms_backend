@@ -1,9 +1,20 @@
 const models = require("../../models/associations");
-const { Employees, Role, Route } = models;
+const {
+  Employees,
+  Role,
+  Route,
+  BankDetails,
+  EmergencyContacts,
+  EmployeeDocuments,
+  ExperienceDetails,
+  Assets,
+  Department,
+  Designation,
+} = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE
-const TOKEN_SECRET = process.env.TOKEN_SECRET
+const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE;
+const TOKEN_SECRET = process.env.TOKEN_SECRET;
 // const PUBLIC_URL = process.env.PUBLIC_URL
 const {
   constants,
@@ -13,7 +24,7 @@ const {
   successResponseFunc,
   unlinkFiles,
   temporaryPasswordString,
-  sendEmail
+  sendEmail,
 } = require("../../utils/utilsIndex");
 require("dotenv").config();
 const Sequelize = require("sequelize");
@@ -26,6 +37,13 @@ const PUBLIC_URL = `http://192.168.29.246:9000/src/public/uploads`;
 module.exports = {
   Employees,
   bcrypt,
+  BankDetails,
+  EmergencyContacts,
+  EmployeeDocuments,
+  ExperienceDetails,
+  Assets,
+  Department,
+  Designation,
   constants,
   jwt,
   statusCode,

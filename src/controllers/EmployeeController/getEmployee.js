@@ -4,6 +4,13 @@ const {
   statusCode,
   constants,
   errorResponseFunc,
+  BankDetails,
+  EmergencyContacts,
+  EmployeeDocuments,
+  ExperienceDetails,
+  Assets,
+  Department,
+  Designation,
   successResponseFunc,
   PUBLIC_URL,
   bcrypt,
@@ -118,43 +125,74 @@ const getAllEmployeesData = async (req, res) => {
   }
 };
 
-const getByIdEmployeesData = (req, res) => {
+const getByIdEmployeesData = async (req, res) => {
   try {
     const employeeId = req.params.id ? req.params.id : req.loggersId;
 
-    Employees.findOne({
+    const reportToId = await models.Employees.findOne({
       where: {
-        id: employeeId,
+        id: findAllEmployeeDtails.dataValues.ReportTo,
       },
-    })
-      .then((data) => {
-        res.send(
-          successResponseFunc(
-            "Here is the Employee's data.",
-            statusCode.success,
-            constants.SUCCESS,
-            data
-          )
-        );
-      })
-      .catch((err) => {
-        logger.error(
-          errorResponseFunc(
-            "Encountered error after checking if this exists.",
-            err.toString(),
-            statusCode.internalServerError,
-            constants.ERROR
-          )
-        );
-        res.send(
-          errorResponseFunc(
-            "Encountered error after checking if this exists.",
-            err.toString(),
-            statusCode.internalServerError,
-            constants.ERROR
-          )
-        );
-      });
+    });
+    const experience = await models.ExperienceDetails.findAll({
+      where: {
+        EmployeeId: payload.EmployeeId,
+      },
+    });
+
+    const userDetails = {
+      ...response.data.dataValues,
+      ReportingToName: response.ReportingToName,
+      Department: response.DepartmentId,
+      Designation: response.DesignationId,
+    };
+    delete userDetails.EmployeeDocument;
+    delete userDetails.EmployeeBankDetail;
+    delete userDetails.EmergencyContact;
+
+    const documentsData = response.data.dataValues.EmployeeDocument;
+
+    const documentDetails = {
+      ...documentsData?.dataValues,
+    };
+
+    const bankDetailsData =
+      response.data.dataValues.EmployeeBankDetail?.dataValues;
+
+    const bankDetails = {
+      BankName: bankDetailsData?.BankName,
+      AccountNO: bankDetailsData?.AccountNO,
+      IFSCCode: bankDetailsData?.IFSCCode,
+      BranchName: bankDetailsData?.BranchName,
+    };
+    const emergencyContactData =
+      response.data.dataValues.EmergencyContact?.dataValues;
+
+    const EmergencyContact = {
+      PrimaryName: emergencyContactData?.PrimaryName,
+      PrimaryRelation: emergencyContactData?.PrimaryRelationship,
+      PrimaryPhoneNo: emergencyContactData?.PrimaryPhoneNo,
+      SecondaryName: emergencyContactData?.SecondaryName,
+      SecondaryRelation: emergencyContactData?.SecondRelationship,
+      SecondaryPhoneNo: emergencyContactData?.SecondaryPhoneNo,
+    };
+
+    const data = {
+      employee: userDetails,
+      documents: documentDetails,
+      bankDetails: bankDetails,
+      emergencyContacts: EmergencyContact,
+      experienceDetails: response?.ExperienceDetails,
+    };
+
+    res.send(
+      successResponseFunc(
+        "Here is the Employees Data's data.",
+        statusCode.success,
+        constants.SUCCESS,
+        data
+      )
+    );
   } catch (err) {
     logger.error(
       errorResponseFunc(

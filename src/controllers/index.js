@@ -8,6 +8,12 @@ const DesignationController = require('./DesignationController/designationIndex'
 const RoleController = require('./RoleController/roleIndex')
 const DepartmentController = require("./DepartmentController/departmentIndex");
 const RouteController = require("./RoutesController/routesIndex");
+const ExperienceDetailsController = require("./ExperienceDetailsController/experienceDetailsIndex");
+const AssetsController = require("./AssetsController/assetsIndex");
+const EmergencyContactController = require("./EmergencyContactController/emergencyContactIndex");
+
+
+const EmployeeLogController = require('./EmployeeLogController/employeeLogIndex')
 
 module.exports = {
   AdminController,
@@ -20,4 +26,8 @@ module.exports = {
   RoleController,
   DepartmentController,
   RouteController,
+  ExperienceDetailsController,
+  AssetsController,
+  EmergencyContactController,
+  EmployeeLogController
 };
