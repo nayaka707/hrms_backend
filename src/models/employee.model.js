@@ -182,6 +182,10 @@ const Employees = db.sequelize.define("employees", {
     type: db.Sequelize.DataTypes.STRING,
     allowNull: true,
   },
+  employee_code: {
+    type: db.Sequelize.DataTypes.STRING,
+    allowNull: false
+  },
   createdAt: {
     allowNull: false,
     type: db.Sequelize.DataTypes.DATE,
@@ -222,6 +226,8 @@ Employees.associate = (models) => {
   Employees.hasMany(models.ExperienceDetails, {
     foreignKey: "employeeId",
   });
+  Employees.hasOne(models.BankDetails);
+
 };
 
 module.exports = Employees;
