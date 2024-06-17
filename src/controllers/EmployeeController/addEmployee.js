@@ -14,7 +14,7 @@ const addEmployee = (req, res) => {
     logger.info("/addEmployee route accessed.");
     const { files = [] } = req;
     if (Object.keys(req.body).length === 0) {
-      unlinkFiles(req.files);
+      unlinkFiles(req.files || files);
       logger.warn(
         errorResponseFunc(
           "There is no request body.",
@@ -71,7 +71,7 @@ const addEmployee = (req, res) => {
         !roleId ||
         !reportTo
       ) {
-        unlinkFiles(req.files);
+        unlinkFiles(req.files || files);
         logger.warn(
           errorResponseFunc(
             "Please fill all the fields.",
@@ -159,7 +159,7 @@ const addEmployee = (req, res) => {
                             )
                           );
                         } else {
-                          unlinkFiles(req.files);
+                          unlinkFiles(req.files || files);
                           logger.warn(
                             errorResponseFunc(
                               "Role not found.",
@@ -180,7 +180,7 @@ const addEmployee = (req, res) => {
                       }
                     });
                   } catch (err) {
-                    unlinkFiles(req.files);
+                    unlinkFiles(req.files || files);
                     logger.error(
                       errorResponseFunc(
                         "Encountered error while creating the admin.",
@@ -200,7 +200,7 @@ const addEmployee = (req, res) => {
                   }
                 })
                 .catch((err) => {
-                  unlinkFiles(req.files);
+                  unlinkFiles(req.files || files);
                   logger.error(
                     errorResponseFunc(
                       "Encountered error while checking if this role exists.",
@@ -219,7 +219,7 @@ const addEmployee = (req, res) => {
                   );
                 });
             } else {
-              unlinkFiles(req.files);
+              unlinkFiles(req.files || files);
               logger.error(
                 errorResponseFunc(
                   "Email already exists.",
@@ -239,7 +239,7 @@ const addEmployee = (req, res) => {
             }
           })
           .catch((err) => {
-            unlinkFiles(req.files);
+            unlinkFiles(req.files || files);
             logger.error(
               errorResponseFunc(
                 "Encountered error after checking if this admin exists.",
@@ -260,7 +260,7 @@ const addEmployee = (req, res) => {
       }
     }
   } catch (err) {
-    unlinkFiles(req.files);
+    unlinkFiles(req.files || files);
     logger.error(
       errorResponseFunc(
         "Encountered error while syncing the admin table.",

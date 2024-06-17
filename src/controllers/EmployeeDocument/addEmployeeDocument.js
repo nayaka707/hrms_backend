@@ -14,7 +14,7 @@ const addEmployeeDocument = async (req, res) => {
   try {
     const { files = [] } = req;
     if (files.length === 0) {
-      unlinkFiles(req.files);
+      unlinkFiles(req.files || files);
       logger.warn(
         errorResponseFunc(
           "There is no request body.",
@@ -23,7 +23,7 @@ const addEmployeeDocument = async (req, res) => {
           constants.BADREQUEST
         )
       );
-      return  res.send(
+      return res.send(
         errorResponseFunc(
           "There is no request body.",
           "No request body.",
@@ -38,16 +38,24 @@ const addEmployeeDocument = async (req, res) => {
         return accumulator;
       }, {});
       const payload = {
-        tenMarksheet: obj.tenMarksheet || null,
-        twelveMarksheet: obj.twelveMarksheet || null,
-        degreeMarksheet: obj.degreeMarksheet || null,
-        adharCard: obj.adharCard || null,
-        panCard: obj.panCard || null,
-        salarySlip1: obj.salarySlip1 || null,
-        salarySlip2: obj.salarySlip2 || null,
-        salarySlip3: obj.salarySlip3 || null,
-        probationComplitionLetter: obj.probationComplitionLetter || null,
-        appointmentLetter: obj.appointmentLetter || null,
+        ...(obj.tenMarksheet && { tenMarksheet: obj.tenMarksheet || null }),
+        ...(obj.twelveMarksheet && {
+          twelveMarksheet: obj.twelveMarksheet || null,
+        }),
+        ...(obj.degreeMarksheet && {
+          degreeMarksheet: obj.degreeMarksheet || null,
+        }),
+        ...(obj.adharCard && { adharCard: obj.adharCard || null }),
+        ...(obj.panCard && { panCard: obj.panCard || null }),
+        ...(obj.salarySlip1 && { salarySlip1: obj.salarySlip1 || null }),
+        ...(obj.salarySlip2 && { salarySlip2: obj.salarySlip2 || null }),
+        ...(obj.salarySlip3 && { salarySlip3: obj.salarySlip3 || null }),
+        ...(obj.probationComplitionLetter && {
+          probationComplitionLetter: obj.probationComplitionLetter || null,
+        }),
+        ...(obj.appointmentLetter && {
+          appointmentLetter: obj.appointmentLetter || null,
+        }),
         employeeId: req.loggersId,
       };
       const employeeDocuments = await EmployeeDocuments.findOne({
@@ -55,12 +63,13 @@ const addEmployeeDocument = async (req, res) => {
           employeeId: payload.employeeId,
         },
       });
+
       if (!employeeDocuments) {
         await EmployeeDocuments.create({
           ...payload,
-          isActive: "0",
+          isActive: "1",
         });
-        return  res.send(
+        return res.send(
           successResponseFunc(
             `Documents created successfully`,
             statusCode.created,
@@ -86,21 +95,19 @@ const addEmployeeDocument = async (req, res) => {
           if (fs.existsSync(oldProfile)) {
             try {
               fs.unlinkSync(oldProfile);
-              console.log(`Deleted old file: ${oldProfile}`);
             } catch (err) {
               console.error(`Error deleting file ${oldProfile}:`, err);
             }
           }
         }
       });
-
       await EmployeeDocuments.update(
         { ...payload, isActive: constants.ACTIVE },
         {
           where: { employeeId: payload.employeeId },
         }
       );
-      return  res.send(
+      return res.send(
         successResponseFunc(
           `Documents update successfully`,
           statusCode.success,
@@ -109,18 +116,18 @@ const addEmployeeDocument = async (req, res) => {
       );
     }
   } catch (err) {
-    unlinkFiles(req.files);
+    unlinkFiles(req.files || files);
     logger.error(
       errorResponseFunc(
-        "Encountered error while syncing the admin table.",
+        "Encountered error while syncing the document table.",
         err.toString(),
         statusCode.internalServerError,
         constants.ERROR
       )
     );
-    return  res.send(
+    return res.send(
       errorResponseFunc(
-        "Encountered error while syncing the admin table.",
+        "Encountered error while syncing the document table.",
         err.toString(),
         statusCode.internalServerError,
         constants.ERROR

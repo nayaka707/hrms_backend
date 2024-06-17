@@ -25,7 +25,7 @@ module.exports = (app) => {
   app.delete("/deleteEmployee/:employeeId", [verifyToken], EmployeeController.deleteEmployee);
 
   app.get('/getReportPerson', [verifyToken], EmployeeController.getReportTo);
-  app.get("/getByIdEmployee/:id", [verifyToken], EmployeeController.getByIdEmployeesData);
+  app.get("/getByIdEmployee/:id?", [verifyToken], EmployeeController.getByIdEmployeesData);
   app.post("/employeeDocument", [verifyToken], EmployeeDocument.addEmployeeDocument);
 
   // Attendance Routes

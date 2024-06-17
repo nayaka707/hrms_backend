@@ -49,6 +49,8 @@ const loggerMidlleware = pinoLogger({
   logger: logger,
   autoLogging: true,
 });
+
+app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(upload.any());
 
 app.use(loggerMidlleware);

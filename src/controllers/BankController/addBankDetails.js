@@ -20,8 +20,8 @@ const addBankDetails = async (req, res) => {
             ))
 
         }
-        const employeeId = req.employeeId
-        const { bankName, accountNo, IFSC, isActive, } = req.body
+        const employeeId = req.loggersId;
+        const { bankName, accountNo, IFSC } = req.body
 
         const employeeBank = await models.BankDetails.findOne({ where: { employeeId } })
         if (employeeBank) {
@@ -35,7 +35,7 @@ const addBankDetails = async (req, res) => {
             );
         }
 
-        if (!bankName || !accountNo || !IFSC || !isActive) {
+        if (!bankName || !accountNo || !IFSC ) {
             logger.warn(
                 errorResponseFunc(
                     "Please fill all the fields.",
@@ -58,7 +58,7 @@ const addBankDetails = async (req, res) => {
             bankName,
             accountNo,
             IFSC,
-            isActive
+            isActive : "1"
         })
         return res.send(
             successResponseFunc(

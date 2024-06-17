@@ -108,7 +108,6 @@ const readPermission = async (req, res) => {
         priority,
         ChildRoute: buildTree(id),
       }));
-      console.log("access ----> ", access);
 
       res.send(
         successResponseFunc(

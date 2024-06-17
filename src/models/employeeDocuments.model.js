@@ -74,8 +74,8 @@ const EmployeeDocuments = db.sequelize.define("employeeDocuments", {
 
 EmployeeDocuments.associate = (models) => {
   EmployeeDocuments.belongsTo(models.Employees, {
-    foreignKey: "employeeId",
-    onDelete: "CASCADE",
+      foreignKey: "employeeId",
+      onDelete: "CASCADE",
   });
 };
 

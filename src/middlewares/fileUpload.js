@@ -41,7 +41,7 @@ const checkFileExist = async (file) => {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const fieldName = file.fieldname;
-    const fileRootDir = path.join(__dirname, "..", "public", "uploads");
+    const fileRootDir = path.join(__dirname, "..", "..", "public", "uploads");
     fs.mkdirSync(fileRootDir, { recursive: true });
     const uploadPath = path.join(fileRootDir, fileDestinations[fieldName]);
     fs.mkdirSync(uploadPath, { recursive: true });
@@ -91,7 +91,6 @@ const fileTypes = {
 };
 
 const fileFilter = (req, file, cb) => {
-  console.log("fileType ::", file);
   const fileType = fileTypes[file.fieldname];
   if (!fileType) {
     return cb(
