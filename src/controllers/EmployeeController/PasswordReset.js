@@ -10,6 +10,7 @@ const {
   jwt,
   TOKEN_SECRET,
   TOKEN_MAXAGE,
+  Role,
 } = require("./employeePackageCentral");
 
 const resetPassword = (req, res) => {
@@ -365,7 +366,7 @@ const forgotPassword = async (req, res) => {
         roleId: user.roleId,
         role: role.name,
         employeeId: user.id,
-        name: `${user.firstName} ${user.middleName} ${user.lastName}`,
+        name: `${user.firstName} ${user.lastName}`,
       },
       TOKEN_SECRET,
       { expiresIn: Number(TOKEN_MAXAGE) }
@@ -375,7 +376,7 @@ const forgotPassword = async (req, res) => {
         "Email sent successfully.",
         statusCode.success,
         constants.SUCCESS,
-        token
+        { token }
       )
     );
   } catch (err) {
@@ -400,7 +401,7 @@ const forgotPassword = async (req, res) => {
 
 const verifyPassword = async (req, res) => {
   try {
-    const employeeId = req.employeeId;
+    const employeeId = req.loggersId;
     const { password, confirmPassword } = req.body;
     if (!password || !confirmPassword) {
       res.send(

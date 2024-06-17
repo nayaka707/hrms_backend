@@ -48,11 +48,8 @@ const addEmployee = (req, res) => {
         pfNo,
         gender,
         roleId,
-        currentAddress,
-        permanentAddress,
         reportTo,
       } = req.body;
-      console.log("body --->", req.body);
       const authRoleId = req.roleId;
       let profilePicture = null;
       if (files.length > 0) {
@@ -61,7 +58,6 @@ const addEmployee = (req, res) => {
       }
       if (
         !firstName ||
-        !middleName ||
         !lastName ||
         !email ||
         !dateOfJoining ||
@@ -70,13 +66,9 @@ const addEmployee = (req, res) => {
         !designationId ||
         !pancardNo ||
         !aadharNo ||
-        !uanNo ||
         !workLocation ||
-        !pfNo ||
         !gender ||
         !roleId ||
-        !currentAddress ||
-        !permanentAddress ||
         !reportTo
       ) {
         unlinkFiles(req.files);
@@ -118,8 +110,7 @@ const addEmployee = (req, res) => {
                         id: authRoleId,
                         isActive: constants.ACTIVE,
                       },
-                    }).then((authRoleData) => {
-                      console.log("authRoleData ::", authRoleData);
+                    }).then(async (authRoleData) => {
                       if (
                         (authRoleData.name === "HR" &&
                           data.name === "SUPER ADMIN") ||
@@ -129,7 +120,7 @@ const addEmployee = (req, res) => {
                           .status(statusCode.badRequest)
                           .send(
                             errorResponseFunc(
-                              "Invalid account creation attempt. HR can only create HR and employee accounts. SUPER ADMIN can create HR and employee accounts. Employees cannot create any accounts.",
+                              "You dont have permission!",
                               "Account creation error.",
                               statusCode.badRequest,
                               constants.BADREQUEST
@@ -154,13 +145,11 @@ const addEmployee = (req, res) => {
                             workLocation: workLocation,
                             pfNo: pfNo,
                             gender: gender,
-                            currentAddress: currentAddress,
-                            permanentAddress: permanentAddress,
                             reportTo: reportTo,
                             profilePicture: profilePicture,
                           };
 
-                          employeeCreatorFunc(adminDetails, req.files);
+                          await employeeCreatorFunc(adminDetails, req.files);
 
                           res.send(
                             successResponseFunc(
@@ -233,7 +222,7 @@ const addEmployee = (req, res) => {
               unlinkFiles(req.files);
               logger.error(
                 errorResponseFunc(
-                  "Admin with this email already exists.",
+                  "Email already exists.",
                   "Already exists.",
                   statusCode.conflict,
                   constants.CONFLICT
@@ -241,7 +230,7 @@ const addEmployee = (req, res) => {
               );
               res.send(
                 errorResponseFunc(
-                  "Admin with this email already exists.",
+                  "Email already exists.",
                   "Already exists.",
                   statusCode.conflict,
                   constants.CONFLICT
