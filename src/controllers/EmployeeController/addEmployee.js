@@ -14,7 +14,7 @@ const addEmployee = (req, res) => {
     logger.info("/addEmployee route accessed.");
     const { files = [] } = req;
     if (Object.keys(req.body).length === 0) {
-      unlinkFiles(req.files);
+      unlinkFiles(files);
       logger.warn(
         errorResponseFunc(
           "There is no request body.",
@@ -71,7 +71,7 @@ const addEmployee = (req, res) => {
         !roleId ||
         !reportTo
       ) {
-        unlinkFiles(req.files);
+        unlinkFiles(files);
         logger.warn(
           errorResponseFunc(
             "Please fill all the fields.",
@@ -128,6 +128,18 @@ const addEmployee = (req, res) => {
                           );
                       } else {
                         if (data) {
+                          const lastEmployee = await Employees.findOne({
+                            order: [['createdAt', 'DESC']]
+                          });
+
+                          let employeeCode = 'Px001';
+                          if (lastEmployee && lastEmployee.employee_code) {
+                            const lastCode = lastEmployee.employee_code;
+                            const codeNumber = parseInt(lastCode.slice(2), 10) + 1;
+                            employeeCode = `Px${codeNumber.toString().padStart(3, '0')}`;
+                          }
+                  
+
                           const adminDetails = {
                             email: email,
                             roleId: data.id,
@@ -147,6 +159,7 @@ const addEmployee = (req, res) => {
                             gender: gender,
                             reportTo: reportTo,
                             profilePicture: profilePicture,
+                            employee_code: employeeCode
                           };
 
                           await employeeCreatorFunc(adminDetails, req.files);
@@ -159,7 +172,7 @@ const addEmployee = (req, res) => {
                             )
                           );
                         } else {
-                          unlinkFiles(req.files);
+                          unlinkFiles(files);
                           logger.warn(
                             errorResponseFunc(
                               "Role not found.",
@@ -180,7 +193,7 @@ const addEmployee = (req, res) => {
                       }
                     });
                   } catch (err) {
-                    unlinkFiles(req.files);
+                    unlinkFiles(files);
                     logger.error(
                       errorResponseFunc(
                         "Encountered error while creating the admin.",
@@ -200,7 +213,7 @@ const addEmployee = (req, res) => {
                   }
                 })
                 .catch((err) => {
-                  unlinkFiles(req.files);
+                  unlinkFiles(files);
                   logger.error(
                     errorResponseFunc(
                       "Encountered error while checking if this role exists.",
@@ -219,7 +232,7 @@ const addEmployee = (req, res) => {
                   );
                 });
             } else {
-              unlinkFiles(req.files);
+              unlinkFiles(files);
               logger.error(
                 errorResponseFunc(
                   "Email already exists.",
@@ -239,7 +252,7 @@ const addEmployee = (req, res) => {
             }
           })
           .catch((err) => {
-            unlinkFiles(req.files);
+            unlinkFiles(files);
             logger.error(
               errorResponseFunc(
                 "Encountered error after checking if this admin exists.",
@@ -260,7 +273,7 @@ const addEmployee = (req, res) => {
       }
     }
   } catch (err) {
-    unlinkFiles(req.files);
+    unlinkFiles(files);
     logger.error(
       errorResponseFunc(
         "Encountered error while syncing the admin table.",
