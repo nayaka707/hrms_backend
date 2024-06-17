@@ -18,7 +18,7 @@ const Employees = db.sequelize.define("employees", {
   },
   middleName: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   pancardNo: {
     type: db.Sequelize.DataTypes.STRING,
@@ -38,7 +38,7 @@ const Employees = db.sequelize.define("employees", {
   },
   pfNo: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   gender: {
     type: db.Sequelize.DataTypes.ENUM("male", "female"),
@@ -76,11 +76,11 @@ const Employees = db.sequelize.define("employees", {
   },
   currentAddress: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   permanentAddress: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   email: {
     type: db.Sequelize.DataTypes.STRING,

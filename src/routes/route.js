@@ -16,28 +16,16 @@ module.exports = (app) => {
 
   app.post("/addEmployee", [verifyToken], EmployeeController.addEmployee);
   app.post("/employeeLogin", EmployeeController.employeeLogin);
-  app.get("/logOut", EmployeeController.logOut);
+  app.get("/logOut",[verifyToken], EmployeeController.logOut);
   app.post("/forgot-password", EmployeeController.forgotPassword);
   app.post("/verify-password", [verifyToken], EmployeeController.verifyPassword);
   app.post("/resetPassword", [verifyToken], EmployeeController.resetPassword);
-  app.get(
-    "/getAllEmployees",
-    [verifyToken],
-    EmployeeController.getAllEmployeesData
-  );
-  app.put(
-    "/updateEmployeeData/:employeeId",
-    [checkToken],
-    EmployeeController.updateEmployeeData
-  );
-  app.delete(
-    "/deleteEmployee/:employeeId",
-    [verifyToken],
-    EmployeeController.deleteEmployee
-  );
+  app.get("/getAllEmployees", [verifyToken], EmployeeController.getAllEmployeesData);
+  app.put("/updatePersonalDetails/:employeeId", [verifyToken], EmployeeController.updateEmployeeData);
+  app.delete("/deleteEmployee/:employeeId", [verifyToken], EmployeeController.deleteEmployee);
 
   app.get('/getReportPerson', [verifyToken], EmployeeController.getReportTo);
-  app.get("/getByIdEmployee", [verifyToken], EmployeeController.getByIdEmployeesData);
+  app.get("/getByIdEmployee/:id", [verifyToken], EmployeeController.getByIdEmployeesData);
   app.post("/employeeDocument", [verifyToken], EmployeeDocument.addEmployeeDocument);
 
   // Attendance Routes
@@ -45,9 +33,9 @@ module.exports = (app) => {
   app.get("/dailylogs", AttendanceController.getAllAttendance);
 
   // Bank Routes
-  app.post('/addBank', [checkToken], BankController.addBankDetails)
-  app.delete('/deleteBank/:bankId', [checkToken], BankController.deleteBankDetails)
-  app.get('/getBank', [checkToken], BankController.getBankDetailByEmployee)
+  app.post('/addBank', [verifyToken], BankController.addBankDetails)
+  app.delete('/deleteBank/:bankId', [verifyToken], BankController.deleteBankDetails)
+  app.get('/getBank', [verifyToken], BankController.getBankDetailByEmployee)
 
   // Designation Routes
   app.post('/addDesignation', [verifyToken], DesignationController.createDesignation);

@@ -18,26 +18,55 @@ const {
   models,
   Op,
   logger,
+  Sequelize,
 } = require("./employeePackageCentral");
 
-const getAllEmployeesData = (req, res) => {
+const getAllEmployeesData = async (req, res) => {
   try {
-    const employeeId = req.loggersId;
     const role = req.roleName;
+    let employeeName = req.query.employeeName?.trim().replace(/^"|"$/g, "");
 
-    Employees.findAll({
-      where: { id: { [Op.ne]: employeeId } },
+    let whereClause = {
+      isActive: constants.ACTIVE,
+    };
+    if (employeeName) {
+      whereClause[Op.or] = [
+        Sequelize.where(
+          Sequelize.fn(
+            "concat",
+            Sequelize.col("firstName"),
+            " ",
+            Sequelize.col("lastName")
+          ),
+          {
+            [Op.iLike]: `%${employeeName}%`,
+          }
+        ),
+        { firstName: { [Op.iLike]: `%${employeeName}%` } },
+        { lastName: { [Op.iLike]: `%${employeeName}%` } },
+      ];
+    };
+
+    let roleWhereClause = {};
+    if (role === constants.ADMIN) {
+      // No role filtering needed for SUPER ADMIN
+    } else if (role === constants.HR) {
+      roleWhereClause = {
+        name: {
+          [Op.notIn]: [constants.ADMIN],
+        },
+      };
+    };
+
+    await Employees.findAll({
+      where: whereClause,
       attributes: [
         "id",
         "firstName",
         "lastName",
         "middleName",
         [
-          literal(
-            `'${
-              PUBLIC_URL + "/profilePicture/"
-            }' || "employees"."profilePicture"`
-          ),
+          literal(`'${PUBLIC_URL}/profilePicture/' || "profilePicture"`),
           "profilePicture",
         ],
       ],
@@ -45,11 +74,7 @@ const getAllEmployeesData = (req, res) => {
         model: Role,
         attributes: ["id", "name"],
         as: "role",
-        where: {
-          name: {
-            [Op.notIn]: ["SUPER ADMIN", ...(role === "EMPLOYEE" ? ["HR"] : [])],
-          },
-        },
+        where: roleWhereClause,
       },
     })
       .then((data) => {
@@ -102,125 +127,7 @@ const getAllEmployeesData = (req, res) => {
 
 const getByIdEmployeesData = async (req, res) => {
   try {
-    const EmployeeId = req.params.EmployeeId
-      ? req.params.EmployeeId
-      : res.locals.EmployeeId;
-
-    const findAllEmployeeDtails = await Employees.findOne({
-      where: {
-        id: EmployeeId,
-      },
-      include: [
-        {
-          model: EmployeeDocuments,
-          attributes: [
-            "id",
-            [
-              literal(`'${PUBLIC_URL + "/tenMarksheet/"}' || "tenMarksheet"`),
-              "tenMarksheet",
-            ],
-            [
-              literal(
-                `'${PUBLIC_URL + "/twelveMarksheet/"}' || "twelveMarksheet"`
-              ),
-              "twelveMarksheet",
-            ],
-            [
-              literal(
-                `'${PUBLIC_URL + "/degreeMarksheet/"}' || "degreeMarksheet"`
-              ),
-              "degreeMarksheet",
-            ],
-            [
-              literal(`'${PUBLIC_URL + "/adharCard/"}' || "adharCard"`),
-              "adharCard",
-            ],
-            [literal(`'${PUBLIC_URL + "/panCard/"}' || "panCard"`), "panCard"],
-            [
-              literal(`'${PUBLIC_URL + "/salarySlip1/"}' || "salarySlip1"`),
-              "salarySlip1",
-            ],
-            [
-              literal(`'${PUBLIC_URL + "/salarySlip2/"}' || "salarySlip2"`),
-              "salarySlip2",
-            ],
-            [
-              literal(`'${PUBLIC_URL + "/salarySlip3/"}' || "salarySlip3"`),
-              "salarySlip3",
-            ],
-            [
-              literal(
-                `'${
-                  PUBLIC_URL + "/probationComplitionLetter/"
-                }' || "probationComplitionLetter"`
-              ),
-              "ProbationComplitionLetter",
-            ],
-            [
-              literal(
-                `'${PUBLIC_URL + "/appointmentLetter/"}' || "appointmentLetter"`
-              ),
-              "appointmentLetter",
-            ],
-          ],
-        },
-        {
-          model: BankDetails,
-          attributes: ["bankName", "accountNo", "IFSC"],
-        },
-        {
-          model: Designation,
-          attributes: ["name"],
-        },
-        {
-          model: Department,
-          attributes: ["name"],
-        },
-        {
-          model: EmergencyContact,
-          attributes: ["name"],
-        },
-      ],
-      attributes: [
-        "id",
-        "firstName",
-        "employeeId",
-        "lastName",
-        "email",
-        "dateOfJoining",
-        "phoneNumber",
-        "departmentId",
-        "designationId",
-        "occupation",
-        "roleId",
-        "nationality",
-        "city",
-        "state",
-        "pinCode",
-        "passportNumber",
-        "fathersFullName",
-        "mothersFullName",
-        "presentAddress",
-        "permanentAddress",
-        "qualifications",
-        "middleName",
-        "pancardNo",
-        "aadharNo",
-        "uanNo",
-        "workLocation",
-        "pfNo",
-        "gender",
-        "reportTo",
-        "reportToImage",
-        "countryCode",
-        "birthday",
-        "dateOfJoining",
-        [
-          literal(`'${PUBLIC_URL + "/profilePicture/"}' || "profilePicture"`),
-          "profilePicture",
-        ],
-      ],
-    });
+    const employeeId = req.params.id ? req.params.id : req.loggersId;
 
     const reportToId = await models.Employees.findOne({
       where: {
