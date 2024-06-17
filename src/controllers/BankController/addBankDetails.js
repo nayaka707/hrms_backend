@@ -21,7 +21,7 @@ const addBankDetails = async (req, res) => {
 
         }
         const employeeId = req.employeeId
-        const { bankName, accountNo, IFSC, isActive, } = req.body
+        const { bankName, accountNo, IFSC, isActive, branchName} = req.body
 
         const employeeBank = await models.BankDetails.findOne({ where: { employeeId } })
         if (employeeBank) {
@@ -58,7 +58,8 @@ const addBankDetails = async (req, res) => {
             bankName,
             accountNo,
             IFSC,
-            isActive
+            isActive,
+            branchName
         })
         return res.send(
             successResponseFunc(
