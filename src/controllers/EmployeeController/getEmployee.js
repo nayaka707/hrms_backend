@@ -1,4 +1,4 @@
-const { literal } = require("sequelize");
+const { literal , fn, col} = require("sequelize");
 const {
   Employees,
   statusCode,
@@ -129,62 +129,240 @@ const getByIdEmployeesData = async (req, res) => {
   try {
     const employeeId = req.params.id ? req.params.id : req.loggersId;
 
-    const reportToId = await models.Employees.findOne({
+    const getAllEmployeeDtails = await Employees.findOne({
       where: {
-        id: findAllEmployeeDtails.dataValues.ReportTo,
+        id: employeeId,
+        isActive: constants.ACTIVE,
       },
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "middleName",
+        "pancardNo",
+        "aadharNo",
+        "uanNo",
+        "workLocation",
+        "pfNo",
+        "email",
+        "dateOfJoining",
+        "gender",
+        "phoneNumber",
+        "departmentId",
+        "designationId",
+        "reportTo",
+        [
+          literal(`'${PUBLIC_URL}/profilePicture/' || "profilePicture"`),
+          "profilePicture",
+        ],
+        "currentAddress",
+        "permanentAddress",
+        "roleId",
+        "isActive",
+        "emergencyContact",
+        "city",
+        "state",
+        "pincode",
+        "passportNumber",
+        "fatherName",
+        "motherName",
+        "dateOfBirth",
+        "nationality",
+        "experience",
+        "qualification",
+      ],
+      include: [
+        {
+          model: EmployeeDocuments,
+          attributes: [
+            "id",
+            [
+              literal(`'${PUBLIC_URL} + "/tenMarksheet/"' || "tenMarksheet"`),
+              "tenMarksheet",
+            ],
+            [
+              literal(
+                `'${PUBLIC_URL} + "/twelveMarksheet/"' || "twelveMarksheet"`
+              ),
+              "twelveMarksheet",
+            ],
+            [
+              literal(
+                `'${PUBLIC_URL} + "/degreeMarksheet/"' || "degreeMarksheet"`
+              ),
+              "degreeMarksheet",
+            ],
+            [
+              literal(`'${PUBLIC_URL} + "/adharCard/"' || "adharCard"`),
+              "adharCard",
+            ],
+            [literal(`'${PUBLIC_URL} + "/panCard/"' || "panCard"`), "panCard"],
+            [
+              literal(`'${PUBLIC_URL} + "/salarySlip1/"' || "salarySlip1"`),
+              "salarySlip1",
+            ],
+            [
+              literal(`'${PUBLIC_URL} + "/salarySlip2/"' || "salarySlip2"`),
+              "salarySlip2",
+            ],
+            [
+              literal(`'${PUBLIC_URL} + "/salarySlip3/"' || "salarySlip3"`),
+              "salarySlip3",
+            ],
+            [
+              literal(
+                `'${PUBLIC_URL} + "/probationComplitionLetter/"
+                ' || "probationComplitionLetter"`
+              ),
+              "ProbationComplitionLetter",
+            ],
+            [
+              literal(
+                `'${PUBLIC_URL} + "/appointmentLetter/"' || "appointmentLetter"`
+              ),
+              "appointmentLetter",
+            ],
+          ],
+        },
+        {
+          model: BankDetails,
+          attributes: [
+            "bankName",
+            "accountNo",
+            "IFSC",
+            "isActive",
+            "employeeId",
+          ],
+        },
+        {
+          model: Designation,
+          as: 'designations',
+          attributes: ["name"],
+        },
+        {
+          model: Department,
+          as : 'department',
+          attributes: ["name"],
+        },
+        {
+          model: EmergencyContacts,
+          as : 'emergencyContacts',
+          attributes: [
+            "primaryName",
+            "primaryRelationship",
+            "primaryPhoneNo",
+            "primaryAddress",
+            "secondaryName",
+            "secondRelationship",
+            "secondaryPhoneNo",
+            "secondaryAddress",
+            "employeeId",
+          ],
+        },
+        {
+          model: ExperienceDetails,
+          attributes: [
+            "companyName",
+            "designation",
+            "location",
+            "periodFrom",
+            "periodTo",
+            "experienceId",
+            "employeeId",
+          ],
+        },
+        {
+          model: Assets,
+          attributes: ["assetsName", "assetsId", "assignedDate", "employeeId"],
+        },
+      ],
     });
-    const experience = await models.ExperienceDetails.findAll({
-      where: {
-        EmployeeId: payload.EmployeeId,
-      },
-    });
 
-    const userDetails = {
-      ...response.data.dataValues,
-      ReportingToName: response.ReportingToName,
-      Department: response.DepartmentId,
-      Designation: response.DesignationId,
-    };
-    delete userDetails.EmployeeDocument;
-    delete userDetails.EmployeeBankDetail;
-    delete userDetails.EmergencyContact;
+    if (!getAllEmployeeDtails) {
+      logger.warn(
+        errorResponseFunc(
+          "Employee not found.",
+          "Employee not found.",
+          statusCode.notFound,
+          constants.NOTFOUND
+        )
+      );
+      return res.send(
+        errorResponseFunc(
+          "Employee not found",
+          "Employee not found",
+          statusCode.notFound,
+          constants.NOTFOUND
+        )
+      );
+    }
 
-    const documentsData = response.data.dataValues.EmployeeDocument;
+    let reportToFullName;
+    if (getAllEmployeeDtails.reportTo) {
+      const reportingPerson = await models.Employees.findOne({
+        where: {
+          id: getAllEmployeeDtails.reportTo,
+        },
+        attributes: [
+          [fn("concat", col("firstName"), " ", col("lastName")), "fullName"],
+        ],
+      });
+      reportToFullName = reportingPerson ? reportingPerson.dataValues?.fullName : null;
+    }
 
-    const documentDetails = {
-      ...documentsData?.dataValues,
-    };
+    // employee data
+    const employeeData = getAllEmployeeDtails.toJSON();
 
-    const bankDetailsData =
-      response.data.dataValues.EmployeeBankDetail?.dataValues;
-
-    const bankDetails = {
-      BankName: bankDetailsData?.BankName,
-      AccountNO: bankDetailsData?.AccountNO,
-      IFSCCode: bankDetailsData?.IFSCCode,
-      BranchName: bankDetailsData?.BranchName,
-    };
-    const emergencyContactData =
-      response.data.dataValues.EmergencyContact?.dataValues;
-
-    const EmergencyContact = {
-      PrimaryName: emergencyContactData?.PrimaryName,
-      PrimaryRelation: emergencyContactData?.PrimaryRelationship,
-      PrimaryPhoneNo: emergencyContactData?.PrimaryPhoneNo,
-      SecondaryName: emergencyContactData?.SecondaryName,
-      SecondaryRelation: emergencyContactData?.SecondRelationship,
-      SecondaryPhoneNo: emergencyContactData?.SecondaryPhoneNo,
-    };
+    const emergencyContact = employeeData.emergencyContacts || {};
+    const bankDetail = employeeData.bankDetail || {};
+    const experienceDetails = employeeData.experienceDetails || [];
+    const employeeDocuments = employeeData.employeeDocument || {};
+    const assets = employeeData.asset || [];
 
     const data = {
-      employee: userDetails,
-      documents: documentDetails,
-      bankDetails: bankDetails,
-      emergencyContacts: EmergencyContact,
-      experienceDetails: response?.ExperienceDetails,
+      employee: {
+        id: employeeData.id,
+        firstName: employeeData.firstName,
+        lastName: employeeData.lastName,
+        pancardNo: employeeData.pancardNo,
+        middleName: employeeData.middleName,
+        aadharNo: employeeData.aadharNo,
+        uanNo: employeeData.uanNo,
+        workLocation: employeeData.workLocation,
+        pfNo: employeeData.pfNo,
+        email: employeeData.email,
+        dateOfJoining: employeeData.dateOfJoining,
+        gender: employeeData.gender,
+        phoneNumber: employeeData.phoneNumber,
+        departmentId: employeeData.departmentId,
+        designationId: employeeData.designationId,
+        profilePicture: employeeData.profilePicture,
+        currentAddress: employeeData.currentAddress,
+        permanentAddress: employeeData.permanentAddress,
+        roleId: employeeData.roleId,
+        isActive: employeeData.isActive,
+        emergencyContact: employeeData.emergencyContact,
+        city: employeeData.city,
+        state: employeeData.state,
+        pincode: employeeData.pincode,
+        passportNumber: employeeData.passportNumber,
+        fatherName: employeeData.fatherName,
+        motherName: employeeData.motherName,
+        dateOfBirth: employeeData.dateOfBirth,
+        nationality: employeeData.nationality,
+        experience: employeeData.experience,
+        qualification: employeeData.qualification,
+        reportTo: reportToFullName,
+        designationName: employeeData.designations ? employeeData.designations.name : null,
+        departmentName: employeeData.department ? employeeData.department.name : null,
+      },
+      documents: employeeDocuments,
+      bankDetails: bankDetail,
+      emergencyContacts: emergencyContact,
+      experienceDetails: experienceDetails,
+      assets: assets,
     };
-
+    console.log("employeeData -----------> ", data);
     res.send(
       successResponseFunc(
         "Here is the Employees Data's data.",
@@ -194,6 +372,7 @@ const getByIdEmployeesData = async (req, res) => {
       )
     );
   } catch (err) {
+    console.log("err ---> ", err);
     logger.error(
       errorResponseFunc(
         "Encountered some error.",
