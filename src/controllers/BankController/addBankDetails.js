@@ -20,7 +20,7 @@ const addBankDetails = async (req, res) => {
             ))
 
         }
-        const employeeId = req.employeeId
+        const employeeId = req.loggersId
         const { bankName, accountNo, IFSC, isActive, branchName} = req.body
 
         const employeeBank = await models.BankDetails.findOne({ where: { employeeId } })
