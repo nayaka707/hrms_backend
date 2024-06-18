@@ -11,31 +11,13 @@ const logger = require("./src/services/loggerService");
 const env = require("dotenv")
 const { upload } = require("./src/middlewares/fileUpload");
 const { path } = require("./src/controllers/EmployeeDocument/employeeDocumentPackageCentral");
-
-
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Cap Lead API",
-      version: "1.0.0",
-    },
-    servers: [
-      {
-        url: `http://localhost:9009`,
-      },
-    ],
-  },
-  apis: ["./src/swaggerDocs/*.js"],
-};
+const multer = require("multer");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 env.config("./.env")
 app.use(express.json());
-const specs = swaggerJsDoc(swaggerOptions);
-
-app.use("/caplead-VC-docs", swaggerUI.serve, swaggerUI.setup(specs));
-
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -49,7 +31,29 @@ const loggerMidlleware = pinoLogger({
   logger: logger,
   autoLogging: true,
 });
+
+app.use("/public", express.static(path.join(__dirname, "public")));
+
 app.use(upload.any());
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    // Handle Multer-specific errors
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({
+        message: 'File too large. Maximum size is 2MB',
+        error: err.message,
+      });
+    }
+    // Add other Multer error codes if needed
+  } else if (err) {
+    // Handle other errors
+    return res.status(500).json({
+      message: 'An error occurred while uploading the file',
+      error: err.message,
+    });
+  }
+  next();
+});
 
 app.use(loggerMidlleware);
 

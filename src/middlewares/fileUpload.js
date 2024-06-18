@@ -26,6 +26,7 @@ const fileDestinations = {
   projectFiles: "projectFiles",
   attechment: "attechment",
   attendanceFiles: "attendanceFiles",
+  assetsImages: "assetsImages",
 };
 
 const checkFileExist = async (file) => {
@@ -41,7 +42,7 @@ const checkFileExist = async (file) => {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const fieldName = file.fieldname;
-    const fileRootDir = path.join(__dirname, "..", "public", "uploads");
+    const fileRootDir = path.join(__dirname, "..", "..", "public", "uploads");
     fs.mkdirSync(fileRootDir, { recursive: true });
     const uploadPath = path.join(fileRootDir, fileDestinations[fieldName]);
     fs.mkdirSync(uploadPath, { recursive: true });
@@ -88,10 +89,10 @@ const fileTypes = {
   taskFile: pdfFilter,
   attechment: pdfFilter,
   attendanceFiles: pdfFilter,
+  assetsImages: imageFilter,
 };
 
 const fileFilter = (req, file, cb) => {
-  console.log("fileType ::", file);
   const fileType = fileTypes[file.fieldname];
   if (!fileType) {
     return cb(
@@ -100,6 +101,7 @@ const fileFilter = (req, file, cb) => {
           "Invalid file type. Please try again.",
           "Invalid file type",
           statusCode.invalidData,
+          
           constants.ERROR
         )
       ),

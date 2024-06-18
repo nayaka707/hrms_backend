@@ -1,6 +1,14 @@
-const { resetPassword, forgetPassword, forgotPassword, verifyPassword } = require("./passwordReset");
+const {
+  resetPassword,
+  forgetPassword,
+  forgotPassword,
+  verifyPassword,
+} = require("./passwordReset");
 const { getAllEmployeesData, getByIdEmployeesData } = require("./getEmployee");
-const { updateEmployeeData } = require("./updateEmployeeData");
+const {
+  updateEmployeeData,
+  updateSignUpDetails,
+} = require("./updateEmployeeData");
 const { employeeLogin } = require("./employeeLogin");
 const { addEmployee } = require("./addEmployee");
 const { deleteEmployee } = require("./deleteEmployee");
@@ -19,5 +27,6 @@ module.exports = {
   getReportTo,
   forgotPassword,
   verifyPassword,
-  logOut
+  logOut,
+  updateSignUpDetails
 };

@@ -1,4 +1,4 @@
-const { literal , fn, col} = require("sequelize");
+const { literal, fn, col } = require("sequelize");
 const {
   Employees,
   statusCode,
@@ -45,7 +45,7 @@ const getAllEmployeesData = async (req, res) => {
         { firstName: { [Op.iLike]: `%${employeeName}%` } },
         { lastName: { [Op.iLike]: `%${employeeName}%` } },
       ];
-    };
+    }
 
     let roleWhereClause = {};
     if (role === constants.ADMIN) {
@@ -56,7 +56,7 @@ const getAllEmployeesData = async (req, res) => {
           [Op.notIn]: [constants.ADMIN],
         },
       };
-    };
+    }
 
     await Employees.findAll({
       where: whereClause,
@@ -153,7 +153,7 @@ const getByIdEmployeesData = async (req, res) => {
         "designationId",
         "reportTo",
         [
-          literal(`'${PUBLIC_URL}/profilePicture/' || "profilePicture"`),
+          literal(`'${PUBLIC_URL + "/profilePicture/"}' || "profilePicture"`),
           "profilePicture",
         ],
         "currentAddress",
@@ -178,48 +178,48 @@ const getByIdEmployeesData = async (req, res) => {
           attributes: [
             "id",
             [
-              literal(`'${PUBLIC_URL} + "/tenMarksheet/"' || "tenMarksheet"`),
+              literal(`'${PUBLIC_URL + "/tenMarksheet/"}' || "tenMarksheet"`),
               "tenMarksheet",
             ],
             [
               literal(
-                `'${PUBLIC_URL} + "/twelveMarksheet/"' || "twelveMarksheet"`
+                `'${PUBLIC_URL + "/twelveMarksheet/"}' || "twelveMarksheet"`
               ),
               "twelveMarksheet",
             ],
             [
               literal(
-                `'${PUBLIC_URL} + "/degreeMarksheet/"' || "degreeMarksheet"`
+                `'${PUBLIC_URL + "/degreeMarksheet/"}' || "degreeMarksheet"`
               ),
               "degreeMarksheet",
             ],
             [
-              literal(`'${PUBLIC_URL} + "/adharCard/"' || "adharCard"`),
+              literal(`'${PUBLIC_URL + "/adharCard/"}' || "adharCard"`),
               "adharCard",
             ],
-            [literal(`'${PUBLIC_URL} + "/panCard/"' || "panCard"`), "panCard"],
+            [literal(`'${PUBLIC_URL + "/panCard/"}' || "panCard"`), "panCard"],
             [
-              literal(`'${PUBLIC_URL} + "/salarySlip1/"' || "salarySlip1"`),
+              literal(`'${PUBLIC_URL + "/salarySlip1/"}' || "salarySlip1"`),
               "salarySlip1",
             ],
             [
-              literal(`'${PUBLIC_URL} + "/salarySlip2/"' || "salarySlip2"`),
+              literal(`'${PUBLIC_URL + "/salarySlip2/"}' || "salarySlip2"`),
               "salarySlip2",
             ],
             [
-              literal(`'${PUBLIC_URL} + "/salarySlip3/"' || "salarySlip3"`),
+              literal(`'${PUBLIC_URL + "/salarySlip3/"}' || "salarySlip3"`),
               "salarySlip3",
             ],
             [
               literal(
-                `'${PUBLIC_URL} + "/probationComplitionLetter/"
+                `'${PUBLIC_URL + "/probationComplitionLetter/"}
                 ' || "probationComplitionLetter"`
               ),
               "ProbationComplitionLetter",
             ],
             [
               literal(
-                `'${PUBLIC_URL} + "/appointmentLetter/"' || "appointmentLetter"`
+                `'${PUBLIC_URL + "/appointmentLetter/"}' || "appointmentLetter"`
               ),
               "appointmentLetter",
             ],
@@ -231,23 +231,24 @@ const getByIdEmployeesData = async (req, res) => {
             "bankName",
             "accountNo",
             "IFSC",
+            "branchName",
             "isActive",
             "employeeId",
           ],
         },
         {
           model: Designation,
-          as: 'designations',
+          as: "designations",
           attributes: ["name"],
         },
         {
           model: Department,
-          as : 'department',
+          as: "department",
           attributes: ["name"],
         },
         {
           model: EmergencyContacts,
-          as : 'emergencyContacts',
+          as: "emergencyContacts",
           attributes: [
             "primaryName",
             "primaryRelationship",
@@ -274,11 +275,20 @@ const getByIdEmployeesData = async (req, res) => {
         },
         {
           model: Assets,
-          attributes: ["assetsName", "assetsId", "assignedDate", "employeeId"],
+          attributes: [
+            "assetsName",
+            "assetsId",
+            "assignedDate",
+            "brand",
+            "category",
+            "cost",
+            "warranty",
+            "employeeId",
+            "assetsImages",
+          ],
         },
       ],
     });
-
     if (!getAllEmployeeDtails) {
       logger.warn(
         errorResponseFunc(
@@ -308,9 +318,10 @@ const getByIdEmployeesData = async (req, res) => {
           [fn("concat", col("firstName"), " ", col("lastName")), "fullName"],
         ],
       });
-      reportToFullName = reportingPerson ? reportingPerson.dataValues?.fullName : null;
+      reportToFullName = reportingPerson
+        ? reportingPerson.dataValues?.fullName
+        : null;
     }
-
     // employee data
     const employeeData = getAllEmployeeDtails.toJSON();
 
@@ -318,7 +329,16 @@ const getByIdEmployeesData = async (req, res) => {
     const bankDetail = employeeData.bankDetail || {};
     const experienceDetails = employeeData.experienceDetails || [];
     const employeeDocuments = employeeData.employeeDocument || {};
-    const assets = employeeData.asset || [];
+    const assets = employeeData.assets || [];
+    if (assets.length > 0) {
+      assets.forEach((asset) => {
+        if (asset.assetsImages && Array.isArray(asset.assetsImages)) {
+          asset.assetsImages = asset.assetsImages.map(
+            (img) => `${PUBLIC_URL}/assetsImages/${img}`
+          );
+        }
+      });
+    }
 
     const data = {
       employee: {
@@ -354,8 +374,12 @@ const getByIdEmployeesData = async (req, res) => {
         experience: employeeData.experience,
         qualification: employeeData.qualification,
         reportTo: reportToFullName,
-        designationName: employeeData.designations ? employeeData.designations.name : null,
-        departmentName: employeeData.department ? employeeData.department.name : null,
+        designationName: employeeData.designations
+          ? employeeData.designations.name
+          : null,
+        departmentName: employeeData.department
+          ? employeeData.department.name
+          : null,
       },
       documents: employeeDocuments,
       bankDetails: bankDetail,
@@ -363,7 +387,6 @@ const getByIdEmployeesData = async (req, res) => {
       experienceDetails: experienceDetails,
       assets: assets,
     };
-    console.log("employeeData -----------> ", data);
     res.send(
       successResponseFunc(
         "Here is the Employees Data's data.",
@@ -373,7 +396,6 @@ const getByIdEmployeesData = async (req, res) => {
       )
     );
   } catch (err) {
-    console.log("err ---> ", err);
     logger.error(
       errorResponseFunc(
         "Encountered some error.",

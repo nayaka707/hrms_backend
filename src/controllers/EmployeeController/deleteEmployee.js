@@ -18,7 +18,6 @@ const deleteEmployee = async (req, res) => {
         await employee.update({ deletedAt: Date.now(), isActive: constants.INACTIVE })
         return res.send(successResponseFunc("Successfully deleted", statusCode.success, constants.SUCCESS))
     } catch (err) {
-        console.log(err)
         res.status(statusCode.internalServerError).send(
             errorResponseFunc('Encounterd some error', err.toString().statusCode.internalServerError)
         )
