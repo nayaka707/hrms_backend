@@ -21,7 +21,6 @@ const getAllDepartment = (req, res) => {
         );
       })
       .catch((err) => {
-        console.log("err ::", err);
         logger.error(
           errorResponseFunc(
             "Encountered error after checking if this exists.",

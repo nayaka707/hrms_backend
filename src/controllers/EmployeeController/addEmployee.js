@@ -128,6 +128,18 @@ const addEmployee = (req, res) => {
                           );
                       } else {
                         if (data) {
+                          const lastEmployee = await Employees.findOne({
+                            order: [['createdAt', 'DESC']]
+                          });
+
+                          let employeeCode = 'Px001';
+                          if (lastEmployee && lastEmployee.employee_code) {
+                            const lastCode = lastEmployee.employee_code;
+                            const codeNumber = parseInt(lastCode.slice(2), 10) + 1;
+                            employeeCode = `Px${codeNumber.toString().padStart(3, '0')}`;
+                          }
+                  
+
                           const adminDetails = {
                             email: email,
                             roleId: data.id,
@@ -147,6 +159,7 @@ const addEmployee = (req, res) => {
                             gender: gender,
                             reportTo: reportTo,
                             profilePicture: profilePicture,
+                            employee_code: employeeCode
                           };
 
                           await employeeCreatorFunc(adminDetails, req.files);

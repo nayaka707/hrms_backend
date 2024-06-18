@@ -13,6 +13,7 @@ module.exports = (app) => {
   // Permission Routes
   app.get("/readPermission", [verifyToken], AdminController.readPermission);
   app.get("/routePermission/:routeId", [verifyToken], AdminController.routePermission);
+  app.get('/getAllRoutes', [verifyToken], RouteController.getAllRoutes);
 
   app.post("/addEmployee", [verifyToken], EmployeeController.addEmployee);
   app.post("/employeeLogin", EmployeeController.employeeLogin);
@@ -22,6 +23,7 @@ module.exports = (app) => {
   app.post("/resetPassword", [verifyToken], EmployeeController.resetPassword);
   app.get("/getAllEmployees", [verifyToken], EmployeeController.getAllEmployeesData);
   app.put("/updatePersonalDetails/:employeeId", [verifyToken], EmployeeController.updateEmployeeData);
+  app.put("/updateSignUpDetails/:employeeId", [verifyToken], EmployeeController.updateSignUpDetails);
   app.delete("/deleteEmployee/:employeeId", [verifyToken], EmployeeController.deleteEmployee);
 
   app.get('/getReportPerson', [verifyToken], EmployeeController.getReportTo);
@@ -29,8 +31,8 @@ module.exports = (app) => {
   app.post("/employeeDocument", [verifyToken], EmployeeDocument.addEmployeeDocument);
 
   // Attendance Routes
-  app.post("/addAttendance", AttendanceController.addEmployeeAttendance);
-  app.get("/dailylogs", AttendanceController.getAllAttendance);
+  app.post("/addAttendance",[verifyToken], AttendanceController.addEmployeeAttendance);
+  app.get("/dailylogs",[verifyToken], AttendanceController.getAllAttendance);
 
   // Bank Routes
   app.post('/addBank', [verifyToken], BankController.addBankDetails)
@@ -55,7 +57,6 @@ module.exports = (app) => {
   app.get('/getAllDepartment', [verifyToken], DepartmentController.getAllDepartment);
   app.put('/updateDepartment/:id', [verifyToken], DepartmentController.updateDepartment);
   app.put('/deleteDepartment/:id', [verifyToken], DepartmentController.deleteDepartment);
-  app.get('/getAllRoutes', [verifyToken], RouteController.getAllRoutes);
 
   // ExperienceDetails Routes
   app.post('/addExperienceDetails', [verifyToken], ExperienceDetailsController.addExperienceDetails);
@@ -71,5 +72,4 @@ module.exports = (app) => {
   
   app.post('/attendance/employeeLog/create', [verifyToken], EmployeeLogController.createEmployeeLogDetails)
   app.get('/attendance/getByEmployeeCode', [verifyToken], EmployeeLogController.getEmployeeLogDetails)
-
 };

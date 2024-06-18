@@ -102,7 +102,7 @@ const addEmployeeDocument = async (req, res) => {
         }
       });
       await EmployeeDocuments.update(
-        { ...payload, isActive: constants.ACTIVE },
+        { ...payload },
         {
           where: { employeeId: payload.employeeId },
         }

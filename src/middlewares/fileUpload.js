@@ -26,6 +26,7 @@ const fileDestinations = {
   projectFiles: "projectFiles",
   attechment: "attechment",
   attendanceFiles: "attendanceFiles",
+  assetsImages: "assetsImages",
 };
 
 const checkFileExist = async (file) => {
@@ -88,6 +89,7 @@ const fileTypes = {
   taskFile: pdfFilter,
   attechment: pdfFilter,
   attendanceFiles: pdfFilter,
+  assetsImages: imageFilter,
 };
 
 const fileFilter = (req, file, cb) => {
@@ -99,6 +101,7 @@ const fileFilter = (req, file, cb) => {
           "Invalid file type. Please try again.",
           "Invalid file type",
           statusCode.invalidData,
+          
           constants.ERROR
         )
       ),
