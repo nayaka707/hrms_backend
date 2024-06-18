@@ -2,7 +2,7 @@ const { constants, statusCode, errorResponseFunc, successResponseFunc, models , 
 
 const getBankDetailsByEmployee = async (req, res) => {
     try {
-        const employeeId = req.employeeId
+        const employeeId = req.loggersId
         const employeeBank = await models.BankDetails.findOne({ where: { employeeId } })
         if (!employeeBank) {
             logger.warn(
@@ -10,7 +10,7 @@ const getBankDetailsByEmployee = async (req, res) => {
                     "Employee bank details not found", "No Bank Found", statusCode.badRequest, constants.BADREQUEST));
             res.send(
                 errorResponseFunc(
-                    "There is no request body.", "No request body.", statusCode.badRequest, constants.BADREQUEST));
+                    "Employee bank details not found", "No Bank Found", statusCode.badRequest, constants.BADREQUEST));
         }
         return res.send(successResponseFunc('Successfully get bank details', statusCode.success, constants.SUCCESS, employeeBank))
 

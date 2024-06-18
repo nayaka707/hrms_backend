@@ -62,6 +62,7 @@ const getAllEmployeesData = async (req, res) => {
       where: whereClause,
       attributes: [
         "id",
+        'employee_code',
         "firstName",
         "lastName",
         "middleName",
