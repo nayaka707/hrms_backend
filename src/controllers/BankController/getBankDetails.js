@@ -1,8 +1,5 @@
 const { constants, statusCode, errorResponseFunc, successResponseFunc, models , logger} = require('../../utils/utilsIndex')
 
-
-
-
 const getBankDetailsByEmployee = async (req, res) => {
     try {
         const employeeId = req.loggersId
@@ -25,7 +22,6 @@ const getBankDetailsByEmployee = async (req, res) => {
             errorResponseFunc(
                 "Encountered error in getBankDetailsByEmployee", err.toString(), statusCode.internalServerError, constants.ERROR)
         );
-
     }
 }
 

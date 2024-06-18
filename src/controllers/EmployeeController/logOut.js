@@ -26,7 +26,7 @@ const logOut = async (req, res) => {
         constants.SUCCESS
       )
     );
-  } catch (error) {
+  } catch (err) {
     logger.error(
       errorResponseFunc(
         "Encountered error while syncing the employee table.",

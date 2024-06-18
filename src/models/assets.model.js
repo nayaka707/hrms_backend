@@ -11,6 +11,11 @@ const Assets = db.sequelize.define("assets", {
   assetsId: db.Sequelize.DataTypes.STRING,
   assignedDate: db.Sequelize.DataTypes.DATEONLY,
   employeeId: db.Sequelize.DataTypes.UUID,
+  brand: db.Sequelize.DataTypes.STRING,
+  category: db.Sequelize.DataTypes.STRING,
+  cost: db.Sequelize.DataTypes.STRING,
+  warranty: db.Sequelize.DataTypes.STRING,
+  assetsImages: db.Sequelize.DataTypes.ARRAY(db.Sequelize.DataTypes.STRING),
   isActive: {
     type: db.Sequelize.DataTypes.STRING,
     allowNull: false,

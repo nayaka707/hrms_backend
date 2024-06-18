@@ -7,6 +7,7 @@ const {
   errorResponseFunc,
   successResponseFunc,
   temporaryPasswordString,
+  unlinkFiles
 } = require("../../utils/utilsIndex");
 require("dotenv").config();
 const logger = require("../../services/loggerService");
@@ -19,4 +20,5 @@ module.exports = {
   errorResponseFunc,
   temporaryPasswordString,
   logger,
+  unlinkFiles
 };

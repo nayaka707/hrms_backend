@@ -14,8 +14,6 @@ const {
 const addEmployeeAttendance = async (req, res) => {
   try {
     const { files = [] } = req;
-
-    console.log("files --->", files);
     if (files.length === 0) {
       unlinkFiles(req.files || files);
       logger.warn(
@@ -73,7 +71,6 @@ const addEmployeeAttendance = async (req, res) => {
             const punchRecords = data["Punch Records"].trim().split(" ");
             let inDuration = 0;
             let outDuration = 0;
-            console.log("punchRecords", punchRecords);
 
             for (let i = 0; i < punchRecords.length - 1; i++) {
               const time1 = punchRecords[i].match(/(\d{2}:\d{2})/)[1];
@@ -91,18 +88,7 @@ const addEmployeeAttendance = async (req, res) => {
               if (time1 && action1 && time2 && action2) {
                 const date1 = new Date(`1970-01-01T${time1}:00Z`);
                 const date2 = new Date(`1970-01-01T${time2}:00Z`);
-                const duration = (date2 - date1) / 1000 / 60; // duration in minutes
-                console.log("Duration (minutes):", duration); // Add this line for debugging
-                console.log(
-                  "action1.includesIn",
-                  action1,
-                  action1.includes("in")
-                );
-                console.log(
-                  "action2.includesOut",
-                  action2,
-                  action2.includes("out")
-                );
+                const duration = (date2 - date1) / 1000 / 60; 
                 if (action1.includes("in") && action2.includes("out")) {
                   inDuration += duration;
                 } else if (action1.includes("out") && action2.includes("in")) {
@@ -116,8 +102,7 @@ const addEmployeeAttendance = async (req, res) => {
                 );
               }
             }
-            console.log("Total In Duration (minutes):", inDuration);
-            console.log("Total Out Duration (minutes):", outDuration);
+
             const formatDuration = (minutes) => {
               const hours = Math.floor(minutes / 60);
               const mins = minutes % 60;

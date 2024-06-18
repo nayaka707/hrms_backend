@@ -6,14 +6,17 @@ const {
   errorResponseFunc,
   successResponseFunc,
   logger,
+  temporaryPasswordString,
+  unlinkFiles,
 } = require("./assetsPackageCentral");
 
 const addAssets = async (req, res) => {
   try {
     let EmployeeId =
       req.query.employeeId === "" ? req.loggersId : req.query.employeeId;
-
+    const { files = [] } = req;
     if (!EmployeeId) {
+      unlinkFiles(files);
       logger.warn(
         errorResponseFunc(
           "Invalid Employee",
@@ -33,12 +36,27 @@ const addAssets = async (req, res) => {
     } else {
       let payload = {
         assetsName: req.body.assetsName,
-        assetsId: req.body.assetsId,
+        assetsId: temporaryPasswordString(),
         assignedDate: req.body.assignedDate,
         employeeId: EmployeeId,
+        brand: req.body.brand,
+        category: req.body.category,
+        cost: req.body.cost,
+        warranty: req.body.warranty,
+        assetsImages:
+          files.length > 0 ? files.map((fileName) => fileName.filename) : [],
         isActive: "1",
       };
-      if (!payload.assetsId || !payload.assetsName || !payload.assignedDate) {
+      if (
+        !payload.assetsId ||
+        !payload.assetsName ||
+        !payload.assignedDate ||
+        !payload.brand ||
+        !payload.category ||
+        !payload.cost ||
+        !payload.warranty
+      ) {
+        unlinkFiles(files);
         logger.warn(
           errorResponseFunc(
             "There is no request body.",
@@ -67,6 +85,7 @@ const addAssets = async (req, res) => {
       }
     }
   } catch (err) {
+    unlinkFiles(req.files || []);
     logger.error(
       errorResponseFunc(
         "Encountered some error.",

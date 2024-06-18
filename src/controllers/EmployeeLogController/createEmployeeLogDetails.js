@@ -42,7 +42,6 @@ const createEmployeeLogDetails = async (req, res) => {
 
     }
     catch (err) {
-        console.log(err)
         logger.error(
             errorResponseFunc(
                 "Error while adding employeLogDetails.",
