@@ -1,5 +1,6 @@
 const db = require("../config/database");
 
+
 const Department = db.sequelize.define("departments", {
   id: {
     type: db.Sequelize.DataTypes.UUID,
@@ -35,5 +36,9 @@ const Department = db.sequelize.define("departments", {
   },
 });
 
+Department.associate = (models) => {
+  Department.hasMany(models.Employees, { foreignKey: "departmentId" })
+
+}
 
 module.exports = Department;
