@@ -11,9 +11,8 @@ const RouteController = require("./RoutesController/routesIndex");
 const ExperienceDetailsController = require("./ExperienceDetailsController/experienceDetailsIndex");
 const AssetsController = require("./AssetsController/assetsIndex");
 const EmergencyContactController = require("./EmergencyContactController/emergencyContactIndex");
-
-
 const EmployeeLogController = require('./EmployeeLogController/employeeLogIndex')
+const LeaveMasterController = require('./LeaveMasterController/leaveMasterIndex')
 
 module.exports = {
   AdminController,
@@ -29,5 +28,6 @@ module.exports = {
   ExperienceDetailsController,
   AssetsController,
   EmergencyContactController,
-  EmployeeLogController
+  EmployeeLogController,
+  LeaveMasterController
 };
