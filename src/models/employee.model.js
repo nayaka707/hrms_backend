@@ -202,7 +202,7 @@ Employees.associate = (models) => {
   Employees.belongsTo(models.Role, { foreignKey: "roleId", as: "role" });
   Employees.belongsTo(models.Employees, {
     foreignKey: "reportTo",
-    as: "manager",
+    as: "reportToPerson",
   });
   Employees.belongsTo(models.Department, {
     foreignKey: "departmentId",
@@ -213,7 +213,7 @@ Employees.associate = (models) => {
     as: "designations",
   });
 
-  Employees.hasMany(models.Employees, {
+  Employees.hasOne(models.Employees, {
     foreignKey: "reportTo",
     as: "subordinates",
   });
