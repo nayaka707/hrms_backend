@@ -23,7 +23,7 @@
     }
   ],
   "paths": {
-    "/readPermission": {
+    "/auth/readPermission": {
       "get": {
         "description": "Endpoint for Employee ReadPermission details.",
         "parameters": [
@@ -102,7 +102,7 @@
         }
       }
     },
-    "/routePermission/{routeId}": {
+    "/auth/routePermission/{routeId}": {
       "get": {
         "description": "Retrieve permissions for a specific route.",
         "parameters": [
@@ -206,7 +206,7 @@
         }
       }
     },
-    "/addEmployee": {
+    "/employee/addEmployee": {
       "post": {
         "description": "Endpoint to add a new employee.",
         "parameters": [
@@ -519,7 +519,7 @@
         }
       }
     },
-    "/employeeLogin": {
+    "/auth/employeeLogin": {
       "post": {
         "description": "Endpoint for employee login.",
         "parameters": [
@@ -652,7 +652,7 @@
         }
       }
     },
-    "/logOut": {
+    "/auth/logOut": {
       "get": {
         "description": "Endpoint for logging out.",
         "parameters": [
@@ -709,7 +709,7 @@
         }
       }
     },
-    "/forgot-password": {
+    "/auth/forgot-password": {
       "post": {
         "description": "Endpoint for requesting a password reset.",
         "parameters": [
@@ -798,7 +798,7 @@
         }
       }
     },
-    "/verify-password": {
+    "/auth/verify-password": {
       "post": {
         "description": "Endpoint for verifying and updating password.",
         "parameters": [
@@ -893,7 +893,7 @@
         }
       }
     },
-    "/resetPassword": {
+    "/auth/resetPassword": {
       "post": {
         "description": "Endpoint for resetting the password.",
         "parameters": [
@@ -1017,7 +1017,7 @@
         }
       }
     },
-    "/getAllEmployees": {
+    "/employee/getAllEmployees": {
       "get": {
         "description": "Endpoint to get all employees.",
         "parameters": [
@@ -1099,7 +1099,7 @@
         }
       }
     },
-    "/updatePersonalDetails/{employeeId}": {
+    "/employee/updatePersonalDetails/{employeeId}": {
       "put": {
         "description": "Endpoint to update personal details of an employee.",
         "parameters": [
@@ -1262,7 +1262,7 @@
         }
       }
     },
-    "/updateSignUpDetails/{employeeId}": {
+    "/employee/updateSignUpDetails/{employeeId}": {
       "put": {
         "description": "Endpoint to update sign-up details of an employee.",
         "parameters": [
@@ -1505,7 +1505,7 @@
         }
       }
     },
-    "/deleteEmployee/{employeeId}": {
+    "/employee/deleteEmployee/{employeeId}": {
       "delete": {
         "description": "Endpoint to delete an employee by ID.",
         "parameters": [
@@ -1599,7 +1599,7 @@
         }
       }
     },
-    "/getReportPerson": {
+    "/employee/getReportPerson": {
       "get": {
         "description": "Endpoint to get the report person.",
         "parameters": [
@@ -1665,7 +1665,7 @@
         }
       }
     },
-    "/getByIdEmployee/{id?}": {
+    "/employee/getByIdEmployee/{id?}": {
       "get": {
         "description": "Endpoint to get employee data by ID.",
         "parameters": [
@@ -1854,7 +1854,7 @@
         }
       }
     },
-    "/employeeDocument": {
+    "/document/add": {
       "post": {
         "description": "Upload employee documents.",
         "parameters": [
@@ -1932,27 +1932,7 @@
         }
       }
     },
-    "/addAttendance": {
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/dailylogs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/addBank": {
+    "/bank/addBank": {
       "post": {
         "description": "Add bank details.",
         "parameters": [
@@ -2006,7 +1986,7 @@
         }
       }
     },
-    "/deleteBank/{bankId}": {
+    "/bank/deleteBank/{bankId}": {
       "delete": {
         "description": "",
         "parameters": [
@@ -2029,7 +2009,7 @@
         }
       }
     },
-    "/getBank": {
+    "/bank/getBank": {
       "get": {
         "description": "Get bank details.",
         "parameters": [
@@ -2164,7 +2144,7 @@
         }
       }
     },
-    "/addDesignation": {
+    "/designation/addDesignation": {
       "post": {
         "description": "",
         "parameters": [
@@ -2181,7 +2161,7 @@
         }
       }
     },
-    "/getAllDesignation": {
+    "/designation/getAllDesignation": {
       "get": {
         "description": "",
         "parameters": [
@@ -2198,7 +2178,7 @@
         }
       }
     },
-    "/updateDesignation/{id}": {
+    "/designation/updateDesignation/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -2221,7 +2201,7 @@
         }
       }
     },
-    "/deleteDesignation/{id}": {
+    "/designation/deleteDesignation/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -2244,7 +2224,7 @@
         }
       }
     },
-    "/getAllRoles": {
+    "/role/getAllRoles": {
       "get": {
         "description": "",
         "parameters": [
@@ -2261,7 +2241,7 @@
         }
       }
     },
-    "/getRole/{id}": {
+    "/role/getRole/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -2284,7 +2264,7 @@
         }
       }
     },
-    "/createRole": {
+    "/role/createRole": {
       "post": {
         "description": "",
         "parameters": [
@@ -2301,7 +2281,7 @@
         }
       }
     },
-    "/deleteRole/{id}": {
+    "/role/deleteRole/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -2324,7 +2304,7 @@
         }
       }
     },
-    "/updateRole": {
+    "/role/updateRole": {
       "post": {
         "description": "",
         "parameters": [
@@ -2341,7 +2321,7 @@
         }
       }
     },
-    "/addDepartment": {
+    "/department/addDepartment": {
       "post": {
         "description": "",
         "parameters": [
@@ -2358,7 +2338,7 @@
         }
       }
     },
-    "/getAllDepartment": {
+    "/department/getAllDepartment": {
       "get": {
         "description": "",
         "parameters": [
@@ -2375,7 +2355,7 @@
         }
       }
     },
-    "/updateDepartment/{id}": {
+    "/department/updateDepartment/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -2398,7 +2378,7 @@
         }
       }
     },
-    "/deleteDepartment/{id}": {
+    "/department/deleteDepartment/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -2421,7 +2401,7 @@
         }
       }
     },
-    "/getAllRoutes": {
+    "/route/getAllRoutes": {
       "get": {
         "description": "",
         "parameters": [
@@ -2438,7 +2418,7 @@
         }
       }
     },
-    "/addExperienceDetails": {
+    "/experienceDetails/addExperienceDetails": {
       "post": {
         "description": "Add experience details",
         "parameters": [
@@ -2596,7 +2576,7 @@
         }
       }
     },
-    "/deleteExperienceDetails": {
+    "/experienceDetails/deleteExperienceDetails": {
       "delete": {
         "description": "Delete experience details",
         "parameters": [
@@ -2725,7 +2705,7 @@
         }
       }
     },
-    "/addAssets": {
+    "/assets/addAssets": {
       "post": {
         "description": "Add assets for an employee",
         "parameters": [
@@ -2891,7 +2871,7 @@
         }
       }
     },
-    "/deleteAssets": {
+    "/assets/deleteAssets": {
       "delete": {
         "description": "",
         "parameters": [
@@ -2914,7 +2894,7 @@
         }
       }
     },
-    "/addEmergencyContact": {
+    "/emergencyContact/addEmergencyContact": {
       "post": {
         "description": "Add emergency contact details for an employee",
         "parameters": [
@@ -3091,7 +3071,7 @@
         }
       }
     },
-    "/deleteEmergencyContact": {
+    "/emergencyContact/deleteEmergencyContact": {
       "delete": {
         "description": "",
         "parameters": [
