@@ -52,6 +52,7 @@ module.exports = {
   models,
   responseMessage,
   Role,
+  Department,
   successResponseFunc,
   errorResponseFunc,
   temporaryPasswordString,
