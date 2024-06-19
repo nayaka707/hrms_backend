@@ -2,8 +2,6 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const PORT = process.env.PORT;
-const swaggerUI = require("swagger-ui-express");
-const swaggerJsDoc = require("swagger-jsdoc");
 const app = express();
 const cookieParser = require("cookie-parser");
 const pinoLogger = require("pino-http");
@@ -15,7 +13,11 @@ const multer = require("multer");
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*"),
+//     res.header("Access-Control-Expose-Headers", "Content-Disposition");
+//   next();
+// });
 env.config("./.env")
 app.use(express.json());
 
@@ -55,10 +57,11 @@ app.use((err, req, res, next) => {
   next();
 });
 
+
 app.use(loggerMidlleware);
 
 // Start the server
-require("./src/routes/route")(app);
+require("./src/routes/index")(app);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   logger.info(`Server started on port ${PORT}`);

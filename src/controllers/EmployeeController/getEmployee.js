@@ -34,9 +34,9 @@ const getAllEmployeesData = async (req, res) => {
         Sequelize.where(
           Sequelize.fn(
             "concat",
-            Sequelize.col("firstName"),
+            Sequelize.col("employees.firstName"),
             " ",
-            Sequelize.col("lastName")
+            Sequelize.col("employees.lastName")
           ),
           {
             [Op.iLike]: `%${employeeName}%`,
@@ -46,7 +46,8 @@ const getAllEmployeesData = async (req, res) => {
         { lastName: { [Op.iLike]: `%${employeeName}%` } },
       ];
     }
-
+    // Debugging: Log whereClause
+    console.log("Where Clause:", whereClause);
     let roleWhereClause = {};
     if (role === constants.ADMIN) {
     } else if (role === constants.HR) {
