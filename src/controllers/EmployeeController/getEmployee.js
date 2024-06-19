@@ -61,28 +61,36 @@ const getAllEmployeesData = async (req, res) => {
       where: whereClause,
       attributes: [
         "id",
-        'employee_code',
+        "employee_code",
         "firstName",
         "lastName",
         "middleName",
         "departmentId",
         "reportTo",
         [
-          literal(`'${PUBLIC_URL}/profilePicture/' || "profilePicture"`),
+          literal(
+            `'${PUBLIC_URL}/profilePicture/' || "employees"."profilePicture"`
+          ),
           "profilePicture",
         ],
       ],
-      include: [{
-        model: Role,
-        attributes: ["id", "name"],
-        as: "role",
-        where: roleWhereClause,
-      },
-      {
-        model: Department,
-        attributes: ["id", "name"],
-        as: "department",
-      },
+      include: [
+        {
+          model: Role,
+          attributes: ["id", "name"],
+          as: "role",
+          where: roleWhereClause,
+        },
+        {
+          model: Department,
+          attributes: ["id", "name"],
+          as: "department",
+        },
+        {
+          model: Employees,
+          attributes: ["id", "firstName", "lastName"],
+          as: "reportToPerson",
+        },
       ],
     })
       .then((data) => {
@@ -114,7 +122,7 @@ const getAllEmployeesData = async (req, res) => {
         );
       });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     logger.error(
       errorResponseFunc(
         "Encountered some error.",
@@ -412,14 +420,16 @@ const getByIdEmployeesData = async (req, res) => {
         constants.ERROR
       )
     );
-    res.status(500).send(
-      errorResponseFunc(
-        "Encountered some error.",
-        err.toString(),
-        statusCode.internalServerError,
-        constants.ERROR
-      )
-    );
+    res
+      .status(500)
+      .send(
+        errorResponseFunc(
+          "Encountered some error.",
+          err.toString(),
+          statusCode.internalServerError,
+          constants.ERROR
+        )
+      );
   }
 };
 
