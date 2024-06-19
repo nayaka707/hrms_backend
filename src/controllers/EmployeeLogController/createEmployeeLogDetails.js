@@ -1,67 +1,81 @@
-const { statusCode, constants, EmployeeLogDetails, logger, successResponseFunc, errorResponseFunc } = require('./employeeLogPackageCentral')
-
-
+const {
+  statusCode,
+  constants,
+  EmployeeLogDetails,
+  logger,
+  successResponseFunc,
+  errorResponseFunc,
+} = require("./employeeLogPackageCentral");
 
 const createEmployeeLogDetails = async (req, res) => {
-    try {
-        for (let row of req.body) {
-            if (!row.employee_code || !row.log_date || !row.log_time || !row.direction) {
-                logger.warn(
-                    errorResponseFunc(
-                        "Please fill all the fields.",
-                        "Empty fields.",
-                        statusCode.badRequest,
-                        constants.BADREQUEST
-                    )
-                );
-                return res.send(
-                    errorResponseFunc(
-                        "Please fill all the fields.",
-                        "Empty fields.",
-                        statusCode.badRequest,
-                        constants.BADREQUEST
-                    )
-                );
+  try {
+    const body = req.body.map((el) => ({
+      employee_code: el.EmployeeCode,
+      log_date: el.LogDate,
+      log_time: el.LogTime,
+      direction: el.Direction,
+    }));
 
-            }
-            await EmployeeLogDetails.create({
-                employee_code: row.employee_code,
-                log_date: row.log_date,
-                log_time: row.log_time,
-                direction: row.direction
-            })
-        }
-        return res.send(
-            successResponseFunc(
-                `Successfully added employeLogDetails.`,
-                statusCode.created,
-                constants.CREATED,
+    const existingRows = await EmployeeLogDetails.findAll({
+      where: {
+        employee_code: body.map((row) => row.employee_code),
+        log_date: body.map((row) => row.log_date),
+        log_time: body.map((row) => row.log_time),
+        direction: body.map((row) => row.direction),
+      },
+      raw: true,
+    });
 
-            )
-        );
+    const existingKeys = new Set(
+      existingRows.map(
+        (row) =>
+          `${row.employee_code}-${row.log_date}-${row.log_time}-${row.direction}`
+      )
+    );
 
+    const newRows = body.filter(
+      (row) =>
+        !existingKeys.has(
+          `${row.employee_code}-${row.log_date}-${row.log_time}-${row.direction}`
+        )
+    );
+
+    if (newRows.length > 0) {
+      await EmployeeLogDetails.bulkCreate(newRows);
+      return res.send(
+        successResponseFunc(
+          `Successfully added ${newRows.length} employeeLogDetails.`,
+          statusCode.created,
+          constants.CREATED
+        )
+      );
+    } else {
+      return res.send(
+        successResponseFunc(
+          "No new data to insert.",
+          statusCode.noContent,
+          constants.NOCONTENT
+        )
+      );
     }
-    catch (err) {
-        logger.error(
-            errorResponseFunc(
-                "Error while adding employeLogDetails.",
-                err.toString(),
-                statusCode.internalServerError,
-                constants.ERROR
-            )
-        );
-        res.send(
-            errorResponseFunc(
-                "Error while adding employeLogDetails..",
-                err.toString(),
-                statusCode.internalServerError,
-                constants.ERROR
-            )
-        );
-    }
+  } catch (err) {
+    logger.error(
+      errorResponseFunc(
+        "Error while adding employeeLogDetails.",
+        err.toString(),
+        statusCode.internalServerError,
+        constants.ERROR
+      )
+    );
+    return res.send(
+      errorResponseFunc(
+        "Error while adding employeeLogDetails.",
+        err.toString(),
+        statusCode.internalServerError,
+        constants.ERROR
+      )
+    );
+  }
+};
 
-}
-
-
-
-module.exports = { createEmployeeLogDetails } 
+module.exports = { createEmployeeLogDetails };
