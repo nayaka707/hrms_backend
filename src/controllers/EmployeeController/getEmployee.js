@@ -49,7 +49,6 @@ const getAllEmployeesData = async (req, res) => {
 
     let roleWhereClause = {};
     if (role === constants.ADMIN) {
-      // No role filtering needed for SUPER ADMIN
     } else if (role === constants.HR) {
       roleWhereClause = {
         name: {
@@ -66,17 +65,25 @@ const getAllEmployeesData = async (req, res) => {
         "firstName",
         "lastName",
         "middleName",
+        "departmentId",
+        "reportTo",
         [
           literal(`'${PUBLIC_URL}/profilePicture/' || "profilePicture"`),
           "profilePicture",
         ],
       ],
-      include: {
+      include: [{
         model: Role,
         attributes: ["id", "name"],
         as: "role",
         where: roleWhereClause,
       },
+      {
+        model: Department,
+        attributes: ["id", "name"],
+        as: "department",
+      },
+      ],
     })
       .then((data) => {
         res.send(
@@ -107,6 +114,7 @@ const getAllEmployeesData = async (req, res) => {
         );
       });
   } catch (err) {
+    console.log(err)
     logger.error(
       errorResponseFunc(
         "Encountered some error.",
@@ -302,7 +310,7 @@ const getByIdEmployeesData = async (req, res) => {
         errorResponseFunc(
           "Employee not found",
           "Employee not found",
-          statusCode.notFound,
+          statusCode.badRequest,
           constants.NOTFOUND
         )
       );
@@ -404,7 +412,7 @@ const getByIdEmployeesData = async (req, res) => {
         constants.ERROR
       )
     );
-    res.send(
+    res.status(500).send(
       errorResponseFunc(
         "Encountered some error.",
         err.toString(),

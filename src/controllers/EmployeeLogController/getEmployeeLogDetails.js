@@ -1,7 +1,7 @@
-const { statusCode, constants, EmployeeLogDetails, logger, successResponseFunc, errorResponseFunc, } = require('./employeeLogPackageCentral')
-const moment = require('moment')
-const { Op } = require("sequelize");
 
+const { statusCode, constants, EmployeeLogDetails, logger, successResponseFunc, errorResponseFunc } = require('./employeeLogPackageCentral');
+const moment = require('moment');
+const { Op } = require("sequelize");
 
 const formatHoursToHHMM = (hours) => {
     const duration = moment.duration(hours, 'hours');
@@ -9,6 +9,9 @@ const formatHoursToHHMM = (hours) => {
     return formattedTime;
 };
 
+const formatTimeTo12Hour = (time) => {
+    return moment(time, 'HH:mm:ss').format('h:mm a');
+};
 
 const getEmployeeLogDetails = async (req, res) => {
     const { employee_code, month, year } = req.query;
@@ -39,7 +42,6 @@ const getEmployeeLogDetails = async (req, res) => {
             [Op.between]: [startDate, endDate]
         };
     } else {
-     
         const currentMonth = moment().format('MM');
         const currentYear = moment().year();
         const startDate = moment(`${currentYear}-${currentMonth}-01`).startOf('month').format('YYYY-MM-DD');
@@ -56,6 +58,9 @@ const getEmployeeLogDetails = async (req, res) => {
             order: [['log_date', 'DESC'], ['log_time', 'ASC']]
         });
 
+        if (!logs.length) {
+            return res.status(200).json({ data: { dailyLog: [], monthData: {} } });
+        }
         const groupedLogs = logs.reduce((acc, log) => {
             const { log_date, log_time, direction } = log;
 
@@ -106,11 +111,11 @@ const getEmployeeLogDetails = async (req, res) => {
                             if (duration > 0) {
                                 dailyTotalInTime += duration;
                             } else {
-                                totalOutTime += duration; 
+                                totalOutTime += duration;
                             }
                         }
 
-                        i++; 
+                        i++;
                     }
                 }
             }
@@ -119,9 +124,13 @@ const getEmployeeLogDetails = async (req, res) => {
 
             return {
                 date: log_date,
-                first_in,
-                last_out,
-                inOut: inOutPairs,
+                first_in: formatTimeTo12Hour(first_in),
+                last_out: formatTimeTo12Hour(last_out),
+                inOut: inOutPairs.map(entry => ({
+                    ...entry,
+                    in: formatTimeTo12Hour(entry.in),
+                    out: formatTimeTo12Hour(entry.out),
+                })),
                 totalInTime: dailyTotalInTime,
                 totalOutTime: dailyTotalOutTime
             };
@@ -129,35 +138,34 @@ const getEmployeeLogDetails = async (req, res) => {
 
         result.forEach(entry => {
             if (entry.inOut.length > 0) {
-                let firstIn = entry.inOut[0].in
-                let lastOut = entry.inOut[entry.inOut.length - 1].out
-                const firstInMoment = moment(firstIn, 'HH:mm:ss');
-                const lastOutMoment = moment(lastOut, 'HH:mm:ss');
+                let firstIn = entry.inOut[0].in;
+                let lastOut = entry.inOut[entry.inOut.length - 1].out;
+                const firstInMoment = moment(firstIn, 'h:mm a');
+                const lastOutMoment = moment(lastOut, 'h:mm a');
                 const duration = moment.duration(lastOutMoment.diff(firstInMoment));
                 entry.first_in = firstIn;
                 entry.last_out = lastOut;
-                entry.totalOutTime = duration.asHours() - entry.totalInTime
+                entry.totalOutTime = duration.asHours() - entry.totalInTime;
             }
         });
-
 
         const totalInTimeOfMonth = result.reduce((acc, entry) => acc + entry.totalInTime, 0);
         const totalOutTimeOfMonth = result.reduce((acc, entry) => acc + entry.totalOutTime, 0);
         let averageInTime = totalInTimeOfMonth / result.length;
         const totalInTimeHHMM = formatHoursToHHMM(totalInTimeOfMonth);
         const totalOutTimeHHMM = formatHoursToHHMM(totalOutTimeOfMonth);
-        averageInTime = formatHoursToHHMM(averageInTime)
+        averageInTime = formatHoursToHHMM(averageInTime);
 
         let monthData = {
             totalInTime: totalInTimeHHMM,
             totalOutTime: totalOutTimeHHMM,
             averageInTime
-        }
+        };
 
         result.forEach(entry => {
             if (entry.inOut.length > 0) {
-                entry.totalOutTime = formatHoursToHHMM(entry.totalOutTime)
-                entry.totalInTime = formatHoursToHHMM(entry.totalInTime)
+                entry.totalOutTime = formatHoursToHHMM(entry.totalOutTime);
+                entry.totalInTime = formatHoursToHHMM(entry.totalInTime);
             }
         });
         return res.json({ data: { dailyLog: result, monthData } });
@@ -167,9 +175,4 @@ const getEmployeeLogDetails = async (req, res) => {
     }
 };
 
-
-
-
-
-
-module.exports = { getEmployeeLogDetails }
+module.exports = { getEmployeeLogDetails };
