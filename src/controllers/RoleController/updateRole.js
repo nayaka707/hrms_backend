@@ -13,7 +13,7 @@ const {
 
 const updateRole = async (req, res) => {
   try {
-    const roleId = req.body.id;
+    const roleId = req.body.id || null;
     const roleName = req.body.name;
     const activeStatus = req.body.isActive;
     const permissions = req.body.permissions;
@@ -117,9 +117,9 @@ const updateRole = async (req, res) => {
         }
         return null;
       })
-      .filter(Boolean);
-
-    await model.Permission.bulkCreate(updateData, {
+      .filter(Boolean); 
+    
+    await Permission.bulkCreate(updateData, {
       updateOnDuplicate: [
         "canCreate",
         "canRead",
@@ -139,7 +139,7 @@ const updateRole = async (req, res) => {
         updateData
       )
     );
-  } catch (error) {
+  } catch (err) {
     logger.error(
       errorResponseFunc(
         "Encountered some error.",
