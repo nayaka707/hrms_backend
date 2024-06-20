@@ -7,7 +7,9 @@
   },
   "host": "localhost:9000",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "securityDefinitions": {
     "Bearer": {
       "type": "apiKey",
@@ -97,9 +99,15 @@
                 "status": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string" },
-                    "code": { "type": "integer" },
-                    "type": { "type": "string" }
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
                   }
                 },
                 "data": {
@@ -107,12 +115,20 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "id": { "type": "string" },
-                      "name": { "type": "string" },
-                      "priority": { "type": "integer" },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "priority": {
+                        "type": "integer"
+                      },
                       "ChildRoute": {
                         "type": "array",
-                        "items": { "type": "object" }
+                        "items": {
+                          "type": "object"
+                        }
                       }
                     }
                   }
@@ -128,12 +144,20 @@
                 "status": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string" },
-                    "code": { "type": "integer" },
-                    "type": { "type": "string" }
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
                   }
                 },
-                "error": { "type": "string" }
+                "error": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -145,12 +169,20 @@
                 "status": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string" },
-                    "code": { "type": "integer" },
-                    "type": { "type": "string" }
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
                   }
                 },
-                "error": { "type": "string" }
+                "error": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -184,23 +216,41 @@
                 "status": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string" },
-                    "code": { "type": "integer" },
-                    "type": { "type": "string" }
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
                   }
                 },
                 "data": {
                   "type": "object",
                   "properties": {
-                    "canCreate": { "type": "boolean" },
-                    "canRead": { "type": "boolean" },
-                    "canUpdate": { "type": "boolean" },
-                    "canDelete": { "type": "boolean" },
+                    "canCreate": {
+                      "type": "boolean"
+                    },
+                    "canRead": {
+                      "type": "boolean"
+                    },
+                    "canUpdate": {
+                      "type": "boolean"
+                    },
+                    "canDelete": {
+                      "type": "boolean"
+                    },
                     "route": {
                       "type": "object",
                       "properties": {
-                        "id": { "type": "string" },
-                        "routeName": { "type": "string" }
+                        "id": {
+                          "type": "string"
+                        },
+                        "routeName": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -216,12 +266,20 @@
                 "status": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string" },
-                    "code": { "type": "integer" },
-                    "type": { "type": "string" }
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
                   }
                 },
-                "error": { "type": "string" }
+                "error": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -233,12 +291,20 @@
                 "status": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string" },
-                    "code": { "type": "integer" },
-                    "type": { "type": "string" }
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
                   }
                 },
-                "error": { "type": "string" }
+                "error": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -250,12 +316,20 @@
                 "status": {
                   "type": "object",
                   "properties": {
-                    "message": { "type": "string" },
-                    "code": { "type": "integer" },
-                    "type": { "type": "string" }
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
                   }
                 },
-                "error": { "type": "string" }
+                "error": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -458,9 +532,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -478,12 +558,20 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
-                    "error": { "type": "string" }
+                    "error": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -499,12 +587,20 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
-                    "error": { "type": "string" }
+                    "error": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -520,12 +616,20 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
-                    "error": { "type": "string" }
+                    "error": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -541,12 +645,20 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
-                    "error": { "type": "string" }
+                    "error": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -562,12 +674,20 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
-                    "error": { "type": "string" }
+                    "error": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -611,15 +731,23 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "token": { "type": "string" }
+                        "token": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -637,9 +765,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -657,9 +791,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -677,9 +817,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -697,9 +843,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -735,9 +887,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -755,9 +913,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -799,15 +963,23 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "token": { "type": "string" }
+                        "token": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -825,9 +997,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -845,9 +1023,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -901,9 +1085,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -921,9 +1111,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -941,9 +1137,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1006,9 +1208,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1026,9 +1234,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1046,9 +1260,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1066,9 +1286,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1101,9 +1327,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
                     "data": {
@@ -1111,16 +1343,30 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "id": { "type": "string" },
-                          "firstName": { "type": "string" },
-                          "lastName": { "type": "string" },
-                          "middleName": { "type": "string" },
-                          "profilePicture": { "type": "string" },
+                          "id": {
+                            "type": "string"
+                          },
+                          "firstName": {
+                            "type": "string"
+                          },
+                          "lastName": {
+                            "type": "string"
+                          },
+                          "middleName": {
+                            "type": "string"
+                          },
+                          "profilePicture": {
+                            "type": "string"
+                          },
                           "role": {
                             "type": "object",
                             "properties": {
-                              "id": { "type": "string" },
-                              "name": { "type": "string" }
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
@@ -1149,9 +1395,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1293,9 +1545,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1313,9 +1571,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1517,9 +1781,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1537,9 +1807,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1557,9 +1833,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1598,9 +1880,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1687,9 +1975,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
                     "data": {
@@ -1697,10 +1991,18 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "id": { "type": "string" },
-                          "firstName": { "type": "string" },
-                          "lastName": { "type": "string" },
-                          "fullName": { "type": "string" }
+                          "id": {
+                            "type": "string"
+                          },
+                          "firstName": {
+                            "type": "string"
+                          },
+                          "lastName": {
+                            "type": "string"
+                          },
+                          "fullName": {
+                            "type": "string"
+                          }
                         }
                       }
                     }
@@ -1719,9 +2021,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -1760,9 +2068,15 @@
                     "status": {
                       "type": "object",
                       "properties": {
-                        "message": { "type": "string" },
-                        "code": { "type": "integer" },
-                        "type": { "type": "string" }
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
                       }
                     },
                     "data": {
@@ -1771,81 +2085,201 @@
                         "employee": {
                           "type": "object",
                           "properties": {
-                            "id": { "type": "string" },
-                            "firstName": { "type": "string" },
-                            "lastName": { "type": "string" },
-                            "pancardNo": { "type": "string" },
-                            "middleName": { "type": "string" },
-                            "aadharNo": { "type": "string" },
-                            "uanNo": { "type": "string" },
-                            "workLocation": { "type": "string" },
-                            "pfNo": { "type": "string" },
-                            "email": { "type": "string" },
-                            "dateOfJoining": { "type": "string" },
-                            "gender": { "type": "string" },
-                            "phoneNumber": { "type": "string" },
-                            "departmentId": { "type": "string" },
-                            "designationId": { "type": "string" },
-                            "profilePicture": { "type": "string" },
-                            "currentAddress": { "type": "string" },
-                            "permanentAddress": { "type": "string" },
-                            "roleId": { "type": "string" },
-                            "isActive": { "type": "string" },
-                            "emergencyContact": { "type": "string" },
-                            "city": { "type": "string" },
-                            "state": { "type": "string" },
-                            "pincode": { "type": "string" },
-                            "passportNumber": { "type": "string" },
-                            "fatherName": { "type": "string" },
-                            "motherName": { "type": "string" },
-                            "dateOfBirth": { "type": "string" },
-                            "nationality": { "type": "string" },
-                            "experience": { "type": "integer" },
-                            "qualification": { "type": "string" },
-                            "reportTo": { "type": "string" },
-                            "designationName": { "type": "string" },
-                            "departmentName": { "type": "string" }
+                            "id": {
+                              "type": "string"
+                            },
+                            "firstName": {
+                              "type": "string"
+                            },
+                            "lastName": {
+                              "type": "string"
+                            },
+                            "pancardNo": {
+                              "type": "string"
+                            },
+                            "middleName": {
+                              "type": "string"
+                            },
+                            "aadharNo": {
+                              "type": "string"
+                            },
+                            "uanNo": {
+                              "type": "string"
+                            },
+                            "workLocation": {
+                              "type": "string"
+                            },
+                            "pfNo": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "dateOfJoining": {
+                              "type": "string"
+                            },
+                            "gender": {
+                              "type": "string"
+                            },
+                            "phoneNumber": {
+                              "type": "string"
+                            },
+                            "departmentId": {
+                              "type": "string"
+                            },
+                            "designationId": {
+                              "type": "string"
+                            },
+                            "profilePicture": {
+                              "type": "string"
+                            },
+                            "currentAddress": {
+                              "type": "string"
+                            },
+                            "permanentAddress": {
+                              "type": "string"
+                            },
+                            "roleId": {
+                              "type": "string"
+                            },
+                            "isActive": {
+                              "type": "string"
+                            },
+                            "emergencyContact": {
+                              "type": "string"
+                            },
+                            "city": {
+                              "type": "string"
+                            },
+                            "state": {
+                              "type": "string"
+                            },
+                            "pincode": {
+                              "type": "string"
+                            },
+                            "passportNumber": {
+                              "type": "string"
+                            },
+                            "fatherName": {
+                              "type": "string"
+                            },
+                            "motherName": {
+                              "type": "string"
+                            },
+                            "dateOfBirth": {
+                              "type": "string"
+                            },
+                            "nationality": {
+                              "type": "string"
+                            },
+                            "experience": {
+                              "type": "integer"
+                            },
+                            "qualification": {
+                              "type": "string"
+                            },
+                            "reportTo": {
+                              "type": "string"
+                            },
+                            "designationName": {
+                              "type": "string"
+                            },
+                            "departmentName": {
+                              "type": "string"
+                            }
                           }
                         },
                         "documents": {
                           "type": "object",
                           "properties": {
-                            "id": { "type": "string" },
-                            "tenMarksheet": { "type": "string" },
-                            "twelveMarksheet": { "type": "string" },
-                            "degreeMarksheet": { "type": "string" },
-                            "adharCard": { "type": "string" },
-                            "panCard": { "type": "string" },
-                            "salarySlip1": { "type": "string" },
-                            "salarySlip2": { "type": "string" },
-                            "salarySlip3": { "type": "string" },
-                            "ProbationComplitionLetter": { "type": "string" },
-                            "appointmentLetter": { "type": "string" }
+                            "id": {
+                              "type": "string"
+                            },
+                            "tenMarksheet": {
+                              "type": "string"
+                            },
+                            "twelveMarksheet": {
+                              "type": "string"
+                            },
+                            "degreeMarksheet": {
+                              "type": "string"
+                            },
+                            "adharCard": {
+                              "type": "string"
+                            },
+                            "panCard": {
+                              "type": "string"
+                            },
+                            "salarySlip1": {
+                              "type": "string"
+                            },
+                            "salarySlip2": {
+                              "type": "string"
+                            },
+                            "salarySlip3": {
+                              "type": "string"
+                            },
+                            "ProbationComplitionLetter": {
+                              "type": "string"
+                            },
+                            "appointmentLetter": {
+                              "type": "string"
+                            }
                           }
                         },
                         "bankDetails": {
                           "type": "object",
                           "properties": {
-                            "bankName": { "type": "string" },
-                            "accountNo": { "type": "string" },
-                            "IFSC": { "type": "string" },
-                            "branchName": { "type": "string" },
-                            "isActive": { "type": "string" },
-                            "employeeId": { "type": "string" }
+                            "bankName": {
+                              "type": "string"
+                            },
+                            "accountNo": {
+                              "type": "string"
+                            },
+                            "IFSC": {
+                              "type": "string"
+                            },
+                            "branchName": {
+                              "type": "string"
+                            },
+                            "isActive": {
+                              "type": "string"
+                            },
+                            "employeeId": {
+                              "type": "string"
+                            }
                           }
                         },
                         "emergencyContacts": {
                           "type": "object",
                           "properties": {
-                            "primaryName": { "type": "string" },
-                            "primaryRelationship": { "type": "string" },
-                            "primaryPhoneNo": { "type": "string" },
-                            "primaryAddress": { "type": "string" },
-                            "secondaryName": { "type": "string" },
-                            "secondRelationship": { "type": "string" },
-                            "secondaryPhoneNo": { "type": "string" },
-                            "secondaryAddress": { "type": "string" },
-                            "employeeId": { "type": "string" }
+                            "primaryName": {
+                              "type": "string"
+                            },
+                            "primaryRelationship": {
+                              "type": "string"
+                            },
+                            "primaryPhoneNo": {
+                              "type": "string"
+                            },
+                            "primaryAddress": {
+                              "type": "string"
+                            },
+                            "secondaryName": {
+                              "type": "string"
+                            },
+                            "secondRelationship": {
+                              "type": "string"
+                            },
+                            "secondaryPhoneNo": {
+                              "type": "string"
+                            },
+                            "secondaryAddress": {
+                              "type": "string"
+                            },
+                            "employeeId": {
+                              "type": "string"
+                            }
                           }
                         },
                         "experienceDetails": {
@@ -1853,13 +2287,27 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "companyName": { "type": "string" },
-                              "designation": { "type": "string" },
-                              "location": { "type": "string" },
-                              "periodFrom": { "type": "string" },
-                              "periodTo": { "type": "string" },
-                              "experienceId": { "type": "integer" },
-                              "employeeId": { "type": "string" }
+                              "companyName": {
+                                "type": "string"
+                              },
+                              "designation": {
+                                "type": "string"
+                              },
+                              "location": {
+                                "type": "string"
+                              },
+                              "periodFrom": {
+                                "type": "string"
+                              },
+                              "periodTo": {
+                                "type": "string"
+                              },
+                              "experienceId": {
+                                "type": "integer"
+                              },
+                              "employeeId": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
@@ -1868,17 +2316,35 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "assetsName": { "type": "string" },
-                              "assetsId": { "type": "string" },
-                              "assignedDate": { "type": "string" },
-                              "brand": { "type": "string" },
-                              "category": { "type": "string" },
-                              "cost": { "type": "string" },
-                              "warranty": { "type": "string" },
-                              "employeeId": { "type": "string" },
+                              "assetsName": {
+                                "type": "string"
+                              },
+                              "assetsId": {
+                                "type": "string"
+                              },
+                              "assignedDate": {
+                                "type": "string"
+                              },
+                              "brand": {
+                                "type": "string"
+                              },
+                              "category": {
+                                "type": "string"
+                              },
+                              "cost": {
+                                "type": "string"
+                              },
+                              "warranty": {
+                                "type": "string"
+                              },
+                              "employeeId": {
+                                "type": "string"
+                              },
                               "assetsImages": {
                                 "type": "array",
-                                "items": { "type": "string" }
+                                "items": {
+                                  "type": "string"
+                                }
                               }
                             }
                           }
@@ -3221,6 +3687,339 @@
           }
         }
       }
+    },
+    "/worklog/create": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully added WorkLog.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/add": {
+      "post": {
+        "description": "Project added successfully",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/project/getById/{projectId}": {
+      "get": {
+        "description": "Successfully get Project",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the project"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully get Project",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/getAll/": {
+      "get": {
+        "description": "Projects get successfully",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },"/project/delete/:{projectId}":{
+      "delete":{
+        "description":"Successfully deleted project",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
     }
   }
 }
