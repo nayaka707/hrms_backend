@@ -296,12 +296,7 @@ const getByIdEmployeesData = async (req, res) => {
             "assetsName",
             "assetsId",
             "assignedDate",
-            "brand",
-            "category",
-            "cost",
-            "warranty",
             "employeeId",
-            "assetsImages",
           ],
         },
       ],
@@ -346,16 +341,7 @@ const getByIdEmployeesData = async (req, res) => {
     const bankDetail = employeeData.bankDetail || {};
     const experienceDetails = employeeData.experienceDetails || [];
     const employeeDocuments = employeeData.employeeDocument || {};
-    const assets = employeeData.assets || [];
-    if (assets.length > 0) {
-      assets.forEach((asset) => {
-        if (asset.assetsImages && Array.isArray(asset.assetsImages)) {
-          asset.assetsImages = asset.assetsImages.map(
-            (img) => `${PUBLIC_URL}/assetsImages/${img}`
-          );
-        }
-      });
-    }
+    const assets = employeeData.assets || {};
 
     const data = {
       employee: {
@@ -391,6 +377,7 @@ const getByIdEmployeesData = async (req, res) => {
         experience: employeeData.experience,
         qualification: employeeData.qualification,
         reportTo: reportToFullName,
+        reportToId : employeeData.reportTo,
         designationName: employeeData.designations
           ? employeeData.designations.name
           : null,
