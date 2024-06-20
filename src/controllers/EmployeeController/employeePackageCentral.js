@@ -10,6 +10,8 @@ const {
   Assets,
   Department,
   Designation,
+  WorkLogs,
+  Projects
 } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -66,4 +68,6 @@ module.exports = {
   sendEmail,
   Route,
   Sequelize,
+  WorkLogs,
+  Projects
 };

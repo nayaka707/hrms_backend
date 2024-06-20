@@ -13,6 +13,8 @@ const Assets = require("./assets.model");
 const EmployeeLogDetails = require("./EmployeeLogDetails.model");
 const LeaveMaster = require("./leaveMaster.model");
 const LeaveBalance = require("./leaveBalance.model");
+const Projects = require('./projects.model')
+const WorkLogs = require('./workLog.model')
 
 module.exports = {
   Employees,
@@ -30,4 +32,6 @@ module.exports = {
   EmployeeLogDetails,
   LeaveMaster,
   LeaveBalance,
+  Projects,
+  WorkLogs
 };
