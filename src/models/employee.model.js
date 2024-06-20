@@ -124,15 +124,12 @@ const Employees = db.sequelize.define("employees", {
     onDelete: "CASCADE",
   },
   isActive: {
-    type: db.Sequelize.DataTypes.STRING,
-    validate: {
-      customValidator: (value) => {
-        const enums = ["1", "0"];
-        if (!enums.includes(value)) {
-          throw new Error("not a valid option");
-        }
-      },
-    },
+    type: db.Sequelize.DataTypes.BOOLEAN,
+    defaultValue: true,
+  },
+  isProbationCompleted: {
+    type: db.Sequelize.DataTypes.BOOLEAN,
+    defaultValue: false,
   },
   deletedAt: {
     type: db.Sequelize.DataTypes.DATE,
@@ -184,7 +181,7 @@ const Employees = db.sequelize.define("employees", {
   },
   employee_code: {
     type: db.Sequelize.DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   createdAt: {
     allowNull: false,

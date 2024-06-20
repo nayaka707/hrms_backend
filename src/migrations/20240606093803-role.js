@@ -16,17 +16,6 @@ module.exports = {
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: true,
       },
-      isActive: {
-        type: Sequelize.DataTypes.STRING,
-        validate: {
-          customValidator: (value) => {
-            const enums = ["1", "0"];
-            if (!enums.includes(value)) {
-              throw new Error("not a valid option");
-            }
-          },
-        },
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,

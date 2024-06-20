@@ -45,16 +45,8 @@ const Attendance = db.sequelize.define("attendances", {
     type: db.Sequelize.DataTypes.TIME,
   },
   isActive: {
-    type: db.Sequelize.DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      customValidator: (value) => {
-        const enums = ["1", "0"];
-        if (!enums.includes(value)) {
-          throw new Error("not a valid option");
-        }
-      },
-    },
+    type: db.Sequelize.DataTypes.BOOLEAN,
+    defaultValue: true,
   },
   createdAt: {
     allowNull: false,

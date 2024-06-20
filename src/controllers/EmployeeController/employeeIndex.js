@@ -8,6 +8,7 @@ const { getAllEmployeesData, getByIdEmployeesData } = require("./getEmployee");
 const {
   updateEmployeeData,
   updateSignUpDetails,
+  probationCompleted
 } = require("./updateEmployeeData");
 const { employeeLogin } = require("./employeeLogin");
 const { addEmployee } = require("./addEmployee");
@@ -31,5 +32,6 @@ module.exports = {
   logOut,
   updateSignUpDetails,
   createWorkLog,
-  getWorkLogByEmployeeId
+  getWorkLogByEmployeeId,
+  probationCompleted
 };

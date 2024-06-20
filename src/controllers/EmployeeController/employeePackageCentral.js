@@ -11,10 +11,13 @@ const {
   Department,
   Designation,
   WorkLogs,
-  Projects
+  Projects,
+  LeaveBalance,
+  LeaveMaster
 } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE;
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
 // const PUBLIC_URL = process.env.PUBLIC_URL
@@ -69,5 +72,8 @@ module.exports = {
   Route,
   Sequelize,
   WorkLogs,
-  Projects
+  Projects,
+  LeaveBalance,
+  moment,
+  LeaveMaster
 };

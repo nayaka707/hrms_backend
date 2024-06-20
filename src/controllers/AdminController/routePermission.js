@@ -36,7 +36,7 @@ const routePermission = async (req, res) => {
         attributes: ["canCreate", "canRead", "canUpdate", "canDelete"],
         include : {
             model : Route,
-            where : { isActive : "1" },
+            where : { isActive : constants.ACTIVE },
             attributes : ["id", ["name", "routeName"]]
         }
       });

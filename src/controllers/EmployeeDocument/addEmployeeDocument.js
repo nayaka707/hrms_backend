@@ -67,7 +67,7 @@ const addEmployeeDocument = async (req, res) => {
       if (!employeeDocuments) {
         await EmployeeDocuments.create({
           ...payload,
-          isActive: "1",
+          isActive: constants.ACTIVE,
         });
         return res.send(
           successResponseFunc(

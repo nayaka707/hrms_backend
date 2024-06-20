@@ -1,5 +1,5 @@
-const ACTIVE = "1";
-const INACTIVE = "0";
+const ACTIVE = true;
+const INACTIVE = false;
 const CHARACTERS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 const ERROR = "Internal server error";

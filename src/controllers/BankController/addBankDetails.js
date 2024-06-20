@@ -67,7 +67,7 @@ const addBankDetails = async (req, res) => {
       bankName,
       accountNo,
       IFSC,
-      isActive: "1",
+      isActive: constants.ACTIVE,
       branchName
     });
     return res.send(
