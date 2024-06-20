@@ -188,6 +188,7 @@ const getByIdEmployeesData = async (req, res) => {
         "nationality",
         "experience",
         "qualification",
+        "employee_code"
       ],
       include: [
         {
@@ -384,6 +385,7 @@ const getByIdEmployeesData = async (req, res) => {
         departmentName: employeeData.department
           ? employeeData.department.name
           : null,
+        employeeCode: employeeData.employee_code,
       },
       documents: employeeDocuments,
       bankDetails: bankDetail,

@@ -27,7 +27,7 @@ const {
 
 const getWorkLogByEmployeeId = async (req, res) => {
     try {
-        let employeeId = req.loggersId
+        let employeeId = req.body.id;
 
         const workLog = await WorkLogs.findAndCountAll({
             where: {
