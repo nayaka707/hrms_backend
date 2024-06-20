@@ -15,7 +15,8 @@ const {
   LeaveMaster,
   LeaveBalance,
   Projects,
-  WorkLogs
+  WorkLogs,
+  LeaveRequest
 } = require("../models/modelsIndex");
 
 const models = {
@@ -36,6 +37,7 @@ const models = {
   LeaveBalance: LeaveBalance,
   Projects: Projects,
   WorkLogs: WorkLogs,
+  LeaveRequest:LeaveRequest
 };
 
 Object.keys(models).forEach((modelName) => {

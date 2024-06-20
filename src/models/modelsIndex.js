@@ -15,6 +15,7 @@ const LeaveMaster = require("./leaveMaster.model");
 const LeaveBalance = require("./leaveBalance.model");
 const Projects = require('./projects.model')
 const WorkLogs = require('./workLog.model')
+const LeaveRequest = require("./leaveRequest.model");
 
 module.exports = {
   Employees,
@@ -33,5 +34,6 @@ module.exports = {
   LeaveMaster,
   LeaveBalance,
   Projects,
-  WorkLogs
+  WorkLogs,
+  LeaveRequest
 };

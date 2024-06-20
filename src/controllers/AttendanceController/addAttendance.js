@@ -123,7 +123,7 @@ const addEmployeeAttendance = async (req, res) => {
               status: data.Status.trim(),
               punchRecords: data["Punch Records"].trim(),
               overtime: data.Overtime.trim(),
-              isActive: "1",
+              isActive: constants.ACTIVE,
             };
 
             Attendance.create(payload)

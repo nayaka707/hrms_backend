@@ -4,6 +4,7 @@ const {
   temporaryPasswordString,
   sendEmail,
   unlinkFiles,
+  LeaveBalance,
 } = require("./employeePackageCentral");
 
 const employeeCreatorFunc = (adminDetails, files) => {
@@ -33,10 +34,17 @@ const employeeCreatorFunc = (adminDetails, files) => {
         permanentAddress: adminDetails.permanentAddress,
         reportTo: adminDetails.reportTo,
         profilePicture: adminDetails.profilePicture,
-        employee_code: adminDetails.employee_code
+        employee_code: adminDetails.employee_code,
       })
         .then(async (data) => {
           try {
+            let employeeData = await Employees.findOne({
+              where: {
+                email: data?.email,
+              },
+            });
+            await LeaveBalance.create({ employeeId: employeeData?.id, balance : 0, isActive:constants.ACTIVE});
+
             // const sendMail = await mailFunc(
             //   adminDetails.firstName,
             //   password,

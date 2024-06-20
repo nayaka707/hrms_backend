@@ -15,6 +15,10 @@ const ProjectController = require('./ProjectController/projectIndex')
 const EmployeeLogController = require('./EmployeeLogController/employeeLogIndex')
 const LeaveMasterController = require('./LeaveMasterController/leaveMasterIndex')
 const WorkLogController = require('./WorkLogController/workLogIndex')
+const LeaveBalanceController = require('./LeaveBalanceController/leaveBalanceIndex')
+const LeaveRequestController = require('./LeaveRequestController/leaveRequestIndex')
+
+
 module.exports = {
   AdminController,
   EmployeeController,
@@ -32,5 +36,7 @@ module.exports = {
   EmployeeLogController,
   LeaveMasterController,
   ProjectController,
-  WorkLogController
+  WorkLogController,
+  LeaveBalanceController,
+  LeaveRequestController
 };

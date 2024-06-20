@@ -28,15 +28,8 @@ module.exports = {
         onUpdate: "CASCADE",
       },
       isActive: {
-        type: Sequelize.DataTypes.STRING,
-        validate: {
-          customValidator: (value) => {
-            const enums = ["1", "0"];
-            if (!enums.includes(value)) {
-              throw new Error("not a valid option");
-            }
-          },
-        },
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
       },
       createdAt: {
         allowNull: false,
