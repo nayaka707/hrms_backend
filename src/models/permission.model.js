@@ -47,6 +47,13 @@ const Permission = db.sequelize.define("permissions", {
     type: db.Sequelize.DataTypes.DATE,
     defaultValue: db.Sequelize.NOW,
   },
+}, {
+  indexes: [
+    {
+      unique: true,
+      fields: ['roleId', 'routeId'],
+    },
+  ],
 });
 
 Permission.associate = (models) => {

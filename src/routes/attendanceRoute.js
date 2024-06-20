@@ -4,8 +4,8 @@ const { verifyToken } = require("../middlewares/auth");
 const { EmployeeLogController } = require("../controllers/index");
 
 
-router.post('/employeeLog/create', [verifyToken], EmployeeLogController.createEmployeeLogDetails)
-router.get('/getByEmployeeCode', [verifyToken], EmployeeLogController.getEmployeeLogDetails)
+router.post('/employeeLog/create', EmployeeLogController.createEmployeeLogDetails)
+router.get('/getByEmployeeCode', EmployeeLogController.getEmployeeLogDetails)
 //  // Attendance Routes
 //  app.post("/addAttendance",[verifyToken], AttendanceController.addEmployeeAttendance);
 //  app.get("/dailylogs",[verifyToken], AttendanceController.getAllAttendance);

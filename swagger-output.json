@@ -23,8 +23,63 @@
     }
   ],
   "paths": {
+    "tags": [
+      {
+        "name": "Auth",
+        "description": "Authentication and user management routes"
+      },
+      {
+        "name": "Role",
+        "description": "Role management routes"
+      },
+      {
+        "name": "Route",
+        "description": "Route management routes"
+      },
+      {
+        "name": "Employee",
+        "description": "Employee management routes"
+      },
+      {
+        "name": "Department",
+        "description": "Department management routes"
+      },
+      {
+        "name": "Designation",
+        "description": "Designation management routes"
+      },
+      {
+        "name": "Leave",
+        "description": "Leave management routes"
+      },
+      {
+        "name": "Attendance",
+        "description": "Attendance management routes"
+      },
+      {
+        "name": "Document",
+        "description": "Document management routes"
+      },
+      {
+        "name": "Bank",
+        "description": "Bank management routes"
+      },
+      {
+        "name": "Experience Details",
+        "description": "Experience management routes"
+      },
+      {
+        "name": "Assets",
+        "description": "Assets management routes"
+      },
+      {
+        "name": "Emergency Contact",
+        "description": "Emergency contact management routes"
+      }
+    ],
     "/auth/readPermission": {
       "get": {
+        "tags": ["Auth"],
         "description": "Endpoint for Employee ReadPermission details.",
         "parameters": [
           {
@@ -104,6 +159,7 @@
     },
     "/auth/routePermission/{routeId}": {
       "get": {
+        "tags": ["Auth"],
         "description": "Retrieve permissions for a specific route.",
         "parameters": [
           {
@@ -208,6 +264,7 @@
     },
     "/employee/addEmployee": {
       "post": {
+        "tags": ["Employee"],
         "description": "Endpoint to add a new employee.",
         "parameters": [
           {
@@ -521,6 +578,7 @@
     },
     "/auth/employeeLogin": {
       "post": {
+        "tags": ["Auth"],
         "description": "Endpoint for employee login.",
         "parameters": [
           {
@@ -654,6 +712,7 @@
     },
     "/auth/logOut": {
       "get": {
+        "tags": ["Auth"],
         "description": "Endpoint for logging out.",
         "parameters": [
           {
@@ -711,6 +770,7 @@
     },
     "/auth/forgot-password": {
       "post": {
+        "tags": ["Auth"],
         "description": "Endpoint for requesting a password reset.",
         "parameters": [
           {
@@ -800,6 +860,7 @@
     },
     "/auth/verify-password": {
       "post": {
+        "tags": ["Auth"],
         "description": "Endpoint for verifying and updating password.",
         "parameters": [
           {
@@ -895,6 +956,7 @@
     },
     "/auth/resetPassword": {
       "post": {
+        "tags": ["Auth"],
         "description": "Endpoint for resetting the password.",
         "parameters": [
           {
@@ -1019,6 +1081,7 @@
     },
     "/employee/getAllEmployees": {
       "get": {
+        "tags": ["Employee"],
         "description": "Endpoint to get all employees.",
         "parameters": [
           {
@@ -1101,6 +1164,7 @@
     },
     "/employee/updatePersonalDetails/{employeeId}": {
       "put": {
+        "tags": ["Employee"],
         "description": "Endpoint to update personal details of an employee.",
         "parameters": [
           {
@@ -1264,6 +1328,7 @@
     },
     "/employee/updateSignUpDetails/{employeeId}": {
       "put": {
+        "tags": ["Employee"],
         "description": "Endpoint to update sign-up details of an employee.",
         "parameters": [
           {
@@ -1507,6 +1572,7 @@
     },
     "/employee/deleteEmployee/{employeeId}": {
       "delete": {
+        "tags": ["Employee"],
         "description": "Endpoint to delete an employee by ID.",
         "parameters": [
           {
@@ -1601,6 +1667,7 @@
     },
     "/employee/getReportPerson": {
       "get": {
+        "tags": ["Employee"],
         "description": "Endpoint to get the report person.",
         "parameters": [
           {
@@ -1667,6 +1734,7 @@
     },
     "/employee/getByIdEmployee/{id?}": {
       "get": {
+        "tags": ["Employee"],
         "description": "Endpoint to get employee data by ID.",
         "parameters": [
           {
@@ -1856,6 +1924,7 @@
     },
     "/document/add": {
       "post": {
+        "tags": ["Document"],
         "description": "Upload employee documents.",
         "parameters": [
           {
@@ -1934,6 +2003,7 @@
     },
     "/bank/addBank": {
       "post": {
+        "tags": ["Bank"],
         "description": "Add bank details.",
         "parameters": [
           {
@@ -1988,6 +2058,7 @@
     },
     "/bank/deleteBank/{bankId}": {
       "delete": {
+        "tags": ["Bank"],
         "description": "",
         "parameters": [
           {
@@ -2011,6 +2082,7 @@
     },
     "/bank/getBank": {
       "get": {
+        "tags": ["Bank"],
         "description": "Get bank details.",
         "parameters": [
           {
@@ -2146,6 +2218,7 @@
     },
     "/designation/addDesignation": {
       "post": {
+        "tags": ["Designation"],
         "description": "",
         "parameters": [
           {
@@ -2163,6 +2236,7 @@
     },
     "/designation/getAllDesignation": {
       "get": {
+        "tags": ["Designation"],
         "description": "",
         "parameters": [
           {
@@ -2180,6 +2254,7 @@
     },
     "/designation/updateDesignation/{id}": {
       "put": {
+        "tags": ["Designation"],
         "description": "",
         "parameters": [
           {
@@ -2203,6 +2278,7 @@
     },
     "/designation/deleteDesignation/{id}": {
       "put": {
+        "tags": ["Designation"],
         "description": "",
         "parameters": [
           {
@@ -2226,6 +2302,7 @@
     },
     "/role/getAllRoles": {
       "get": {
+        "tags": ["Role"],
         "description": "",
         "parameters": [
           {
@@ -2243,6 +2320,7 @@
     },
     "/role/getRole/{id}": {
       "get": {
+        "tags": ["Role"],
         "description": "",
         "parameters": [
           {
@@ -2266,6 +2344,7 @@
     },
     "/role/createRole": {
       "post": {
+        "tags": ["Role"],
         "description": "",
         "parameters": [
           {
@@ -2283,6 +2362,7 @@
     },
     "/role/deleteRole/{id}": {
       "put": {
+        "tags": ["Role"],
         "description": "",
         "parameters": [
           {
@@ -2306,6 +2386,7 @@
     },
     "/role/updateRole": {
       "post": {
+        "tags": ["Role"],
         "description": "",
         "parameters": [
           {
@@ -2323,6 +2404,7 @@
     },
     "/department/addDepartment": {
       "post": {
+        "tags": ["Department"],
         "description": "",
         "parameters": [
           {
@@ -2340,6 +2422,7 @@
     },
     "/department/getAllDepartment": {
       "get": {
+        "tags": ["Department"],
         "description": "",
         "parameters": [
           {
@@ -2357,6 +2440,7 @@
     },
     "/department/updateDepartment/{id}": {
       "put": {
+        "tags": ["Department"],
         "description": "",
         "parameters": [
           {
@@ -2380,6 +2464,7 @@
     },
     "/department/deleteDepartment/{id}": {
       "put": {
+        "tags": ["Department"],
         "description": "",
         "parameters": [
           {
@@ -2403,6 +2488,7 @@
     },
     "/route/getAllRoutes": {
       "get": {
+        "tags": ["Route"],
         "description": "",
         "parameters": [
           {
@@ -2420,6 +2506,7 @@
     },
     "/experienceDetails/addExperienceDetails": {
       "post": {
+        "tags": ["Experience Details"],
         "description": "Add experience details",
         "parameters": [
           {
@@ -2578,6 +2665,7 @@
     },
     "/experienceDetails/deleteExperienceDetails": {
       "delete": {
+        "tags": ["Experience Details"],
         "description": "Delete experience details",
         "parameters": [
           {
@@ -2707,6 +2795,7 @@
     },
     "/assets/addAssets": {
       "post": {
+        "tags": ["Assets"],
         "description": "Add assets for an employee",
         "parameters": [
           {
@@ -2873,6 +2962,7 @@
     },
     "/assets/deleteAssets": {
       "delete": {
+        "tags": ["Assets"],
         "description": "",
         "parameters": [
           {
@@ -2896,6 +2986,7 @@
     },
     "/emergencyContact/addEmergencyContact": {
       "post": {
+        "tags": ["Emergency Contact"],
         "description": "Add emergency contact details for an employee",
         "parameters": [
           {
@@ -3073,6 +3164,7 @@
     },
     "/emergencyContact/deleteEmergencyContact": {
       "delete": {
+        "tags": ["Emergency Contact"],
         "description": "",
         "parameters": [
           {
@@ -3096,6 +3188,7 @@
     },
     "/attendance/employeeLog/create": {
       "post": {
+        "tags": ["Attendance"],
         "description": "",
         "parameters": [
           {
@@ -3113,6 +3206,7 @@
     },
     "/attendance/getByEmployeeCode": {
       "get": {
+        "tags": ["Attendance"],
         "description": "",
         "parameters": [
           {
