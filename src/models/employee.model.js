@@ -227,6 +227,9 @@ Employees.associate = (models) => {
     foreignKey: "employeeId",
   });
   Employees.hasOne(models.BankDetails);
+  Employees.hasMany(models.WorkLogs, {
+    foreignKey: 'employeeId'
+  })
 
 };
 

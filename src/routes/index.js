@@ -14,6 +14,8 @@ router.use("/route", require("./routesRoute"));
 router.use("/employee", require("./employeeRoute"));
 router.use("/document", require("./documentRoute"));
 router.use("/leaveMaster", require("./leaveMasterRoute"));
+router.use("/project", require("./projectRoute"));
+router.use("/workLog", require("./workLogRoute"))
 
 module.exports = (app) => {
   app.use("/", router);

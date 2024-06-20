@@ -14,7 +14,8 @@ const { addEmployee } = require("./addEmployee");
 const { deleteEmployee } = require("./deleteEmployee");
 const { getReportTo } = require("./reportTo");
 const { logOut } = require("./logOut");
-
+const createWorkLog = require('../WorkLogController/createWorkLog')
+const { getWorkLogByEmployeeId } = require('../WorkLogController/getWorkLog')
 module.exports = {
   resetPassword,
   employeeLogin,
@@ -28,5 +29,7 @@ module.exports = {
   forgotPassword,
   verifyPassword,
   logOut,
-  updateSignUpDetails
+  updateSignUpDetails,
+  createWorkLog,
+  getWorkLogByEmployeeId
 };
