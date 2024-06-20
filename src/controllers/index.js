@@ -11,6 +11,7 @@ const RouteController = require("./RoutesController/routesIndex");
 const ExperienceDetailsController = require("./ExperienceDetailsController/experienceDetailsIndex");
 const AssetsController = require("./AssetsController/assetsIndex");
 const EmergencyContactController = require("./EmergencyContactController/emergencyContactIndex");
+const ProjectController = require('./ProjectController/projectIndex')
 
 
 const EmployeeLogController = require('./EmployeeLogController/employeeLogIndex')
@@ -29,5 +30,6 @@ module.exports = {
   ExperienceDetailsController,
   AssetsController,
   EmergencyContactController,
-  EmployeeLogController
+  EmployeeLogController,
+  ProjectController
 };

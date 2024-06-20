@@ -10,7 +10,7 @@ const formatHoursToHHMM = (hours) => {
 };
 
 const formatTimeTo12Hour = (time) => {
-    return moment(time, 'HH:mm:ss').format('h:mm a');
+    return time == null ? "" : moment(time, 'HH:mm:ss').format('h:mm a');
 };
 
 const getEmployeeLogDetails = async (req, res) => {

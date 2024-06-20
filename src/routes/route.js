@@ -1,6 +1,6 @@
 const { verifyToken, checkRole } = require("../middlewares/auth");
 const { checkToken } = require("../middlewares/resetPWAuth");
-const { AdminController, EmployeeController, BankController, DesignationController, RoleController, DepartmentController, RouteController, EmployeeDocument, AttendanceController, ExperienceDetailsController, AssetsController, EmergencyContactController, EmployeeLogController } = require("../controllers/index");
+const { AdminController, EmployeeController, BankController, DesignationController, RoleController, DepartmentController, RouteController, EmployeeDocument, AttendanceController, ExperienceDetailsController, AssetsController, EmergencyContactController, EmployeeLogController, ProjectController } = require("../controllers/index");
 // const { verifyToken, checkRole } = require("../middlewares/auth");
 
 module.exports = (app) => {
@@ -17,7 +17,7 @@ module.exports = (app) => {
 
   app.post("/addEmployee", [verifyToken], EmployeeController.addEmployee);
   app.post("/employeeLogin", EmployeeController.employeeLogin);
-  app.get("/logOut",[verifyToken], EmployeeController.logOut);
+  app.get("/logOut", [verifyToken], EmployeeController.logOut);
   app.post("/forgot-password", EmployeeController.forgotPassword);
   app.post("/verify-password", [verifyToken], EmployeeController.verifyPassword);
   app.post("/resetPassword", [verifyToken], EmployeeController.resetPassword);
@@ -31,8 +31,8 @@ module.exports = (app) => {
   app.post("/employeeDocument", [verifyToken], EmployeeDocument.addEmployeeDocument);
 
   // Attendance Routes
-  app.post("/addAttendance",[verifyToken], AttendanceController.addEmployeeAttendance);
-  app.get("/dailylogs",[verifyToken], AttendanceController.getAllAttendance);
+  app.post("/addAttendance", [verifyToken], AttendanceController.addEmployeeAttendance);
+  app.get("/dailylogs", [verifyToken], AttendanceController.getAllAttendance);
 
   // Bank Routes
   app.post('/addBank', [verifyToken], BankController.addBankDetails)
@@ -69,7 +69,18 @@ module.exports = (app) => {
   // EmergencyContact Routes
   app.post('/addEmergencyContact', [verifyToken], EmergencyContactController.addEmergencyContacts);
   app.delete('/deleteEmergencyContact', [verifyToken], EmergencyContactController.deleteEmergencyContacts);
-  
+
   app.post('/attendance/employeeLog/create', [verifyToken], EmployeeLogController.createEmployeeLogDetails)
   app.get('/attendance/getByEmployeeCode', [verifyToken], EmployeeLogController.getEmployeeLogDetails)
+
+  // projects
+  app.post('/project/add', [verifyToken], ProjectController.addProject)
+  app.get('/project/getById/:projectId', [verifyToken], ProjectController.getProjectById)
+  app.get('/project/getAll/', [verifyToken], ProjectController.getAllProjects)
+  app.delete('/project/delete/:projectId', [verifyToken], ProjectController.deleteProject)
+
+  // workLog
+  app.post('/workLog/create', [verifyToken], EmployeeController.createWorkLog)
+  app.get('/workLog/getByEmployeeId', [verifyToken],EmployeeController.getWorkLogByEmployeeId)
+
 };

@@ -11,6 +11,8 @@ const Attendance = require("./attendance.model");
 const BankDetails = require("./bankDetails.model")
 const Assets = require("./assets.model")
 const EmployeeLogDetails = require('./EmployeeLogDetails.model')
+const Projects = require('./projects.model')
+const WorkLogs = require('./workLog.model')
 
 module.exports = {
   Employees,
@@ -25,5 +27,7 @@ module.exports = {
   BankDetails,
   EmergencyContacts,
   Assets,
-  EmployeeLogDetails
+  EmployeeLogDetails,
+  Projects,
+  WorkLogs
 };

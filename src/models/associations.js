@@ -11,7 +11,9 @@ const {
   BankDetails,
   Assets,
   EmergencyContacts,
-  EmployeeLogDetails
+  EmployeeLogDetails,
+  Projects,
+  WorkLogs
 } = require("../models/modelsIndex");
 
 const models = {
@@ -25,9 +27,11 @@ const models = {
   Route: Route,
   Attendance: Attendance,
   BankDetails: BankDetails,
-  EmergencyContacts:EmergencyContacts,
-  Assets:Assets,
-  EmployeeLogDetails: EmployeeLogDetails
+  EmergencyContacts: EmergencyContacts,
+  Assets: Assets,
+  EmployeeLogDetails: EmployeeLogDetails,
+  Projects: Projects,
+  WorkLogs: WorkLogs,
 };
 
 Object.keys(models).forEach((modelName) => {
