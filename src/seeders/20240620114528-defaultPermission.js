@@ -4,8 +4,8 @@ const { Role, Route } = require("../models/associations");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const [routes, roles] = await Promise.all([
-      Route.findAll({ attributes: ["id"] }),
-      Role.findAll({ attributes: ["id", "name"] }),
+      Route.findAll({ attributes: ["id"],logging: false }),
+      Role.findAll({ attributes: ["id", "name"],logging: false }),
     ]);
 
     const permissions = [];
@@ -31,10 +31,10 @@ module.exports = {
         permissions.push(permission);
       }
     }
-    await queryInterface.bulkInsert("permissions", permissions, {});
+    await queryInterface.bulkInsert("permissions", permissions, { logging: false });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("permissions", null, {});
+    await queryInterface.bulkDelete("permissions", null, { logging: false });
   },
 };

@@ -8,8 +8,11 @@ const {
   logger,
   fs,
   path,
+  moment,
+  LeaveMaster,
+  Op,
+  LeaveBalance
 } = require("./employeePackageCentral");
-const profileFileDir = __dirname + "../../../public/uploads/profilePicture";
 let dirnamePath = path.join(
   __dirname,
   "..",
@@ -208,4 +211,120 @@ const updateSignUpDetails = async (req, res) => {
   }
 };
 
-module.exports = { updateEmployeeData, updateSignUpDetails };
+const probationCompleted = async (req, res) => {
+  try {
+    const employeeId = req.params.employeeId;
+    const isProbationCompleted = req.body.isProbationCompleted;
+    if (!employeeId) {
+      logger.error(
+        errorResponseFunc(
+          "employeeId not found.",
+          err.toString(),
+          statusCode.notFound,
+          constants.NOTFOUND
+        )
+      );
+      res.send(
+        errorResponseFunc(
+          "employeeId not found.",
+          "employeeId not found.",
+          statusCode.notFound,
+          constants.NOTFOUND
+        )
+      );
+    }
+
+    const employee = await Employees.findByPk(employeeId);
+
+    if (!employee) {
+      logger.error(
+        errorResponseFunc(
+          "employee not found.",
+          "employee not found.",
+          statusCode.notFound,
+          constants.NOTFOUND
+        )
+      );
+      res.send(
+        errorResponseFunc(
+          "employee not found.",
+          "employee not found.",
+          statusCode.notFound,
+          constants.NOTFOUND
+        )
+      );
+    }
+
+    const timeZone = "Asia/Kolkata";
+    const now = moment.tz(timeZone);
+    const day = now.date();
+    const month = now.month() + 1;
+
+    const quarterMonths = {
+      1: ["January", "February", "March"],
+      2: ["February", "March"],
+      3: ["March"],
+      4: ["April", "May", "June"],
+      5: ["May", "June"],
+      6: ["June"],
+      7: ["July", "August", "September"],
+      8: ["August", "September"],
+      9: ["September"],
+      10: ["October", "November", "December"],
+      11: ["November", "December"],
+      12: ["December"],
+    };
+
+    const monthOfQuarter = quarterMonths[month] || [];
+
+    const totalLeaves = await LeaveMaster.sum("leaves", {
+      where: {
+        month: {
+          [Op.in]: monthOfQuarter,
+        },
+      },
+    });
+
+
+    await LeaveBalance.update(
+      { balance: totalLeaves },
+      {
+        where: {
+          employeeId: employee?.id,
+        },
+      }
+    );
+
+    await employee.update({ isProbationCompleted: isProbationCompleted });
+    return res.send(
+      successResponseFunc(
+        "Successfully updated employee's probation Completed",
+        statusCode.success,
+        constants.SUCCESS
+      )
+    );
+  } catch (err) {
+    logger.error(
+      errorResponseFunc(
+        "Encountered error while updating probation Completed",
+        err.toString(),
+        statusCode.internalServerError,
+        constants.ERROR
+      )
+    );
+    res.send(
+      errorResponseFunc(
+        "Encountered error while updating probation Completed",
+        err.toString(),
+        statusCode.internalServerError,
+        constants.ERROR
+      )
+    );
+  }
+};
+
+module.exports = {
+  updateEmployeeData,
+  updateSignUpDetails,
+  probationCompleted,
+};

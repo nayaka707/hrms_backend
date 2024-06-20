@@ -36,7 +36,7 @@ const readPermission = async (req, res) => {
         attributes: ["canRead"],
         include: {
           model: Route,
-          where: { isActive: "1" },
+          where: { isActive: constants.ACTIVE },
           attributes: { exclude: ["createdAt", "updatedAt"] },
         },
       });

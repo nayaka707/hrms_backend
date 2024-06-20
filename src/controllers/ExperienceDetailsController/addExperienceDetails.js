@@ -48,7 +48,7 @@ const addExperienceDetails = async (req, res) => {
               periodFrom: value.periodFrom,
               periodTo: value.periodTo,
               employeeId: EmployeeId,
-              isActive: "1",
+              isActive: constants.ACTIVE,
               experienceId: key,
             });
           } else {

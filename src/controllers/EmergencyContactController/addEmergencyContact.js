@@ -66,7 +66,7 @@ const addEmergencyContacts = async (req, res) => {
       await EmergencyContacts.create({
         ...payload,
         employeeId: EmployeeId,
-        isActive: "1",
+        isActive: constants.ACTIVE,
       });
       return res.send(
         successResponseFunc(

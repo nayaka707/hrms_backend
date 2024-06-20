@@ -1,6 +1,6 @@
 const db = require("../config/database");
 
-const LeaveBalance = db.sequelize.define("leaveBalance", {
+const LeaveBalance = db.sequelize.define("leaveBalances", {
   id: {
     type: db.Sequelize.DataTypes.UUID,
     defaultValue: db.Sequelize.UUIDV4,
@@ -13,16 +13,8 @@ const LeaveBalance = db.sequelize.define("leaveBalance", {
   },
   employeeId: db.Sequelize.DataTypes.UUID,
   isActive: {
-    type: db.Sequelize.DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      customValidator: (value) => {
-        const enums = ["1", "0"];
-        if (!enums.includes(value)) {
-          throw new Error("not a valid option");
-        }
-      },
-    },
+    type: db.Sequelize.DataTypes.BOOLEAN,
+    defaultValue: true,
   },
   createdAt: {
     allowNull: false,
