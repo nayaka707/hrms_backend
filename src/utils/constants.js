@@ -18,6 +18,7 @@ const CONFLICT = "Conflict";
 const RESETPASSWORDURL = "https://caplead.co/forgotPassword";
 const ADMIN = "SUPER ADMIN";
 const HR = "HR";
+const EMPLOYEE = "EMPLOYEE";
 
 module.exports = {
   ACTIVE,
@@ -39,4 +40,5 @@ module.exports = {
   RESETPASSWORDURL,
   ADMIN,
   HR,
+  EMPLOYEE,
 };
