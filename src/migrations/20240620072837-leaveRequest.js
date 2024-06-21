@@ -19,7 +19,7 @@ module.exports = {
       },
       halfLeaveDate: {
         type: Sequelize.DataTypes.DATEONLY,
-        allowNull: false,
+        allowNull: true,
       },
       numberOfDays: {
         type: Sequelize.DataTypes.INTEGER,
@@ -34,11 +34,17 @@ module.exports = {
         allowNull: true,
       },
       status: {
-        type: Sequelize.DataTypes.ENUM("Pending","Approved","Rejected","cancelled"),
+        type: Sequelize.DataTypes.ENUM("pending", "approved", "rejected", "cancelled"),
+        defaultValue: "pending",
         allowNull: false,
       },
       remark: {
         type: Sequelize.DataTypes.TEXT,
+        allowNull: true,
+      },
+      balance: {
+        type: Sequelize.DataTypes.INTEGER,
+        defaultValue: 0,
         allowNull: false,
       },
       employeeId: {

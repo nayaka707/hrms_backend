@@ -17,10 +17,15 @@ const LeaveRequest = db.sequelize.define("leaveRequests", {
   },
   halfLeaveDate: {
     type: db.Sequelize.DataTypes.DATEONLY,
-    allowNull: false,
+    allowNull: true,
   },
   numberOfDays: {
     type: db.Sequelize.DataTypes.INTEGER,
+    allowNull: false,
+  },
+  balance: {
+    type: db.Sequelize.DataTypes.INTEGER,
+    defaultValue:0,
     allowNull: false,
   },
   reason: {
@@ -32,12 +37,13 @@ const LeaveRequest = db.sequelize.define("leaveRequests", {
     allowNull: true,
   },
   status: {
-    type: db.Sequelize.DataTypes.ENUM("Pending","Approved","Rejected","cancelled"),
+    type: db.Sequelize.DataTypes.ENUM("pending","Approved","rejected","cancelled"),
+    defaultValue:"pending",
     allowNull: false,
   },
   remark: {
     type: db.Sequelize.DataTypes.TEXT,
-    allowNull: false,
+    allowNull: true,
   },
   employeeId: db.Sequelize.DataTypes.UUID,
   isActive: {

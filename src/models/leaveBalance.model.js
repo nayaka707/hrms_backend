@@ -12,6 +12,16 @@ const LeaveBalance = db.sequelize.define("leaveBalances", {
     allowNull: false,
   },
   employeeId: db.Sequelize.DataTypes.UUID,
+  paidLeave: {
+    type: db.Sequelize.DataTypes.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
+  },
+  lossOfPay: {
+    type: db.Sequelize.DataTypes.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
+  },
   isActive: {
     type: db.Sequelize.DataTypes.BOOLEAN,
     defaultValue: true,
@@ -29,7 +39,7 @@ const LeaveBalance = db.sequelize.define("leaveBalances", {
 });
 
 LeaveBalance.associate = (models) => {
-    LeaveBalance.belongsTo(models.Employees, {
+  LeaveBalance.belongsTo(models.Employees, {
     foreignKey: "employeeId",
     onDelete: "CASCADE",
   });

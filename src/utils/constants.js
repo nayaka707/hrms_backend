@@ -20,6 +20,11 @@ const ADMIN = "SUPER ADMIN";
 const HR = "HR";
 const EMPLOYEE = "EMPLOYEE";
 
+const PENDING = "pending";
+const APPROVED = "approved";
+const REJECTED = "rejected";
+const CANCELLED = "cancelled"
+ 
 module.exports = {
   ACTIVE,
   INACTIVE,
@@ -41,4 +46,8 @@ module.exports = {
   ADMIN,
   HR,
   EMPLOYEE,
+  PENDING,
+  APPROVED,
+  REJECTED,
+  CANCELLED
 };

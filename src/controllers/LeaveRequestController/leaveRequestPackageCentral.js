@@ -1,5 +1,5 @@
 const models = require("../../models/associations");
-const { LeaveRequest } = models;
+const { LeaveRequest, Employees, LeaveBalance } = models;
 require("dotenv").config();
 const {
   constants,
@@ -12,6 +12,7 @@ const {
 const logger = require("../../services/loggerService");
 
 module.exports = {
+  Employees,
   statusCode,
   responseMessage,
   constants,
@@ -19,5 +20,6 @@ module.exports = {
   successResponseFunc,
   errorResponseFunc,
   logger,
-  LeaveRequest
+  LeaveRequest,
+  LeaveBalance
 };
