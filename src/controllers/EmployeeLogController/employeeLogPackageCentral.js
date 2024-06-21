@@ -1,5 +1,6 @@
 const models = require("../../models/associations");
-const { Employees, Role, Attendance, EmployeeLogDetails } = models;
+const Sequelize = require("sequelize");
+const { Employees, Role, Attendance, EmployeeLogDetails, WorkLogs } = models;
 
 const {
     logger,
@@ -20,6 +21,8 @@ module.exports = {
     constants,
     successResponseFunc,
     errorResponseFunc,
-    statusCode
+    statusCode,
+    WorkLogs,
+    Sequelize
 
 }
