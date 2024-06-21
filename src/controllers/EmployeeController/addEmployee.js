@@ -50,6 +50,7 @@ const addEmployee = (req, res) => {
         gender,
         roleId,
         reportTo,
+        employeeCode,
       } = req.body;
       const authRoleId = req.roleId;
       let profilePicture = null;
@@ -133,12 +134,12 @@ const addEmployee = (req, res) => {
                             order: [['createdAt', 'DESC']]
                           });
 
-                          let employeeCode = 'Px001';
-                          if (lastEmployee && lastEmployee.employee_code) {
-                            const lastCode = lastEmployee.employee_code;
-                            const codeNumber = parseInt(lastCode.slice(2), 10) + 1;
-                            employeeCode = `Px${codeNumber.toString().padStart(3, '0')}`;
-                          }
+                          // let employeeCode = 'Px001';
+                          // if (lastEmployee && lastEmployee.employee_code) {
+                          //   const lastCode = lastEmployee.employee_code;
+                          //   const codeNumber = parseInt(lastCode.slice(2), 10) + 1;
+                          //   employeeCode = `Px${codeNumber.toString().padStart(3, '0')}`;
+                          // }
                   
 
                           const adminDetails = {
