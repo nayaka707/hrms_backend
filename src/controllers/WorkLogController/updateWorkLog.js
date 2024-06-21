@@ -10,7 +10,6 @@ const {
 const updateWorkLog = async (req, res) => {
   try {
     const workLogsArray = req.body;
-    console.log("workLogsArray ---> ", workLogsArray);
     if (!Array.isArray(workLogsArray) || workLogsArray.length === 0) {
       return res.send(
         errorResponseFunc(
