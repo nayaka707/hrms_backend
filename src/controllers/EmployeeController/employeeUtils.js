@@ -43,7 +43,8 @@ const employeeCreatorFunc = (adminDetails, files) => {
                 email: data?.email,
               },
             });
-            await LeaveBalance.create({ employeeId: employeeData?.id, balance : 0, isActive:constants.ACTIVE});
+            // need to discuss
+            // await LeaveBalance.create({ employeeId: employeeData?.id, balance : 0, isActive:constants.ACTIVE});
 
             // const sendMail = await mailFunc(
             //   adminDetails.firstName,
