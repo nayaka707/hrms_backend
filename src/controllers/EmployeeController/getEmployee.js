@@ -47,7 +47,6 @@ const getAllEmployeesData = async (req, res) => {
       ];
     }
     // Debugging: Log whereClause
-    console.log("Where Clause:", whereClause);
     let roleWhereClause = {};
     if (role === constants.ADMIN) {
     } else if (role === constants.HR) {
@@ -123,7 +122,6 @@ const getAllEmployeesData = async (req, res) => {
         );
       });
   } catch (err) {
-    console.log(err);
     logger.error(
       errorResponseFunc(
         "Encountered some error.",

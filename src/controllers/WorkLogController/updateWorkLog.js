@@ -10,6 +10,7 @@ const {
 const updateWorkLog = async (req, res) => {
   try {
     const workLogsArray = req.body;
+    console.log("workLogsArray ---> ", workLogsArray);
     if (!Array.isArray(workLogsArray) || workLogsArray.length === 0) {
       return res.send(
         errorResponseFunc(
@@ -24,45 +25,39 @@ const updateWorkLog = async (req, res) => {
     for (const workLogData of workLogsArray) {
       const { id, date, projectId, workHour, description } = workLogData;
 
-      if (!id) {
-        return res.status(statusCode.notFound).send(
-          errorResponseFunc(
-            "Worklog id not found for one of the items.",
-            "Worklog id not found for one of the items.",
-            statusCode.notFound,
-            constants.NOTFOUND
-          )
-        );
-      }
-
-      const workLog = await WorkLogs.findOne({
-        where: {
-          id: id,
-        },
-      });
-
-      if (workLog) {
-        await WorkLogs.update(
-          {
-            date: date,
-            projectId: projectId,
-            workHour: workHour,
-            description: description,
+      if (id) {
+        const workLog = await WorkLogs.findOne({
+          where: {
+            id: id,
           },
-          {
-            where: {
-              id: id,
-            },
-          }
-        );
-      } else {
-        await WorkLogs.create({
-          date: date,
-          projectId: projectId,
-          workHour: workHour,
-          description: description,
         });
+
+        if (workLog) {
+          await WorkLogs.update(
+            {
+              date: date,
+              projectId: projectId,
+              workHour: workHour,
+              description: description,
+            },
+            {
+              where: {
+                id: id,
+              },
+            }
+          );
+          continue;
+        }
       }
+
+      // if id is not present or work log is not found then create a new work log
+      await WorkLogs.create({
+        date: date,
+        projectId: projectId,
+        workHour: workHour,
+        description: description,
+        employeeId: req.loggersId,
+      });
     }
 
     return res.send(
