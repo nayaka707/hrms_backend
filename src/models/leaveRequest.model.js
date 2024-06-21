@@ -60,6 +60,13 @@ const LeaveRequest = db.sequelize.define("leaveRequests", {
     type: db.Sequelize.DataTypes.DATE,
     defaultValue: db.Sequelize.NOW,
   },
+  deletedAt: {
+    allowNull: true,
+    type: db.Sequelize.DataTypes.DATE,
+  },
+},{
+  paranoid: true,
+  timestamps: true
 });
 
 LeaveRequest.associate = (models) => {

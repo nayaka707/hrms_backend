@@ -26,6 +26,13 @@ const Department = db.sequelize.define("departments", {
     type: db.Sequelize.DataTypes.DATE,
     defaultValue: db.Sequelize.NOW,
   },
+  deletedAt: {
+    allowNull: true,
+    type: db.Sequelize.DataTypes.DATE,
+  },  
+},{
+  paranoid: true,
+  timestamps: true
 });
 
 Department.associate = (models) => {

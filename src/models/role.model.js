@@ -25,6 +25,13 @@ const Role = db.sequelize.define("roles", {
     type: db.Sequelize.DataTypes.DATE,
     defaultValue: db.Sequelize.NOW,
   },
+  deletedAt: {
+    allowNull: true,
+    type: db.Sequelize.DataTypes.DATE,
+  },
+},{
+  paranoid: true,
+  timestamps: true
 });
 
 Role.associate = (models) => {

@@ -9,6 +9,7 @@ const {
   jwt,
   TOKEN_SECRET,
   TOKEN_MAXAGE,
+  uuid,
 } = require("./employeePackageCentral");
 
 const getUserByEmail = async (email) => {
@@ -26,7 +27,9 @@ const getRoleById = async (roleId) => {
   });
 };
 
-const generateToken = (userData, role) => {
+const generateToken =  async (userData, role) => {
+  const sessionId = uuid.v4();
+  await Employees.update({ sessionId }, { where: { id: userData.id } });
   return jwt.sign(
     {
       id: userData.id,
@@ -34,7 +37,8 @@ const generateToken = (userData, role) => {
       role: role.name,
       employeeId: userData.id,
       employee_code: userData.employee_code,
-      name: `${userData.firstName} ${userData.middleName} ${userData.lastName}`,
+      name: `${userData.firstName} ${userData.lastName}`,
+      sessionId: sessionId,
     },
     TOKEN_SECRET,
     { expiresIn: Number(TOKEN_MAXAGE) }
@@ -100,7 +104,7 @@ const employeeLogin = async (req, res) => {
         );
     }
 
-    const token = generateToken(userData, role);
+    const token = await generateToken(userData, role);
     res.setHeader("token", token);
 
     return res

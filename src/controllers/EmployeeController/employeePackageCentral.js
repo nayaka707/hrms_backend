@@ -21,6 +21,7 @@ const moment = require("moment");
 const TOKEN_MAXAGE = process.env.TOKEN_MAXAGE;
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
 // const PUBLIC_URL = process.env.PUBLIC_URL
+const uuid = require("uuid");
 const {
   constants,
   responseMessage,
@@ -75,5 +76,6 @@ module.exports = {
   Projects,
   LeaveBalance,
   moment,
-  LeaveMaster
+  LeaveMaster,
+  uuid,
 };
