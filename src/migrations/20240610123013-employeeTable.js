@@ -15,6 +15,10 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       },
+      employee_code: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false,
+      },
       firstName: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
@@ -25,7 +29,7 @@ module.exports = {
       },
       middleName: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       pancardNo: {
         type: Sequelize.DataTypes.STRING,
@@ -45,7 +49,7 @@ module.exports = {
       },
       pfNo: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       gender: {
         type: Sequelize.DataTypes.ENUM("male", "female"),
@@ -83,11 +87,11 @@ module.exports = {
       },
       currentAddress: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       permanentAddress: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: Sequelize.DataTypes.STRING,
@@ -101,20 +105,13 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
       },
-      isProbationCompleted:{
+      isProbationCompleted: {
         type: Sequelize.DataTypes.BOOLEAN,
-        defaultValue:false
+        defaultValue: false,
       },
       permanentPasswordSet: {
-        type: Sequelize.DataTypes.STRING,
-        validate: {
-          customValidator: (value) => {
-            const enums = ["1", "0"];
-            if (!enums.includes(value)) {
-              throw new Error("not a valid option");
-            }
-          },
-        },
+        type: Sequelize.DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       password: {
         type: Sequelize.DataTypes.STRING,
@@ -134,9 +131,57 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      emergencyContact: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
+      city: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
+      state: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
+      pincode: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
+      nationality: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
+      dateOfBirth: {
+        type: Sequelize.DataTypes.DATE,
+        allowNull: true,
+      },
+      experience: {
+        type: Sequelize.DataTypes.FLOAT,
+        allowNull: true,
+      },
+      qualification: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
+      passportNumber: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
+      fatherName: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
+      motherName: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
       isActive: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
+      },
+      sessionId: {
+        type: Sequelize.DataTypes.UUID,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
@@ -144,6 +189,10 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DataTypes.DATE,
+      },
+      deletedAt: {
+        allowNull: true,
         type: Sequelize.DataTypes.DATE,
       },
     });

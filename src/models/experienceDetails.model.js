@@ -28,6 +28,13 @@ const ExperienceDetails = db.sequelize.define("experienceDetails", {
     type: db.Sequelize.DataTypes.DATE,
     defaultValue: db.Sequelize.NOW,
   },
+  deletedAt: {
+    allowNull: true,
+    type: db.Sequelize.DataTypes.DATE,
+  },
+},{
+  paranoid: true,
+  timestamps: true
 });
 
 ExperienceDetails.associate = (models) => {

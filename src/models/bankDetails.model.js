@@ -46,6 +46,13 @@ const BankDetails = db.sequelize.define("bankDetails", {
     type: Sequelize.DataTypes.DATE,
     defaultValue: Sequelize.NOW,
   },
+  deletedAt: {
+    allowNull: true,
+    type: Sequelize.DataTypes.DATE,
+  },
+},{
+  paranoid: true,
+  timestamps: true
 });
 
 BankDetails.associate = (models) => {

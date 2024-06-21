@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
+      branchName: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false
+      },
       isActive: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
@@ -38,6 +42,10 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DataTypes.DATE,
+      },
+      deletedAt: {
+        allowNull: true,
         type: Sequelize.DataTypes.DATE,
       },
     })

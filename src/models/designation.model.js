@@ -25,6 +25,13 @@ const Designation = db.sequelize.define("designations", {
     type: db.Sequelize.DataTypes.DATE,
     defaultValue: db.Sequelize.NOW,
   },
+  deletedAt: {
+    allowNull: true,
+    type: db.Sequelize.DataTypes.DATE,
+  },
+},{
+  paranoid: true,
+  timestamps: true
 });
 
 module.exports = Designation;
