@@ -21,8 +21,14 @@ const Projects = db.sequelize.define('projects', {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,
         defaultValue: Sequelize.NOW
-    }
-
+    },
+    deletedAt: {
+        allowNull: true,
+        type: Sequelize.DataTypes.DATE,
+      },
+},{
+    paranoid: true,
+    timestamps: true
 })
 
 

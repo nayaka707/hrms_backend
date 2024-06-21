@@ -10,7 +10,9 @@ const {
   tokenBlackList,
   constants,
   errorResponseFunc,
+  models,
 } = require("../utils/utilsIndex");
+const { Employees } = models;
 
 const verifyToken = async (req, res, next) => {
   try {
@@ -20,16 +22,16 @@ const verifyToken = async (req, res, next) => {
         errorResponseFunc(
           "No token provided.",
           "No token provided.",
-          statusCode.badRequest,
-          constants.BADREQUEST
+          statusCode.unauthorized,
+          constants.UNAUTHORIZED
         )
       );
-      res.send(
+      res.status(statusCode.unauthorized).send(
         errorResponseFunc(
           "No token provided.",
           "No token provided.",
-          statusCode.badRequest,
-          constants.BADREQUEST
+          statusCode.unauthorized,
+          constants.UNAUTHORIZED
         )
       );
     } else {
@@ -42,7 +44,7 @@ const verifyToken = async (req, res, next) => {
             constants.UNAUTHORIZED
           )
         );
-        res.send(
+        res.status(statusCode.unauthorized).send(
           errorResponseFunc(
             "Please log in again.",
             "Please log in again.",
@@ -51,22 +53,22 @@ const verifyToken = async (req, res, next) => {
           )
         );
       } else {
-        jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
+        jwt.verify(token, TOKEN_SECRET, async (err, decoded) => {
           if (err) {
             logger.warn(
               errorResponseFunc(
                 "Invalid token.",
                 "Invalid token.",
-                statusCode.badRequest,
-                constants.BADREQUEST
+                statusCode.unauthorized,
+                constants.UNAUTHORIZED
               )
             );
-            res.send(
+            res.status(statusCode.unauthorized).send(
               errorResponseFunc(
                 "Invalid token.",
                 "Invalid token.",
-                statusCode.badRequest,
-                constants.BADREQUEST
+                statusCode.unauthorized,
+                constants.UNAUTHORIZED
               )
             );
           } else {
@@ -74,21 +76,39 @@ const verifyToken = async (req, res, next) => {
             req.roleId = decoded.roleId;
             req.roleName = decoded.role;
 
-            if (!decoded.roleId) {
+            const user = await Employees.findOne({ where: { id: decoded.id } });
+            if (user.sessionId !== decoded.sessionId) {
+              logger.warn(
+                errorResponseFunc(
+                  "Invalid session.",
+                  "Invalid session.",
+                  statusCode.unauthorized,
+                  constants.UNAUTHORIZED
+                )
+              );
+              res.status(statusCode.unauthorized).send(
+                errorResponseFunc(
+                  "Invalid session.",
+                  "Invalid session.",
+                  statusCode.unauthorized,
+                  constants.UNAUTHORIZED
+                )
+              );
+            } else if (!decoded.roleId) {
               logger.warn(
                 errorResponseFunc(
                   "Invalid token.",
                   "Invalid token.",
-                  statusCode.badRequest,
-                  constants.BADREQUEST
+                  statusCode.unauthorized,
+                  constants.UNAUTHORIZED
                 )
               );
-              res.send(
+              res.status(statusCode.unauthorized).send(
                 errorResponseFunc(
                   "Invalid token.",
                   "Invalid token.",
-                  statusCode.badRequest,
-                  constants.BADREQUEST
+                  statusCode.unauthorized,
+                  constants.UNAUTHORIZED
                 )
               );
             } else {

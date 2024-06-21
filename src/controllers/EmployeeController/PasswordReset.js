@@ -12,6 +12,7 @@ const {
   TOKEN_MAXAGE,
   Role,
 } = require("./employeePackageCentral");
+const { generateToken } = require("./employeeLogin")
 
 const resetPassword = (req, res) => {
   try {
@@ -360,17 +361,9 @@ const forgotPassword = async (req, res) => {
           )
         );
     }
-    const token = jwt.sign(
-      {
-        id: user.id,
-        roleId: user.roleId,
-        role: role.name,
-        employeeId: user.id,
-        name: `${user.firstName} ${user.lastName}`,
-      },
-      TOKEN_SECRET,
-      { expiresIn: Number(TOKEN_MAXAGE) }
-    );
+
+    const token = await generateToken(user, role);
+    
     res.send(
       successResponseFunc(
         "Email sent successfully.",

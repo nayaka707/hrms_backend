@@ -24,16 +24,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,
       },
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DataTypes.DATE,
+      },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
     await queryInterface.dropTable("departments");
   },
 };

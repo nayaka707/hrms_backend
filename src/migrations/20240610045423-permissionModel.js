@@ -47,9 +47,16 @@ module.exports = {
         type: Sequelize.DataTypes.DATE,
       },
     });
+
+    await queryInterface.addConstraint('permissions', {
+      fields: ['roleId', 'routeId'],
+      type: 'unique',
+      name: 'unique_role_route'
+    });
   },
 
   async down(queryInterface, Sequelize) {
+    await queryInterface.removeConstraint('permissions', 'unique_role_route');
     await queryInterface.dropTable("permissions")
   },
 };

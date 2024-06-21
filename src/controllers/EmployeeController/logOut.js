@@ -18,6 +18,11 @@ const logOut = async (req, res) => {
         statusCode.notFound,
         constants.NOTFOUND
       );
+    }else{
+      await Employees.update(
+        { sessionId: null },
+        { where: { id: req.employeeId } }
+      );
     }
     res.send(
       successResponseFunc(

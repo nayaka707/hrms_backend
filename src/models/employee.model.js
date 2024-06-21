@@ -183,6 +183,10 @@ const Employees = db.sequelize.define("employees", {
     type: db.Sequelize.DataTypes.STRING,
     allowNull: false,
   },
+  sessionId: {
+    type: db.Sequelize.DataTypes.UUID,
+    allowNull: true,
+  },
   createdAt: {
     allowNull: false,
     type: db.Sequelize.DataTypes.DATE,
@@ -193,6 +197,9 @@ const Employees = db.sequelize.define("employees", {
     type: db.Sequelize.DataTypes.DATE,
     defaultValue: db.Sequelize.NOW,
   },
+},{
+  paranoid: true,
+  timestamps: true
 });
 
 Employees.associate = (models) => {
