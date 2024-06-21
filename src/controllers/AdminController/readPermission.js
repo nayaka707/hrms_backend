@@ -98,9 +98,9 @@ const readPermission = async (req, res) => {
           return childRoutes.length > 0 ? childRoutes : undefined;
         };
         return childRoutes.map((childRoute) => ({
-            ...childRoute,
-            ChildRoute: buildChildTree(childRoute.id),
-          }));
+          ...childRoute,
+          ChildRoute: buildChildTree(childRoute.id),
+        }));
       };
       const access = (routeMap["null"] || []).map(({ id, name, priority }) => ({
         id,
@@ -111,11 +111,11 @@ const readPermission = async (req, res) => {
 
       res.send(
         successResponseFunc(
-            "Permission fetched.",
-            statusCode.success,
-            constants.SUCCESS,
-            access
-          )
+          "Permission fetched.",
+          statusCode.success,
+          constants.SUCCESS,
+          access
+        )
       );
     }
   } catch (err) {

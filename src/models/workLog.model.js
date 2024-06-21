@@ -30,7 +30,7 @@ const WorkLogs = db.sequelize.define("workLogs", {
         onDelete: "CASCADE",
     },
     workHour: {
-        type: db.Sequelize.DataTypes.INTEGER,
+        type: db.Sequelize.DataTypes.STRING,
         allowNull: false
     },
     description: {

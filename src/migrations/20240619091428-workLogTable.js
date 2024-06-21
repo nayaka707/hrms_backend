@@ -30,7 +30,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       workHour: {
-        type: Sequelize.DataTypes.INTEGER,
+        type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
       description: {

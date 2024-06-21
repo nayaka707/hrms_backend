@@ -22,3 +22,4 @@ router.use("/leaveRequest", require("./leaveRequestRoute"));
 module.exports = (app) => {
   app.use("/", router);
 };
+
