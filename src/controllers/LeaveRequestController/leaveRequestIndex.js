@@ -1,9 +1,10 @@
 const { addLeaveRequest } = require("./addLeaveRequest");
-const { updateLeaveRequest } = require("./updateLeaveRequest");
+const { updateLeaveRequest, updateLeaveRequestStatus } = require("./updateLeaveRequest");
 const { deleteLeaveRequest } = require("./deleteLeaveRequest");
 
 module.exports = {
   addLeaveRequest,
   updateLeaveRequest,
-  deleteLeaveRequest
+  deleteLeaveRequest,
+  updateLeaveRequestStatus
 };

@@ -6,6 +6,7 @@ const {
   successResponseFunc,
   logger,
   LeaveRequest,
+  LeaveBalance
 } = require("./leaveRequestPackageCentral");
 
 const addLeaveRequest = async (req, res) => {
@@ -35,9 +36,15 @@ const addLeaveRequest = async (req, res) => {
         )
       );
     } else {
+      const leaveBalance = await LeaveBalance.findOne({
+        where: {
+          employeeId: EmployeeId,
+        },
+      });
       await LeaveRequest.create({
         startDate: startDate,
         endDate: endDate,
+        balance: leaveBalance.balance,
         halfLeaveDate: halfLeaveDate,
         numberOfDays: numberOfDays,
         reason: reason,

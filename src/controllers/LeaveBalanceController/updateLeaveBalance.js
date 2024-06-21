@@ -20,10 +20,6 @@ const task = cron.schedule(
     const day = now.date();
     const month = now.month() + 1;
 
-    console.log("now", now);
-    console.log("day", day);
-    console.log("month", month);
-
     if (
       day === 1 &&
       (month === 1 || month === 4 || month === 7 || month === 10) // 1st of January, April, July, October
@@ -47,8 +43,6 @@ const task = cron.schedule(
           },
         },
       });
-
-      console.log("Total Leaves:", totalLeaves);
 
       const totalEmployees = await Employees.findAll({
         where: {

@@ -9,10 +9,6 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      balance: {
-        type: Sequelize.DataTypes.INTEGER,
-        allowNull: false,
-      },
       employeeId: {
         type: Sequelize.DataTypes.UUID,
         allowNull: true,
@@ -22,6 +18,20 @@ module.exports = {
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
+      },
+      balance: {
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: false,
+      },
+      paidLeave: {
+        type: Sequelize.DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+      },
+      lossOfPay: {
+        type: Sequelize.DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
       },
       isActive: {
         type: Sequelize.BOOLEAN,

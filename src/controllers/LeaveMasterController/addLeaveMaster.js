@@ -34,7 +34,6 @@ const addLeaveMaster = async (req, res) => {
       const leaveMaster = await LeaveMaster.findOne({
         where: { month: month },
       });
-      console.log("leaveMaster", leaveMaster);
       if (leaveMaster) {
         logger.warn(
           errorResponseFunc(
