@@ -12,6 +12,16 @@ const { path } = require("./src/controllers/EmployeeDocument/employeeDocumentPac
 const multer = require("multer");
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
+const colors = require('colors');
+
+app.use(function (req, res, next) {
+  const method = req.method;
+  const url = req.originalUrl;
+
+  console.log(`${colors.bgBlue(`API Path:`)} ${colors.red(method)} ${colors.bgBlue(url)}`);
+  next();
+});
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*"),
