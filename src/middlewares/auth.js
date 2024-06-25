@@ -77,7 +77,7 @@ const verifyToken = async (req, res, next) => {
             req.roleName = decoded.role;
 
             const user = await Employees.findOne({ where: { id: decoded.id } });
-            if (user.sessionId !== decoded.sessionId) {
+            if (!user.sessionId || user.sessionId !== decoded.sessionId) {
               logger.warn(
                 errorResponseFunc(
                   "Invalid session.",
