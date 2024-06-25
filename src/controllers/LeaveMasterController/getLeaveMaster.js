@@ -9,8 +9,20 @@ const {
 
 const getAllLeaveMaster = (req, res) => {
   try {
-    LeaveMaster.findAll({})
+    LeaveMaster.findAll({
+      attributes: ["id", "month", "leaves"],
+      order: [
+      ['month', 'ASC']
+     ]
+    })
       .then((data) => {
+        const monthOrder = [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
+        data.sort((a, b) => {
+          return monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month);
+        });
         res.send(
           successResponseFunc(
             "Here is the Leave Master's data.",

@@ -6,18 +6,19 @@ const {
   successResponseFunc,
   logger,
   LeaveRequest,
-  LeaveBalance
+  LeaveBalance,
 } = require("./leaveRequestPackageCentral");
 
 const addLeaveRequest = async (req, res) => {
   try {
-    const startDate= req.body.startDate;
-    const endDate= req.body.endDate;
-    const halfLeaveDate= req.body.halfLeaveDate ? req.body.halfLeaveDate : null;
-    const numberOfDays= req.body.numberOfDays;
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const halfLeaveDate = req.body.halfLeaveDate
+      ? req.body.halfLeaveDate
+      : null;
+    const numberOfDays = req.body.numberOfDays;
     const reason = req.body.reason;
     const EmployeeId = req.loggersId;
-
     if (!startDate || !endDate || !numberOfDays || !reason || !EmployeeId) {
       logger.warn(
         errorResponseFunc(
@@ -48,7 +49,7 @@ const addLeaveRequest = async (req, res) => {
         halfLeaveDate: halfLeaveDate,
         numberOfDays: numberOfDays,
         reason: reason,
-        employeeId:EmployeeId,
+        employeeId: EmployeeId,
         isActive: constants.ACTIVE,
       });
 

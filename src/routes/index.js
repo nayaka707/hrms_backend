@@ -15,11 +15,10 @@ router.use("/employee", require("./employeeRoute"));
 router.use("/document", require("./documentRoute"));
 router.use("/leaveMaster", require("./leaveMasterRoute"));
 router.use("/project", require("./projectRoute"));
-router.use("/workLog", require("./workLogRoute"))
+router.use("/workLog", require("./workLogRoute"));
 router.use("/leaveBalance", require("./leaveBalanceRoute"));
 router.use("/leaveRequest", require("./leaveRequestRoute"));
 
 module.exports = (app) => {
   app.use("/", router);
 };
-

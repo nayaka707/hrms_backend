@@ -232,9 +232,18 @@ Employees.associate = (models) => {
   });
   Employees.hasOne(models.BankDetails);
   Employees.hasMany(models.WorkLogs, {
-    foreignKey: 'employeeId'
-  })
-
+    foreignKey: "employeeId",
+  });
+  Employees.hasMany(models.LeaveRequest, {
+    foreignKey: "employeeId",
+  });
+  Employees.hasOne(models.LeaveRequest, {
+    foreignKey: "approvedBy",
+    as: "approver",
+  });
+  Employees.hasOne(models.LeaveBalance, {
+    foreignKey: "employeeId",
+  });
 };
 
 module.exports = Employees;

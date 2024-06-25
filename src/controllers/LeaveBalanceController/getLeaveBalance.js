@@ -5,11 +5,41 @@ const {
   errorResponseFunc,
   successResponseFunc,
   logger,
+  Employees,
+  Sequelize,
+  Designation
 } = require("./leaveBalancePackageCentral");
 
 const getAllLeaveBalance = (req, res) => {
   try {
-    LeaveBalance.findAll({})
+    Employees.findAll({
+      include: [
+        {
+          model: LeaveBalance,
+          attributes: []
+        },
+        {
+          model: Designation,
+          as: "designations",
+          attributes: [],
+        },
+      ],
+      attributes: [
+        [Sequelize.col("leaveBalance.id"), "id"],
+        [
+          Sequelize.literal(
+            'CONCAT("employees"."firstName", \' \',"employees"."lastName")'
+          ),
+          "fullName",
+        ],
+        [Sequelize.col("leaveBalance.balance"), "balance"],
+        [Sequelize.col("leaveBalance.employeeId"), "employeeId"],
+        [Sequelize.col("leaveBalance.paidLeave"), "paidLeave"],
+        [Sequelize.col("leaveBalance.paidLeave"), "paidLeave"],
+        [Sequelize.col("leaveBalance.lossOfPay"), "lossOfPay"],
+        [Sequelize.col("designations.name"), "designation"],
+      ],
+    })
       .then((data) => {
         res.send(
           successResponseFunc(

@@ -8,17 +8,17 @@ const LeaveBalance = db.sequelize.define("leaveBalances", {
     primaryKey: true,
   },
   balance: {
-    type: db.Sequelize.DataTypes.INTEGER,
+    type: db.Sequelize.DataTypes.DECIMAL(10, 1),
     allowNull: false,
   },
   employeeId: db.Sequelize.DataTypes.UUID,
   paidLeave: {
-    type: db.Sequelize.DataTypes.INTEGER,
+    type: db.Sequelize.DataTypes.DECIMAL(10, 1),
     defaultValue: 0,
     allowNull: false,
   },
   lossOfPay: {
-    type: db.Sequelize.DataTypes.INTEGER,
+    type: db.Sequelize.DataTypes.DECIMAL(10, 1),
     defaultValue: 0,
     allowNull: false,
   },
