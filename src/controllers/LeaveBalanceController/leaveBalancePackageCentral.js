@@ -1,5 +1,6 @@
 const models = require("../../models/associations");
-const { LeaveBalance, LeaveMaster, Employees } = models;
+const { LeaveBalance, LeaveMaster, Employees, Designation } = models;
+const { Op, Sequelize } = require("sequelize");
 require("dotenv").config();
 let cron = require('node-cron');
 let moment = require("moment");
@@ -25,5 +26,8 @@ module.exports = {
   cron,
   moment,
   LeaveMaster,
-  Employees
+  Employees,
+  Op,
+  Sequelize,
+  Designation
 };

@@ -114,7 +114,7 @@ const updateLeaveRequestStatus = async (req, res) => {
           constants.NOTFOUND
         )
       );
-      return res.send(
+      return res.status(statusCode.notFound).send(
         errorResponseFunc(
           "Leave request not found.",
           responseMessage.notFound,
@@ -141,20 +141,15 @@ const updateLeaveRequestStatus = async (req, res) => {
           )
         );
       }
-      // const employee = await Employees.findOne({
-      //   where: {
-      //     id: leaveRequest.employeeId,
-      //   },
-      // });
       const leaveBalance = await LeaveBalance.findOne({
         where: {
           employeeId: leaveRequest.employeeId,
         },
       });
       if (status === constants.APPROVED) {
-        if (leaveBalance.balance >= leaveRequest.numberOfDays) {
-          let leave = leaveBalance.balance - leaveRequest.numberOfDays;
-          let paidLeave = leaveBalance.paidLeave + leaveRequest.numberOfDays;
+        if (Number(leaveBalance.balance) >= Number(leaveRequest.numberOfDays)) {
+          let leave = Number(leaveBalance.balance) - Number(leaveRequest.numberOfDays);
+          let paidLeave = Number(leaveBalance.paidLeave) + Number(leaveRequest.numberOfDays);
           await LeaveBalance.update(
             {
               balance: leave,
@@ -164,22 +159,23 @@ const updateLeaveRequestStatus = async (req, res) => {
           );
         } else {
           let leaveDaysExceedingBalance =
-            leaveRequest.numberOfDays - leaveBalance.balance;
-          let paidLeave = leaveBalance.paidLeave + leaveBalance.balance;
+          Number(leaveRequest.numberOfDays) - Number(leaveBalance.balance);
+          let paidLeave = Number(leaveBalance.paidLeave) + Number(leaveBalance.balance);
           let lossOfpay = leaveDaysExceedingBalance;
+
           await LeaveBalance.update(
             {
               balance: 0,
               paidLeave: paidLeave,
-              lossOfPay: leaveBalance.lossOfPay + lossOfpay,
+              lossOfPay: Number(leaveBalance.lossOfPay) + Number(lossOfpay),
             },
             { where: { employeeId: leaveRequest.employeeId } }
           );
         }
       } else if (status === constants.CANCELLED) {
-        if (leaveRequest.balance >= leaveRequest.numberOfDays) {
-          let leave = leaveBalance.balance + leaveRequest.numberOfDays;
-          let paidLeave = leaveBalance.paidLeave - leaveRequest.numberOfDays;
+        if (Number(leaveRequest.balance) >= Number(leaveRequest.numberOfDays)) {
+          let leave = Number(leaveBalance.balance) + Number(leaveRequest.numberOfDays);
+          let paidLeave = Number(leaveBalance.paidLeave) - Number(leaveRequest.numberOfDays);
 
           await LeaveBalance.update(
             {
@@ -189,10 +185,10 @@ const updateLeaveRequestStatus = async (req, res) => {
             { where: { employeeId: leaveRequest.employeeId } }
           );
         } else {
-          let balance = leaveBalance.balance + leaveRequest.balance;
+          let balance = Number(leaveBalance.balance) + Number(leaveRequest.balance);
           let leaveDaysExceedingBalance =
-            leaveRequest.numberOfDays - leaveRequest.balance;
-          let paidLeave = leaveBalance.paidLeave - leaveRequest.balance;
+          Number(leaveRequest.numberOfDays) - Number(leaveRequest.balance);
+          let paidLeave = Number(leaveBalance.paidLeave) - Number(leaveRequest.balance);
           let lossOfpay = leaveDaysExceedingBalance;
 
 
@@ -200,7 +196,7 @@ const updateLeaveRequestStatus = async (req, res) => {
             {
               balance: balance,
               paidLeave: paidLeave,
-              lossOfPay: leaveBalance.lossOfPay - lossOfpay,
+              lossOfPay: Number(leaveBalance.lossOfPay) - Number(lossOfpay),
             },
             { where: { employeeId: leaveRequest.employeeId } }
           );
