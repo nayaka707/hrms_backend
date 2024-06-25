@@ -283,6 +283,26 @@ module.exports = {
               updatedAt: new Date(),
             },
             {
+              id: "62c1c89f-0e35-4d3a-87ec-bc726d0fa817", // 28
+              parentRouteId: "66ada215-c1ef-41e6-bf4c-5811ec22d7db",
+              childRouteId: null,
+              name: "Leave Master",
+              priority: 10,
+              isActive: "1",
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            },
+            {
+              id: "73117383-f086-416c-9139-2b7d9ee324ee", // 28
+              parentRouteId: "66ada215-c1ef-41e6-bf4c-5811ec22d7db",
+              childRouteId: null,
+              name: "Leave Balance",
+              priority: 11,
+              isActive: "1",
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            },
+            {
               id: "96d801eb-a2f0-44e6-8738-220d849abfa9", // 29
               parentRouteId: null,
               childRouteId: null,

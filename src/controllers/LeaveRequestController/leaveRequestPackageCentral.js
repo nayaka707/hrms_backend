@@ -1,5 +1,7 @@
 const models = require("../../models/associations");
 const { LeaveRequest, Employees, LeaveBalance } = models;
+const { Sequelize } = require("../../config/database");
+const { Op } = require("sequelize");
 require("dotenv").config();
 const {
   constants,
@@ -21,5 +23,7 @@ module.exports = {
   errorResponseFunc,
   logger,
   LeaveRequest,
-  LeaveBalance
+  LeaveBalance,
+  Sequelize,
+  Op
 };

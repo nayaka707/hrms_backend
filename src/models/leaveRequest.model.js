@@ -20,12 +20,12 @@ const LeaveRequest = db.sequelize.define("leaveRequests", {
     allowNull: true,
   },
   numberOfDays: {
-    type: db.Sequelize.DataTypes.INTEGER,
+    type: db.Sequelize.DataTypes.DECIMAL(10, 1),
     allowNull: false,
   },
   balance: {
-    type: db.Sequelize.DataTypes.INTEGER,
-    defaultValue:0,
+    type: db.Sequelize.DataTypes.DECIMAL(10, 1),
+    defaultValue: 0,
     allowNull: false,
   },
   reason: {
@@ -37,8 +37,13 @@ const LeaveRequest = db.sequelize.define("leaveRequests", {
     allowNull: true,
   },
   status: {
-    type: db.Sequelize.DataTypes.ENUM("pending","Approved","rejected","cancelled"),
-    defaultValue:"pending",
+    type: db.Sequelize.DataTypes.ENUM(
+      "pending",
+      "approved",
+      "rejected",
+      "cancelled"
+    ),
+    defaultValue: "pending",
     allowNull: false,
   },
   remark: {
@@ -70,8 +75,13 @@ const LeaveRequest = db.sequelize.define("leaveRequests", {
 });
 
 LeaveRequest.associate = (models) => {
-    LeaveRequest.belongsTo(models.Employees, {
+  LeaveRequest.belongsTo(models.Employees, {
     foreignKey: "employeeId",
+    onDelete: "CASCADE",
+  });
+  LeaveRequest.belongsTo(models.Employees, {
+    foreignKey: "approvedBy",
+    as: "approver",
     onDelete: "CASCADE",
   });
 };
