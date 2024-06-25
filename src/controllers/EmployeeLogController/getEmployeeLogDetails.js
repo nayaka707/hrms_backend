@@ -117,7 +117,7 @@ const getEmployeeLogDetails = async (req, res) => {
             return acc;
         }, {});
 
-        const result = await Promise.all(Object.entries(groupedLogs).map(async ([log_date, { first_in, last_out, inOut, totalInTime, totalOutTime }]) => {
+        let result = await Promise.all(Object.entries(groupedLogs).map(async ([log_date, { first_in, last_out, inOut, totalInTime, totalOutTime }]) => {
             const sortedInOut = inOut.sort((a, b) => {
                 const timeA = moment(a.time, 'HH:mm:ss');
                 const timeB = moment(b.time, 'HH:mm:ss');
@@ -164,7 +164,7 @@ const getEmployeeLogDetails = async (req, res) => {
             }
 
             const dailyTotalOutTime = totalOutTime - dailyTotalInTime;
-            let status = dailyTotalInTime > 7 ? 'Present' : (dailyTotalInTime >= 4.5 ? 'Half Day' : 'Absent');
+            let status = dailyTotalInTime > constants.FULLDAY ? 'Present' : (dailyTotalInTime >= constants.HALFDAY ? 'Half Day' : 'Present');
 
             const workLogHoursSum = await getWorkLogHoursSum(employee.id, log_date);
 
@@ -181,7 +181,7 @@ const getEmployeeLogDetails = async (req, res) => {
                 totalOutTime: dailyTotalOutTime,
                 status: status,
                 workLogHours: workLogHoursSum,
-                TLWLDifference: Math.floor(dailyTotalInTime - workLogHoursSum)
+                TLWLDifference: dailyTotalInTime - workLogHoursSum
             };
         }));
 
@@ -189,9 +189,9 @@ const getEmployeeLogDetails = async (req, res) => {
         result.forEach(entry => {
             if (entry.inOut.length > 0) {
                 let firstIn = entry.inOut[0].in;
-                let lastOut = entry.inOut[entry.inOut.length - 1].out
+                let lastOut = entry.inOut[entry.inOut.length - 1].out;
                 if (lastOut == null && entry.inOut.length > 1) {
-                    lastOut = entry.inOut[entry.inOut.length - 2].out
+                    lastOut = entry.inOut[entry.inOut.length - 2].out;
                 }
                 const firstInMoment = moment(firstIn, 'h:mm a');
                 const lastOutMoment = moment(lastOut, 'h:mm a');
@@ -199,13 +199,6 @@ const getEmployeeLogDetails = async (req, res) => {
                 entry.first_in = firstIn;
                 entry.last_out = lastOut;
                 entry.totalOutTime = entry.totalOutTime != 0 ? duration.asHours() - entry.totalInTime : 0;
-            }
-            if (entry.status == 'Present') {
-                present++;
-            } else if (entry.status == 'Half Day') {
-                halfDay++;
-            } else if (entry.status == 'Absent') {
-                absent++;
             }
         });
 
@@ -227,12 +220,50 @@ const getEmployeeLogDetails = async (req, res) => {
             return acc;
         }, 0);
 
-        const averageTLWLDiffOfMonth = totalDiffOfMonth / result.length
+        const averageTLWLDiffOfMonth = totalDiffOfMonth / result.length;
         let averageLogHourOfMonth = Math.ceil(totalLogHourOfMonth / result.length);
         let averageInTime = totalInTimeOfMonth / result.length;
         const totalInTimeHHMM = formatHoursToHHMM(totalInTimeOfMonth);
         const totalOutTimeHHMM = formatHoursToHHMM(totalOutTimeOfMonth);
         averageInTime = formatHoursToHHMM(averageInTime);
+        async function insertLeaveDays(data) {
+            const existingDates = new Set(data.map(entry => entry.date));
+
+            function isWeekday(dateString) {
+                const date = new Date(dateString);
+                const dayOfWeek = date.getDay();
+                return dayOfWeek !== 0 && dayOfWeek !== 6;
+            }
+            function createDummyData(dateString) {
+                return {
+                    date: dateString,
+                    first_in: "",
+                    last_out: "",
+                    inOut: [],
+                    totalInTime: "0:00",
+                    totalOutTime: "0:00",
+                    status: "Absent",
+                    workLogHours: "0:00",
+                    TLWLDifference: "0:00"
+                };
+            }
+
+            let startDate = new Date(data[data.length - 1].date);
+            let endDate = new Date(data[0].date);
+            const datesToFill = [];
+            for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+                const currentDate = new Date(d);
+                const dateString = currentDate.toISOString().slice(0, 10);
+
+                if (!existingDates.has(dateString) && isWeekday(dateString)) {
+                    datesToFill.push(createDummyData(dateString));
+                }
+            }
+            let result = [...data, ...datesToFill].sort((a, b) => new Date(b.date) - new Date(a.date));
+            return result;
+        }
+
+        result = await insertLeaveDays(result);
 
         result.forEach(entry => {
             if (entry.inOut.length > 0) {
@@ -240,12 +271,19 @@ const getEmployeeLogDetails = async (req, res) => {
                 entry.totalInTime = formatHoursToHHMM(entry.totalInTime);
                 const workLogHours = parseFloat(entry.workLogHours);
                 if (!isNaN(workLogHours)) {
-                    entry.workLogHours = (formatHoursToHHMM(entry.workLogHours))
+                    entry.workLogHours = (formatHoursToHHMM(entry.workLogHours));
                 }
-                const TLWLDifference = parseInt(entry.TLWLDifference)
+                const TLWLDifference = parseInt(entry.TLWLDifference);
                 if (!isNaN(TLWLDifference)) {
-                    entry.TLWLDifference = (formatHoursToHHMM(entry.TLWLDifference))
+                    entry.TLWLDifference = (formatHoursToHHMM(entry.TLWLDifference));
                 }
+            }
+            if (entry.status == 'Present') {
+                present++;
+            } else if (entry.status == 'Half Day') {
+                halfDay++;
+            } else if (entry.status == 'Absent') {
+                absent++;
             }
         });
 
@@ -262,35 +300,10 @@ const getEmployeeLogDetails = async (req, res) => {
 
         return res.json({ data: { dailyLog: result, monthData } });
     } catch (error) {
-        console.error(error);
         return res.status(500).send('Internal Server Error');
     }
 };
 
-const findMissingDates = (startDate, endDate, groupedLogs) => {
-    const missingDates = [];
-    let currentDate = moment(startDate);
-    while (currentDate.isSameOrBefore(endDate)) {
-        const currentDateStr = currentDate.format('YYYY-MM-DD');
-        if (!groupedLogs[currentDateStr]) {
-            missingDates.push(currentDateStr);
-        }
-        currentDate.add(1, 'day');
-    }
-    return missingDates;
-};
 
-const isWeekend = date => {
-    const dayOfWeek = moment(date).day();
-    return dayOfWeek === 0 || dayOfWeek === 6; // 0 for Sunday, 6 for Saturday
-};
-
-const orderGroupedLogsByDateDesc = groupedLogs => {
-    return Object.fromEntries(
-        Object.entries(groupedLogs).sort(([dateA], [dateB]) => {
-            return new Date(dateB) - new Date(dateA);
-        })
-    );
-};
 
 module.exports = { getEmployeeLogDetails };

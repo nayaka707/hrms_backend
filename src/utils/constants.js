@@ -19,6 +19,9 @@ const RESETPASSWORDURL = "https://caplead.co/forgotPassword";
 const ADMIN = "SUPER ADMIN";
 const HR = "HR";
 const EMPLOYEE = "EMPLOYEE";
+const FULLDAY = 7
+const HALFDAY = 4.5
+
 
 const PENDING = "pending";
 const APPROVED = "approved";
@@ -49,5 +52,7 @@ module.exports = {
   PENDING,
   APPROVED,
   REJECTED,
-  CANCELLED
+  CANCELLED,
+  FULLDAY,
+  HALFDAY
 };
