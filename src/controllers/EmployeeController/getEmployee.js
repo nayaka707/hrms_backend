@@ -1,4 +1,5 @@
 const { literal, fn, col } = require("sequelize");
+const moment = require('moment');
 const {
   Employees,
   statusCode,
@@ -19,13 +20,158 @@ const {
   Op,
   logger,
   Sequelize,
+  EmployeeLogDetails
 } = require("./employeePackageCentral");
+
+
+async function employeeMonthlyAttendance(employeeData, month, year) {
+
+  try {
+    let employee_code = employeeData.employee_code
+    let startDate, endDate
+    if (month && year) {
+      startDate = moment(`${year}-${month}-01`).startOf('month').format('YYYY-MM-DD');
+      endDate = moment(startDate).endOf('month').format('YYYY-MM-DD');
+    } else if (year) {
+      startDate = moment(`${year}-01-01`).startOf('year').format('YYYY-MM-DD');
+      endDate = moment(startDate).endOf('year').format('YYYY-MM-DD');
+    } else if (month) {
+      const currentYear = moment().year();
+      startDate = moment(`${currentYear}-${month}-01`).startOf('month').format('YYYY-MM-DD');
+      endDate = moment(startDate).endOf('month').format('YYYY-MM-DD');
+    } else {
+      const currentMonth = moment().format('MM');
+      const currentYear = moment().year();
+      startDate = moment(`${currentYear}-${currentMonth}-01`).startOf('month').format('YYYY-MM-DD');
+      endDate = moment(startDate).endOf('month').format('YYYY-MM-DD');
+    }
+
+    const whereClause = {
+      employee_code,
+      log_date: {
+        [Op.between]: [startDate, endDate]
+      }
+    };
+
+    const { count, rows: logs } = await EmployeeLogDetails.findAndCountAll({
+      attributes: ['log_date', 'log_time', 'direction'],
+      where: whereClause,
+      order: [['log_date', 'DESC'], ['log_time', 'ASC']]
+    });
+    console.log('rows', logs)
+    let Month = moment(startDate).month() + 1;
+    let Year = moment(startDate).year();
+
+
+    let totalWorkingDays = 0;
+    let start = moment(startDate);
+    let end = moment(endDate);
+
+    while (start.isSameOrBefore(end)) {
+      if (start.day() !== 0 && start.day() !== 6) {
+        totalWorkingDays++;
+      }
+      start.add(1, 'days');
+    }
+    if (!logs.length) {
+      return ({
+        Month,
+        Year,
+        totalWorkingDays,
+        PresentDays: 0,
+        HalfDays: 0,
+        LeaveDays: totalWorkingDays
+      });
+    }
+
+    const groupedLogs = logs.reduce((acc, log) => {
+      const { log_date, log_time, direction } = log;
+      if (!acc[log_date]) {
+        acc[log_date] = { first_in: null, last_out: null, inOut: [] };
+      }
+
+      if (direction === 'in') {
+        if (!acc[log_date].first_in || log_time < acc[log_date].first_in) {
+          acc[log_date].first_in = log_time;
+        }
+      } else if (direction === 'out') {
+        if (!acc[log_date].last_out || log_time > acc[log_date].last_out) {
+          acc[log_date].last_out = log_time;
+        }
+      }
+
+      acc[log_date].inOut.push({ direction, time: log_time });
+
+      return acc;
+    }, {});
+
+    let present = 0, absent = 0, halfDay = 0;
+
+    Object.entries(groupedLogs).forEach(([log_date, { first_in, last_out, inOut }]) => {
+      const sortedInOut = inOut.sort((a, b) => {
+        const timeA = moment(a.time, 'HH:mm:ss');
+        const timeB = moment(b.time, 'HH:mm:ss');
+        return timeA.isBefore(timeB) ? -1 : 1;
+      });
+
+      let dailyTotalInTime = 0;
+      for (let i = 0; i < sortedInOut.length; i++) {
+        const currentEntry = sortedInOut[i];
+
+        if (currentEntry.direction === 'in') {
+          let outTime = null;
+          for (let j = i + 1; j < sortedInOut.length; j++) {
+            if (sortedInOut[j].direction === 'out') {
+              outTime = sortedInOut[j].time;
+              break;
+            }
+          }
+
+          const inTime = currentEntry.time;
+          const inMoment = moment(inTime, 'HH:mm:ss');
+          const outMoment = outTime ? moment(outTime, 'HH:mm:ss') : null;
+
+          if (outMoment && outMoment.isValid()) {
+            const duration = moment.duration(outMoment.diff(inMoment)).asHours();
+            if (duration > 0) {
+              dailyTotalInTime += duration;
+            }
+          }
+        }
+      }
+
+      if (dailyTotalInTime > constants.FULLDAY) {
+        present++;
+      } else if (dailyTotalInTime >= constants.HALFDAY) {
+        halfDay++;
+      } else {
+        absent++;
+      }
+    });
+
+
+
+    return {
+      ...employeeData.dataValues,
+      Month,
+      Year,
+      totalWorkingDays,
+      PresentDays: present,
+      HalfDays: halfDay,
+      LeaveDays: totalWorkingDays - present,
+
+    }
+
+  } catch (error) {
+    console.error("error", error);
+  }
+};
 
 const getAllEmployeesData = async (req, res) => {
   try {
     const role = req.roleName;
     let employeeName = req.query.employeeName?.trim().replace(/^"|"$/g, "");
-
+    const { month, year } = req.query;
     let whereClause = {
       isActive: constants.ACTIVE,
     };
@@ -93,13 +239,19 @@ const getAllEmployeesData = async (req, res) => {
         },
       ],
     })
-      .then((data) => {
+      .then(async (data) => {
+        let result = []
+        for (let employee of data) {
+          let details = await employeeMonthlyAttendance(employee, month, year)
+          result.push(details)
+
+        }
         res.send(
           successResponseFunc(
             "Here is the Employee's data.",
             statusCode.success,
             constants.SUCCESS,
-            data
+            result
           )
         );
       })
@@ -374,7 +526,7 @@ const getByIdEmployeesData = async (req, res) => {
         experience: employeeData.experience,
         qualification: employeeData.qualification,
         reportTo: reportToFullName,
-        reportToId : employeeData.reportTo,
+        reportToId: employeeData.reportTo,
         designationName: employeeData.designations
           ? employeeData.designations.name
           : null,

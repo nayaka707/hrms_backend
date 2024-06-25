@@ -13,7 +13,8 @@ const {
   WorkLogs,
   Projects,
   LeaveBalance,
-  LeaveMaster
+  LeaveMaster,
+  EmployeeLogDetails
 } = models;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -78,4 +79,5 @@ module.exports = {
   moment,
   LeaveMaster,
   uuid,
+  EmployeeLogDetails
 };
