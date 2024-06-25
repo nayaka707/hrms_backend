@@ -198,7 +198,7 @@ const getEmployeeLogDetails = async (req, res) => {
                 const duration = moment.duration(lastOutMoment.diff(firstInMoment));
                 entry.first_in = firstIn;
                 entry.last_out = lastOut;
-                entry.totalOutTime = duration.asHours() - entry.totalInTime;
+                entry.totalOutTime = entry.totalOutTime != 0 ? duration.asHours() - entry.totalInTime : 0;
             }
             if (entry.status == 'Present') {
                 present++;
@@ -265,6 +265,32 @@ const getEmployeeLogDetails = async (req, res) => {
         console.error(error);
         return res.status(500).send('Internal Server Error');
     }
+};
+
+const findMissingDates = (startDate, endDate, groupedLogs) => {
+    const missingDates = [];
+    let currentDate = moment(startDate);
+    while (currentDate.isSameOrBefore(endDate)) {
+        const currentDateStr = currentDate.format('YYYY-MM-DD');
+        if (!groupedLogs[currentDateStr]) {
+            missingDates.push(currentDateStr);
+        }
+        currentDate.add(1, 'day');
+    }
+    return missingDates;
+};
+
+const isWeekend = date => {
+    const dayOfWeek = moment(date).day();
+    return dayOfWeek === 0 || dayOfWeek === 6; // 0 for Sunday, 6 for Saturday
+};
+
+const orderGroupedLogsByDateDesc = groupedLogs => {
+    return Object.fromEntries(
+        Object.entries(groupedLogs).sort(([dateA], [dateB]) => {
+            return new Date(dateB) - new Date(dateA);
+        })
+    );
 };
 
 module.exports = { getEmployeeLogDetails };

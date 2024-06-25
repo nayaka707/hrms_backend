@@ -10,6 +10,7 @@ let sequelize = new Sequelize(
   {
     port: config.development.port,
     dialect: config.development.dialect,
+    logging: false,
   },
   {
     retry: {
